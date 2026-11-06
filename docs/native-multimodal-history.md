@@ -11,7 +11,7 @@
 
 | 項目 | 値 |
 |---|---|
-| 画面 / API | http://100.81.30.125:8091/ / http://100.81.30.125:8091/v1 |
+| 画面 / API | http://tailnet-host.invalid:8091/ / http://tailnet-host.invalid:8091/v1 |
 | 待受 | `0.0.0.0:8091`、既存tailnet・SSH転送を維持 |
 | モデル名 | `qwen3.8-27b-qsa`、旧名 `qwen3.8-27b-qsa-text` と `qwen3.8-27b-qsa-mm2` も受理 |
 | 本体 | `/mnt/data2/qsa27b/gguf/Qwen3.8-27B-QSA-mm2-Q8_0.gguf` |
@@ -104,9 +104,9 @@ FlashNext用V100 forkの速度開発の延長として組み込んだ。
 ## 運用とキャッシュの範囲
 
 ```sh
-ssh z170-desktop1729 'systemctl --user status qsa27b-mm2 --no-pager'
-ssh z170-desktop1729 'systemctl --user restart qsa27b-mm2'
-ssh z170-desktop1729 'curl -fsS http://127.0.0.1:8091/health'
+ssh z170-host 'systemctl --user status qsa27b-mm2 --no-pager'
+ssh z170-host 'systemctl --user restart qsa27b-mm2'
+ssh z170-host 'curl -fsS http://127.0.0.1:8091/health'
 ```
 
 既存1スロット内の連続会話・共通prefixを再利用する。画像は媒体hashも照合するため、

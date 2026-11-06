@@ -145,7 +145,7 @@
     "mmproj_retraining_required_by_this_checkpoint": false,
     "production_changed": true,
     "service": "qsa27b-mm2.service",
-    "endpoint": "http://100.81.30.125:8091",
+    "endpoint": "http://tailnet-host.invalid:8091",
     "context": 262144,
     "kv_dtype": "f16",
     "mtp_max_draft": 2,
