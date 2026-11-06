@@ -1,0 +1,34 @@
+{
+  "run": "57dd1e1d-54c5-4a62-95ab-b9fb47341056",
+  "warm_start": "pilot/qsa_indexers_step100.pt",
+  "steps": 500,
+  "step_offset": 100,
+  "tokens": 9830400,
+  "final_loss": 0.26185193844139576,
+  "final_capture": 0.9414080049330684,
+  "dense_ppl": 7.072960359927699,
+  "sparse_ppl": 7.071756553647765,
+  "ppl_delta_pct": -0.01701983637226734,
+  "retrieval": {
+    "dense": {
+      "8133": 1.0,
+      "16325": 1.0,
+      "32709": 1.0
+    },
+    "sparse": {
+      "8133": 1.0,
+      "16325": 1.0,
+      "32709": 1.0
+    }
+  },
+  "config": {
+    "seq_len": 16384,
+    "budget": 2048,
+    "block_size": 4,
+    "lr": 0.001,
+    "indexer_heads": 4,
+    "indexer_head_dim": 128,
+    "rope_dim": 64
+  },
+  "note": "Reconstructed summary: the original p1_results.json was written after the upload step and was not persisted."
+}

@@ -1,0 +1,28 @@
+# Public, local-output profile: train a new text indexer from scratch.
+# This is not a bit-for-bit replay of the historical warm-started run.
+stage: distill
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 16384
+steps: 600
+step_offset: 0
+seed: 0
+lr: 0.001
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 100
+push_to_hub: false
+upload_prefix: local-text
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_docs: 0
+eval_seqs: 2
+eval_skip_docs: 50000
+retrieval_lengths: [8192, 16384, 32768]
+retrieval_n: 8
+retrieval_docs: 300

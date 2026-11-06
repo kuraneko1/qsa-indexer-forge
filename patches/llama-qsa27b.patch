@@ -1,0 +1,407 @@
+diff --git a/conversion/__init__.py b/conversion/__init__.py
+index f966373..4bd5011 100644
+--- a/conversion/__init__.py
++++ b/conversion/__init__.py
+@@ -239,6 +239,7 @@ TEXT_MODEL_MAP: dict[str, str] = {
+     "Qwen3VLMoeForConditionalGeneration": "qwen3vl",
+     "Qwen3_5ForCausalLM": "qwen",
+     "Qwen3_5ForConditionalGeneration": "qwen",
++    "QSAQwen3_5ForConditionalGeneration": "qwen",
+     "Qwen3_5MoeForCausalLM": "qwen",
+     "Qwen3_5MoeForConditionalGeneration": "qwen",
+     "Qwen4ExpForCausalLM": "qwen4exp",
+@@ -341,6 +342,7 @@ MMPROJ_MODEL_MAP: dict[str, str] = {
+     "Qwen3VLForConditionalGeneration": "qwen3vl",
+     "Qwen3VLMoeForConditionalGeneration": "qwen3vl",
+     "Qwen3_5ForConditionalGeneration": "qwen3vl",
++    "QSAQwen3_5ForConditionalGeneration": "qwen3vl",
+     "Qwen3_5MoeForConditionalGeneration": "qwen3vl",
+     "Qwen4ExpForConditionalGeneration": "qwen4exp",
+     "RADIOModel": "nemotron",
+diff --git a/conversion/qwen.py b/conversion/qwen.py
+index ef5504f..b7f04d5 100644
+--- a/conversion/qwen.py
++++ b/conversion/qwen.py
+@@ -883,3 +883,31 @@ class DSparkModel(DFlashModel):
+                 raise ValueError("d2t contains duplicate target ids")
+             logger.info(f"{'d2t,':<30} --> I64, shape = {{{data.size}}}")
+             self.gguf_writer.add_tensor("d2t", data, raw_dtype=gguf.GGMLQuantizationType.I64)
++
++
++@ModelBase.register("QSAQwen3_5ForConditionalGeneration")
++class QSAQwen35Model(Qwen3_5TextModel):
++    model_arch = gguf.MODEL_ARCH.QWEN35
++    def set_gguf_parameters(self):
++        super().set_gguf_parameters()
++        cfg = json.loads((self.dir_model / "config.json").read_text())
++        q = cfg["qsa"]
++        self.gguf_writer.add_indexer_head_count(q["indexer_heads"])
++        self.gguf_writer.add_indexer_key_length(q["indexer_head_dim"])
++        self.gguf_writer.add_indexer_top_k(q["budget"])
++        kinds = cfg["text_config"]["layer_types"]
++        ratios = [q["block_size"] if kind == "full_attention" else 0 for kind in kinds]
++        self.gguf_writer.add_attention_compress_ratios(ratios + [0]*(self.block_count - len(ratios)))
++
++    def modify_tensors(self, tensor, name, bid):
++        if "._qsa_indexer." in name:
++            suffix = name.split("._qsa_indexer.")[1]
++            mapped = {"q_proj.weight": "q_proj.weight", "k_proj.weight": "k_proj.weight", "q_norm": "q_norm.weight", "k_norm": "k_norm.pre_weight", "k_block_norm": "k_norm.weight"}[suffix]
++            if suffix.endswith("norm"): tensor = tensor.float() + 1
++            yield f"blk.{bid}.indexer.{mapped}", tensor
++        else:
++            yield from super().modify_tensors(tensor, name, bid)
++
++    def tensor_force_quant(self, name, new_name, bid, n_dims):
++        if ".indexer." in new_name: return gguf.GGMLQuantizationType.F32
++        return super().tensor_force_quant(name, new_name, bid, n_dims)
+diff --git a/conversion/qwen3vl.py b/conversion/qwen3vl.py
+index 4fec708..cd4fba1 100644
+--- a/conversion/qwen3vl.py
++++ b/conversion/qwen3vl.py
+@@ -13,7 +13,7 @@ from .qwen import Qwen3Model, Qwen3MoeModel
+ from .qwenvl import Qwen25AudioModel
+ 
+ 
+-@ModelBase.register("Qwen3VLForConditionalGeneration", "Qwen3VLMoeForConditionalGeneration", "Qwen3_5ForConditionalGeneration", "Qwen3_5MoeForConditionalGeneration")
++@ModelBase.register("QSAQwen3_5ForConditionalGeneration", "Qwen3VLForConditionalGeneration", "Qwen3VLMoeForConditionalGeneration", "Qwen3_5ForConditionalGeneration", "Qwen3_5MoeForConditionalGeneration")
+ @ModelBase.example("Qwen/Qwen3-VL-4B-Instruct", "Qwen/Qwen3-VL-30B-A3B-Instruct", "Qwen/Qwen3.5-9B", "Qwen/Qwen3.5-35B-A3B")
+ class Qwen3VLVisionModel(MmprojModel):
+     def __init__(self, *args, **kwargs):
+diff --git a/include/llama.h b/include/llama.h
+index a3e3ee3..58bcdb0 100644
+--- a/include/llama.h
++++ b/include/llama.h
+@@ -1020,6 +1020,7 @@ extern "C" {
+     // Set whether to use causal attention or not
+     // If set to true, the model will only attend to the past tokens
+     LLAMA_API void llama_set_causal_attn(struct llama_context * ctx, bool causal_attn);
++    LLAMA_API void llama_set_qsa_enabled(struct llama_context * ctx, bool enabled);
+ 
+     // Set whether the model is in warmup mode or not
+     // If true, all model tensors are activated during llama_decode() to load and cache their weights.
+diff --git a/src/llama-context.cpp b/src/llama-context.cpp
+index 9f5b8ce..6a67188 100644
+--- a/src/llama-context.cpp
++++ b/src/llama-context.cpp
+@@ -1514,6 +1514,14 @@ void llama_context::set_nextn_layer_offset(int32_t offset) {
+     cparams.nextn_layer_offset = offset;
+ }
+ 
++void llama_context::set_qsa_enabled(bool value) {
++    if (cparams.qsa_enabled != value) {
++        cparams.qsa_enabled = value;
++        sched_need_reserve = true;
++        LLAMA_LOG_INFO("QSA27B mode: %s\n", value ? "sparse text" : "dense multimodal");
++    }
++}
++
+ void llama_context::set_causal_attn(bool value) {
+     LLAMA_LOG_DEBUG("%s: value = %d\n", __func__, value);
+ 
+@@ -5165,6 +5173,8 @@ void llama_set_embeddings(llama_context * ctx, bool embeddings) {
+     ctx->set_embeddings(embeddings);
+ }
+ 
++void llama_set_qsa_enabled(llama_context * ctx, bool enabled) { ctx->set_qsa_enabled(enabled); }
++
+ void llama_set_causal_attn(llama_context * ctx, bool causal_attn) {
+     llama_mtp_async_guard(ctx, __func__); // [mtp-async]
+     ctx->set_causal_attn(causal_attn);
+diff --git a/src/llama-context.h b/src/llama-context.h
+index ed2c41b..8964667 100644
+--- a/src/llama-context.h
++++ b/src/llama-context.h
+@@ -129,6 +129,7 @@ struct llama_context {
+     void set_embeddings_layer_inp(uint32_t lid, bool enable);
+     void set_nextn_layer_offset(int32_t offset);
+     void set_causal_attn(bool value);
++    void set_qsa_enabled(bool value);
+     void set_warmup(bool value);
+ 
+     void set_adapters_lora(llama_adapter_lora ** adapters, size_t n_adapters, float * scales);
+diff --git a/src/llama-cparams.h b/src/llama-cparams.h
+index 27a21c6..81e5cbc 100644
+--- a/src/llama-cparams.h
++++ b/src/llama-cparams.h
+@@ -43,6 +43,7 @@ struct llama_cparams {
+     uint32_t argmax_n_dev = 1;    // tensor split: logits are split by vocab over this many devices, see ggml_argmax_split
+     uint32_t gpu_topk     = 0;    // [gpu-topk] LLAMA_GPU_TOPK: K of the device top-K of the logits rows (0 = off)
+     bool causal_attn;
++    bool qsa_enabled = true;
+     bool offload_kqv;
+     bool flash_attn;
+     bool auto_fa;
+diff --git a/src/llama-graph.h b/src/llama-graph.h
+index f2094d6..9138a43 100644
+--- a/src/llama-graph.h
++++ b/src/llama-graph.h
+@@ -910,6 +910,7 @@ struct llm_graph_params {
+             cparams.embeddings_nextn        == other.cparams.embeddings_nextn        &&
+             cparams.embeddings_nextn_masked == other.cparams.embeddings_nextn_masked &&
+             cparams.mtp_kv_only             == other.cparams.mtp_kv_only             && // [mtp-kvonly]
++            cparams.qsa_enabled             == other.cparams.qsa_enabled             &&
+             cparams.causal_attn             == other.cparams.causal_attn             &&
+             arch  == other.arch  &&
+             gtype == other.gtype &&
+diff --git a/src/llama-memory-hybrid-idx.cpp b/src/llama-memory-hybrid-idx.cpp
+index 8f41583..e1ad531 100644
+--- a/src/llama-memory-hybrid-idx.cpp
++++ b/src/llama-memory-hybrid-idx.cpp
+@@ -78,7 +78,7 @@ llama_memory_hybrid_idx::llama_memory_hybrid_idx(
+         LLAMA_LOG_INFO("%s: creating indexer KV cache, size = %u cells\n", __func__, kv_size);
+ 
+         return new llama_kv_cache(
+-            model, hparams_idx, type_k, type_v, v_trans, offload, unified,
++            model, hparams_idx, model.arch == LLM_ARCH_QWEN35 ? GGML_TYPE_F32 : type_k, type_v, v_trans, offload, unified,
+             kv_size, n_seq_max, n_pad, n_swa, swa_type,
+             nullptr, filter_idx, nullptr, nullptr, "idx_");
+     }()) {
+@@ -94,7 +94,7 @@ llama_memory_hybrid_idx::llama_memory_hybrid_idx(
+         }
+     }
+ 
+-    if (mem_idx && blk_ratio > 0 && n_seq_max == 1) {
++    if (mem_idx && blk_ratio > 0 && n_seq_max == 1 && model.arch != LLM_ARCH_QWEN35) {
+         hparams_blk = hparams_idx;
+ 
+         // one row per block plus a scratch row for padded updates
+diff --git a/src/llama-model.cpp b/src/llama-model.cpp
+index cc4ff1b..a6a8c6c 100644
+--- a/src/llama-model.cpp
++++ b/src/llama-model.cpp
+@@ -2699,7 +2699,7 @@ llama_memory_i * llama_model::create_memory(const llama_memory_params & params,
+                     // only the sparse-attention architectures use llama_memory_hybrid_idx
+                     // a null filter_idx means the GGUF has no indexer tensors
+                     llama_memory_hybrid::layer_filter_cb filter_idx  = nullptr;
+-                    const bool needs_mem_idx = (arch == LLM_ARCH_QWEN4EXP);
++                    const bool needs_mem_idx = (arch == LLM_ARCH_QWEN4EXP || (arch == LLM_ARCH_QWEN35 && hparams.indexer_head_size > 0));
+                     if (arch == LLM_ARCH_FALCON_H1) {
+                         filter_attn = [&](uint32_t) { return true; };
+                         filter_recr = [&](uint32_t) { return true; };
+@@ -2718,7 +2718,7 @@ llama_memory_i * llama_model::create_memory(const llama_memory_params & params,
+                             return il < hparams.n_layer() && hparams.is_recr(il);
+                         };
+ 
+-                        if (arch == LLM_ARCH_QWEN4EXP && hparams.indexer_head_size > 0) {
++                        if ((arch == LLM_ARCH_QWEN4EXP || arch == LLM_ARCH_QWEN35) && hparams.indexer_head_size > 0) {
+                             // QSA runs on the dense-attention layers only
+                             filter_idx = [&](uint32_t il) {
+                                 return il < hparams.n_layer() && !hparams.is_recr(il);
+diff --git a/src/llama-model.h b/src/llama-model.h
+index 6bb8e00..36f3b49 100644
+--- a/src/llama-model.h
++++ b/src/llama-model.h
+@@ -571,6 +571,7 @@ struct llama_layer {
+     struct ggml_tensor * index_k_proj = nullptr;
+     struct ggml_tensor * index_q_norm = nullptr;
+     struct ggml_tensor * index_k_norm = nullptr;
++    struct ggml_tensor * index_k_pre_norm = nullptr;
+ 
+     struct ggml_tensor * hc_attn_norm   = nullptr;
+     struct ggml_tensor * hc_attn_down   = nullptr;
+diff --git a/src/models/models.h b/src/models/models.h
+index 1391657..324d4d1 100644
+--- a/src/models/models.h
++++ b/src/models/models.h
+@@ -2342,6 +2342,8 @@ struct llama_model_qwen35 : public llama_model_base {
+     struct graph : public llm_build_delta_net_base {
+         graph(const llama_model & model, const llm_graph_params & params);
+     private:
++        llm_graph_input_i * qsa_input = nullptr;
++        ggml_tensor * build_qsa_mask(llm_graph_input_attn_kv *, ggml_tensor *, ggml_tensor *, int *, int);
+         ggml_tensor * build_layer_attn(
+         llm_graph_input_attn_kv * inp_attn,
+                     ggml_tensor * cur,
+diff --git a/src/models/qwen35.cpp b/src/models/qwen35.cpp
+index a1e2635..1e49327 100644
+--- a/src/models/qwen35.cpp
++++ b/src/models/qwen35.cpp
+@@ -1,5 +1,7 @@
+ #include "models.h"
+ #include "llama-memory-recurrent.h"
++#include "llama-memory-hybrid-idx.h"
++#include "llama-impl.h"
+ 
+ void llama_model_qwen35::load_arch_hparams(llama_model_loader & ml) {
+     ml.get_key(LLM_KV_ATTENTION_LAYERNORM_RMS_EPS,       hparams.f_norm_rms_eps);
+@@ -22,6 +24,13 @@ void llama_model_qwen35::load_arch_hparams(llama_model_loader & ml) {
+         }
+     }
+ 
++    ml.get_key(LLM_KV_ATTENTION_INDEXER_HEAD_COUNT, hparams.indexer_n_head, false);
++    if (hparams.indexer_n_head > 0) {
++        ml.get_key(LLM_KV_ATTENTION_INDEXER_KEY_LENGTH, hparams.indexer_head_size);
++        ml.get_key(LLM_KV_ATTENTION_INDEXER_TOP_K, hparams.indexer_top_k);
++        ml.get_key_or_arr(LLM_KV_ATTENTION_COMPRESS_RATIOS, hparams.dsv4_compress_ratios, hparams.n_layer_all, true);
++    }
++
+     switch (hparams.n_layer()) {
+         case 24: type = hparams.n_embd == 1024 ? LLM_TYPE_0_8B : LLM_TYPE_2B; break;
+         case 32: type = hparams.n_embd == 2560 ? LLM_TYPE_4B : LLM_TYPE_9B; break;
+@@ -71,6 +80,14 @@ void llama_model_qwen35::load_arch_tensors(llama_model_loader & ml) {
+             // Q/K normalization for attention layers
+             layer.attn_q_norm = create_tensor(tn(LLM_TENSOR_ATTN_Q_NORM, "weight", il), { n_embd_head_k }, flags);
+             layer.attn_k_norm = create_tensor(tn(LLM_TENSOR_ATTN_K_NORM, "weight", il), { n_embd_head_k }, flags);
++            if (hparams.indexer_head_size > 0) {
++                const int64_t d = hparams.indexer_head_size;
++                layer.index_q_proj = create_tensor(tn(LLM_TENSOR_INDEXER_Q_PROJ, "weight", il), {n_embd, d*hparams.indexer_n_head}, flags);
++                layer.index_k_proj = create_tensor(tn(LLM_TENSOR_INDEXER_K_PROJ, "weight", il), {n_embd, d}, flags);
++                layer.index_q_norm = create_tensor(tn(LLM_TENSOR_INDEXER_Q_NORM, "weight", il), {d}, flags);
++                layer.index_k_norm = create_tensor(tn(LLM_TENSOR_INDEXER_K_NORM, "weight", il), {d}, flags);
++                layer.index_k_pre_norm = create_tensor(tn(LLM_TENSOR_INDEXER_K_NORM, "pre_weight", il), {d}, flags);
++            }
+         } else {
+             // Linear attention (gated delta net) specific tensors
+             // Create tensors with calculated dimensions
+@@ -315,9 +332,14 @@ ggml_tensor * llama_model_qwen35::graph::build_layer_attn(
+     // Attention computation
+     const float kq_scale = hparams.f_attention_scale == 0.0f ? 1.0f / sqrtf(float(n_embd_head)) : hparams.f_attention_scale;
+ 
++    auto * original_mask = inp->self_kq_mask_cnv;
++    if (hparams.indexer_head_size > 0 && cparams.qsa_enabled) {
++        inp->self_kq_mask_cnv = build_qsa_mask(inp, cur, inp_pos, sections, il);
++    }
+     cur = build_attn(inp,
+                 nullptr, nullptr, nullptr,
+                 Qcur, Kcur, Vcur, nullptr, nullptr, nullptr, kq_scale, il);
++    inp->self_kq_mask_cnv = original_mask;
+     cb(cur, "attn_pregate", il);
+ 
+     ggml_tensor * gate_sigmoid = ggml_sigmoid(ctx0, gate);
+@@ -642,3 +664,116 @@ llama_model_qwen35::graph_mtp::graph_mtp(const llama_model & model, const llm_gr
+     res->t_logits = cur;
+     ggml_build_forward_expand(gf, cur);
+ }
++
++class qsa27b_input : public llm_graph_input_i {
++public:
++    const llama_memory_hybrid_idx_context * mctx;
++    int64_t nkv, nq, ratio;
++    ggml_tensor * key_ids = nullptr;
++    ggml_tensor * token_blocks = nullptr;
++    ggml_tensor * block_pos = nullptr;
++    ggml_tensor * bias = nullptr;
++    ggml_tensor * query_block = nullptr;
++
++    qsa27b_input(const llama_memory_hybrid_idx_context * m, int64_t k, int64_t q, int64_t r) : mctx(m), nkv(k), nq(q), ratio(r) {}
++
++    void set_input(const llama_ubatch * ub) override {
++        mctx->get_idx()->set_input_k_idxs(key_ids, ub);
++        const int64_t nb = nkv / ratio;
++        if (!nb) { return; }
++        const int64_t offset = mctx->get_idx()->ubatch_cell0();
++        std::vector<int32_t> ids(nkv), positions(4*nb);
++        std::vector<float> visible(nb*nq, -INFINITY), current(nq);
++        for (int64_t i = 0; i < nkv; ++i) { ids[i] = std::min(i / ratio, nb - 1); }
++        for (int axis = 0; axis < 4; ++axis) {
++            for (int64_t b = 0; b < nb; ++b) { positions[axis*nb + b] = b*ratio; }
++        }
++        for (int64_t q = 0; q < nq; ++q) {
++            current[q] = (offset + q) / ratio;
++            for (int64_t b = 0; b < nb && (b + 1)*ratio - 1 <= offset + q; ++b) { visible[q*nb + b] = 0; }
++        }
++        ggml_backend_tensor_set(token_blocks, ids.data(), 0, ids.size()*sizeof(int32_t));
++        ggml_backend_tensor_set(block_pos, positions.data(), 0, positions.size()*sizeof(int32_t));
++        ggml_backend_tensor_set(bias, visible.data(), 0, visible.size()*sizeof(float));
++        ggml_backend_tensor_set(query_block, current.data(), 0, current.size()*sizeof(float));
++    }
++
++    bool can_reuse(const llm_graph_params & params) override {
++        mctx = static_cast<const llama_memory_hybrid_idx_context *>(params.mctx);
++        return params.cparams.qsa_enabled && params.ubatch.n_tokens == nq && mctx->get_idx()->get_n_kv() == nkv;
++    }
++};
++
++ggml_tensor * llama_model_qwen35::graph::build_qsa_mask(llm_graph_input_attn_kv * attn, ggml_tensor * hidden, ggml_tensor * pos, int * sections, int il) {
++    const auto * hybrid = static_cast<const llama_memory_hybrid_idx_context *>(mctx);
++    const auto * idx = hybrid->get_idx();
++    GGML_ASSERT(idx && hybrid->get_n_stream() == 1);
++    const int64_t nkv = idx->get_n_kv();
++    const int64_t r = hparams.dsv4_compress_ratios[il];
++    const int64_t nb = nkv / r;
++    const int64_t d = hparams.indexer_head_size;
++    const int64_t heads = hparams.indexer_n_head;
++    auto * input = static_cast<qsa27b_input *>(qsa_input);
++    if (!input) {
++        auto owned = std::make_unique<qsa27b_input>(hybrid, nkv, n_tokens, r);
++        input = owned.get();
++        input->key_ids = idx->build_input_k_idxs(ctx0, ubatch);
++        if (nb) {
++            input->token_blocks = ggml_new_tensor_1d(ctx0, GGML_TYPE_I32, nkv);
++            input->block_pos = ggml_new_tensor_1d(ctx0, GGML_TYPE_I32, 4*nb);
++            input->bias = ggml_new_tensor_2d(ctx0, GGML_TYPE_F32, nb, n_tokens);
++            input->query_block = ggml_new_tensor_2d(ctx0, GGML_TYPE_F32, 1, n_tokens);
++            for (auto * t : {input->token_blocks, input->block_pos, input->bias, input->query_block}) { ggml_set_input(t); }
++        }
++        qsa_input = input;
++        res->add_input(std::move(owned));
++    }
++    auto & layer = model.layers[il];
++    auto * raw = build_lora_mm(layer.index_k_proj, hidden);
++    raw = build_norm(raw, layer.index_k_pre_norm, nullptr, LLM_NORM_RMS, il);
++    raw = ggml_reshape_3d(ctx0, raw, d, 1, n_tokens);
++    ggml_build_forward_expand(gf, idx->cpy_k(ctx0, raw, input->key_ids, il));
++    if (!nb) { return attn->get_kq_mask(); }
++    auto * cached = idx->get_k(ctx0, il);
++    auto * members = ggml_view_3d(ctx0, cached, d, r, nb, cached->nb[2], r*cached->nb[2], 0);
++    ggml_tensor * pooled = nullptr;
++    for (int64_t i = 0; i < r; ++i) {
++        auto * part = ggml_cont(ctx0, ggml_view_2d(ctx0, members, d, nb, members->nb[2], i*members->nb[1]));
++        pooled = pooled ? ggml_add(ctx0, pooled, part) : part;
++    }
++    pooled = ggml_scale(ctx0, pooled, 1.0f/r);
++    pooled = build_norm(ggml_reshape_3d(ctx0, pooled, d, nb, 1), layer.index_k_norm, nullptr, LLM_NORM_RMS, il);
++    pooled = ggml_rope_multi(ctx0, ggml_reshape_3d(ctx0, pooled, d, 1, nb), input->block_pos, nullptr,
++                            n_rot, sections, rope_type, n_ctx_orig, freq_base, freq_scale, ext_factor, attn_factor, beta_fast, beta_slow);
++    pooled = ggml_reshape_2d(ctx0, pooled, d, nb);
++    auto * query = build_lora_mm(layer.index_q_proj, hidden);
++    query = build_norm(ggml_reshape_3d(ctx0, query, d, heads, n_tokens), layer.index_q_norm, nullptr, LLM_NORM_RMS, il);
++    query = ggml_rope_multi(ctx0, query, pos, nullptr, n_rot, sections, rope_type, n_ctx_orig, freq_base, freq_scale,
++                           ext_factor, attn_factor, beta_fast, beta_slow);
++    auto * scores = ggml_relu(ctx0, ggml_reshape_3d(ctx0, ggml_mul_mat(ctx0, pooled, ggml_reshape_2d(ctx0, query, d, heads*n_tokens)), nb, heads, n_tokens));
++    ggml_tensor * sum = nullptr;
++    for (int64_t h = 0; h < heads; ++h) {
++        auto * part = ggml_view_2d(ctx0, scores, nb, n_tokens, scores->nb[2], h*scores->nb[1]);
++        sum = sum ? ggml_add(ctx0, sum, part) : ggml_cont(ctx0, part);
++    }
++    sum = ggml_add(ctx0, ggml_scale(ctx0, sum, 1.0f/sqrtf(float(d))), input->bias);
++    const int64_t kb = std::min<int64_t>(nb, (hparams.indexer_top_k + r - 1)/r);
++    auto * top = ggml_cont(ctx0, ggml_top_k(ctx0, sum, kb));
++    cb(top, "qsa27b_top_blocks", il);
++    auto * selected = ggml_fill(ctx0, ggml_new_tensor_3d(ctx0, GGML_TYPE_F32, 1, nb, n_tokens), 0.0f);
++    auto * ones = ggml_fill(ctx0, ggml_new_tensor_3d(ctx0, GGML_TYPE_F32, 1, kb, n_tokens), 1.0f);
++    selected = ggml_reshape_2d(ctx0, ggml_set_rows(ctx0, selected, ones, ggml_reshape_3d(ctx0, top, kb, n_tokens, 1)), nb, n_tokens);
++    auto * block_ids = ggml_repeat_4d(ctx0, ggml_arange(ctx0, 0.0f, float(nb), 1.0f), nb, n_tokens, 1, 1);
++    auto * own = ggml_step(ctx0, ggml_scale_bias(ctx0, ggml_abs(ctx0, ggml_sub(ctx0, block_ids, input->query_block)), 1.0f, -0.5f));
++    own = ggml_scale_bias(ctx0, own, -1.0f, 1.0f);
++    selected = ggml_clamp(ctx0, ggml_add(ctx0, selected, own), 0.0f, 1.0f);
++    selected = ggml_scale_bias(ctx0, selected, 1e30f, -1e30f);
++    auto * expanded = ggml_get_rows(ctx0, ggml_cont(ctx0, ggml_transpose(ctx0, selected)), input->token_blocks);
++    expanded = ggml_cont(ctx0, ggml_transpose(ctx0, expanded));
++    auto * original = attn->get_kq_mask();
++    auto * original_f32 = original->type == GGML_TYPE_F32 ? original : ggml_cast(ctx0, original, GGML_TYPE_F32);
++    auto * causal = ggml_view_2d(ctx0, original_f32, nkv, n_tokens, original_f32->nb[1], 0);
++    auto * mask = ggml_add(ctx0, expanded, causal);
++    if (original->ne[1] > n_tokens) { mask = ggml_pad(ctx0, mask, 0, original->ne[1] - n_tokens, 0, 0); }
++    return ggml_cast(ctx0, mask, original->type);
++}
+diff --git a/tools/server/server-context.cpp b/tools/server/server-context.cpp
+index eaf74e1..7efbf42 100644
+--- a/tools/server/server-context.cpp
++++ b/tools/server/server-context.cpp
+@@ -1805,6 +1805,15 @@ private:
+     }
+ 
+     bool launch_slot_with_task(server_slot & slot, server_task && task) {
++        char qsa_heads[32];
++        if (llama_model_meta_val_str(model_tgt, "qwen35.attention.indexer.head_count", qsa_heads, sizeof(qsa_heads)) > 0) {
++            if (params_base.n_parallel != 1) { send_error(task, "QSA27B requires one slot", ERROR_TYPE_INVALID_REQUEST); return false; }
++            bool media = false;
++            for (size_t i = 0; i < task.tokens.size(); ++i) { media |= task.tokens[i] == LLAMA_TOKEN_NULL; }
++            slot.prompt_clear();
++            llama_memory_clear(llama_get_memory(slot.ctx_tgt), true);
++            llama_set_qsa_enabled(slot.ctx_tgt, !media);
++        }
+         la_level_reload(); // [la-ctl]
+         // process per-request lora adapters
+         if (!task.params.lora.empty()) {

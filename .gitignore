@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.scratch/
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Local experiments and immutable model artifacts
+runs/
+results/
+*.pt
+*.pth
+*.safetensors
+*.gguf
+*.bin
+
+# Generated reports
+p0_results.json
+p1_results.json
+mm1_results.json
+qsa_indexers*.pt
+
+# OS / editors
+.DS_Store
+*.swp
