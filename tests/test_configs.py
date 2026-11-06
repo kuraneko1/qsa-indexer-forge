@@ -22,6 +22,6 @@ def test_public_training_configs_are_local_and_pinned():
 
 def test_public_mm2_checkpoint_is_immutable():
     cfg = yaml.safe_load((ROOT / "configs/multimodal-continue-mm2.yaml").read_text())
-    assert cfg["indexer_file"] == "indexers/qsa_indexers.pt"
+    assert cfg["indexer_file"] == "indexers/mm2_16k/qsa_indexers.pt"
     assert len(cfg["indexer_revision"]) == 40
     assert len(cfg["indexer_sha256"]) == 64

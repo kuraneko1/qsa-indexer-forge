@@ -1,0 +1,18 @@
+{
+  "run_id": "9dd0ce84-f7f2-46a6-92bb-33a915fc7ae8",
+  "training_commit": "d75da83",
+  "source": "OpenResearch run log RESULT line",
+  "steps": 300,
+  "learning_rate": 0.0003,
+  "final_loss": 0.31149348244071007,
+  "final_capture": 0.935259435325861,
+  "minutes": 66.1,
+  "ppl": {
+    "dense": 7.072960359927699,
+    "sparse": 7.071383728706213,
+    "delta_pct": -0.022290966458959893,
+    "tokens": 32766
+  },
+  "qa_mm": {"dense": 0, "sparse": 0, "n": 2},
+  "note": "The two synthetic QA cases are not a valid quality comparison because both routes scored zero."
+}

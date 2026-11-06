@@ -14,7 +14,7 @@ python scripts/transplant-qsa-gguf.py \
   --donor-sha256 <donor-file-sha256>
 ```
 
-入力 hash、architecture、head / layer 形状、MTP 15 tensor、Indexer 80 tensor を検査します。出力と `.validation.json` が既にある場合の上書きはしません。base と donor は同じモデル構成である必要があります。別の abliterated / fine-tuned backbone に付け替えた場合の品質は、この検査だけでは保証できません。
+入力 hash、architecture、head / layer 形状、MTP tensor、Indexer 80 tensor を検査します。検査を無効化する `python -O` では実行できません。出力と `.validation.json` が既にある場合の上書きはしません。base と donor は同じモデル構成である必要があります。別の abliterated / fine-tuned backbone に付け替えた場合の品質は、この検査だけでは保証できません。
 
 ## 旧 Q8 export の検査
 

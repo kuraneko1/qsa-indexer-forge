@@ -124,10 +124,11 @@ def main() -> None:
     print(f"[p0] gpu {torch.cuda.get_device_name()} "
           f"{torch.cuda.get_device_properties(0).total_memory / 2**30:.0f}GiB", flush=True)
 
-    tokenizer = AutoTokenizer.from_pretrained(cfg["model"])
+    revision = cfg.get("model_revision")
+    tokenizer = AutoTokenizer.from_pretrained(cfg["model"], revision=revision)
     model = Qwen3_5ForConditionalGeneration.from_pretrained(
-        cfg["model"], dtype=torch.bfloat16, attn_implementation="sdpa",
-        device_map="cuda",
+        cfg["model"], revision=revision, dtype=torch.bfloat16,
+        attn_implementation="sdpa", device_map="cuda",
     ).eval()
 
     layers = install(model, block_size=cfg["block_size"])
@@ -140,6 +141,7 @@ def main() -> None:
         tokenizer, cfg["seq_len"], cfg["n_seqs"],
         dataset=cfg["dataset"], subset=cfg.get("subset", "sample-10BT"),
         skip_docs=cfg.get("skip_docs", 0),
+        revision=cfg.get("dataset_revision"),
     )
     capture = capture_sweep(model, list(blocks), budgets)
 
@@ -151,6 +153,7 @@ def main() -> None:
         tokenizer, cfg["ppl_len"], cfg["ppl_seqs"],
         dataset=cfg["dataset"], subset=cfg.get("subset", "sample-10BT"),
         skip_docs=cfg.get("ppl_skip_docs", 10_000),
+        revision=cfg.get("dataset_revision"),
     )
     ppl, tokens = dense_perplexity(model, list(ppl_blocks))
 

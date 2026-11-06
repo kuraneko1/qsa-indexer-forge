@@ -23,6 +23,8 @@ def digest_tensor(tensor):
 
 
 def main():
+    if not __debug__:
+        raise RuntimeError('Run without python -O: validation asserts must remain enabled')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--gguf-python', type=Path, required=True)
     parser.add_argument('--base', type=Path, required=True)
@@ -106,7 +108,8 @@ def main():
         'donor_sha256': args.donor_sha256, 'output_sha256': digest_file(args.output),
         'base_tensors_copied_byte_exact': len(base.tensors),
         'fp32_indexers_copied_byte_exact': len(indexers),
-        'mtp_tensors_preserved': 15, 'base_metadata_preserved': True,
+        'mtp_tensors_preserved': sum(t.name.startswith('blk.64.') for t in base.tensors),
+        'base_metadata_preserved': True,
         'tensor_types': dict(Counter(t.tensor_type.name for t in output.tensors)),
         'tensor_sha256': original_hashes,
     }

@@ -33,7 +33,7 @@ Indexer の学習経路と llama.cpp 対応を、コードだけでなく会話�
 1. **P1 の名前と実設定は違う**: branch 名は `k-2048` だが、成功した 8k run の config は `budget: 1024`。K=2048 の学習は P2 から。
 2. **MM1 の `failed` は学習失敗とは限らない**: 両 arm とも 300 step と RESULT / checkpoint 出力後、shutdown abort で終了した。
 3. **DocVQA は評価設計で結果が反転**: 自由回答 0.24 / 0.22 から、構成 4 択では 1.0 / 1.0。後者だけを品質証明に使わない。
-4. **最終 MM2 の公開取得先は BF16 repo**: 旧 `qwen38-27b-qsa-indexers` は現在 401。`Qwen3.8-27B-QSA-BF16` の `indexers/qsa_indexers.pt` が現存する公開経路。
+4. **最終 MM2 の公開取得先は BF16 repo**: 旧 `qwen38-27b-qsa-indexers` は現在 401。`Qwen3.8-27B-QSA-BF16` の `indexers/mm2_16k/qsa_indexers.pt` が現存する公開経路。
 5. **engine は複数系統**: `6209237 + patch` / 公開 `e697cf2c` の本流と、IQ3_S 向け `pentaCoxian/Qwen-QSA-llama.cpp` を分ける。
 6. **実装の主 Codex session だけでは全学習を再現できない**: 初期 commit を作った rollout は Codex 保存側に無く、OpenResearch / DSH 側の記録が必要だった。
 

@@ -5,7 +5,7 @@ model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
 image_token_id: 248056
 indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
 indexer_revision: d61281f4626729e4cf138476a704c7fedc08f891
-indexer_file: indexers/qsa_indexers.pt
+indexer_file: indexers/mm2_16k/qsa_indexers.pt
 indexer_sha256: e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51
 block_size: 4
 budget: 2048

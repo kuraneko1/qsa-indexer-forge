@@ -92,7 +92,7 @@ model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
 image_token_id: 248056
 indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
 indexer_revision: d61281f4626729e4cf138476a704c7fedc08f891
-indexer_file: indexers/qsa_indexers.pt
+indexer_file: indexers/mm2_16k/qsa_indexers.pt
 indexer_sha256: e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51
 block_size: 4
 budget: 2048
@@ -155,6 +155,8 @@ dense PPL 7.7873（4,096 token × 4 系列 = 16,380 token）。K=2048 の上限�
 | MM1 pilot | 300×4k | 0.2163 | 0.9926 | — | text→text 0.9725 / 0.9808、text→image 0.9943 / 0.9953 |
 | MM2（公開） | 300×16k | 0.3115 | 0.9353 | -0.022% | text→text 0.8958 / 0.9179、text→image 0.9912 / 0.9923 |
 
+MM2 の loss / capture / PPL の出典は run `9dd0ce84-f7f2-46a6-92bb-33a915fc7ae8` の RESULT を転記した `configs/mm2-training-results.json`。
+
 MM0b の 4 象限（16k 級、N<=K を 209,504 query 除外）:
 text→text 0.9671 / 0.9793、text→image 0.9271 / 0.9575、image→text 0.9671 / 0.9815、image→image 0.9988 / 0.9999（learned / oracle）。
 
@@ -174,7 +176,7 @@ DocVQA（`nielsr/docvqa_1200_examples` rev `dc77ab0c…`、CC BY-NC-SA 4.0・非
 - 2 行目は選択肢を A-D に限定し、最終位置の logits で選ばせたもの。上限に張り付いており、
   こちらも**識別力がない**（dense と sparse が同じ 1.0）。
 - 入力長は 1,456〜6,878 token で **50 件中 49 件が K=2048 超**。予算比が固定の比較ではない。
-- どちらも公式 DocVQA スコアではなく、データは同梱しない。**0.24 → 1.00 の変化をモデル改善と読まない**
+- どちらも公式 DocVQA スコアではなく、データは同梱しない。利用には元データの利用条件とアクセス許可が必要で、現在の URL が無認証で取得できることは前提にしない。**0.24 → 1.00 の変化をモデル改善と読まない**
   （変わったのは評価設計であって重みではない）。
 
 ### 9.5 量子化 GGUF 上での長文監査（当時の別スクリプト・本リポジトリ外）

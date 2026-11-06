@@ -94,7 +94,7 @@ def _indexer_scores(indexer, hidden, cos, sin, state, offset):
     }
     logits = torch.einsum("bqhd,bnd->bhqn", q, blocks)
     # Match the FP32 indexer's temperature used by the completed pilot.
-    scores = logits.relu().sum(1) * indexer.head_dim ** -0.5
+    scores = logits.relu().sum(1) * indexer.logit_scale
     query_pos = torch.arange(offset, offset + length, device=hidden.device)
     block_ends = torch.arange(blocks.shape[1], device=hidden.device) * r + r - 1
     valid = (block_ends[None] <= query_pos[:, None])[None].expand(batch, -1, -1)
@@ -186,6 +186,7 @@ class QSAQwen3_5ForConditionalGeneration(Qwen3_5ForConditionalGeneration):
                 head_dim=qsa.get("indexer_head_dim", 128),
                 rope_dim=qsa.get("rope_dim", 64),
                 block_size=attn._qsa_block,
+                logit_scale=qsa.get("logit_scale", qsa.get("indexer_head_dim", 128) ** -0.5),
             ).to(device=attn.q_proj.weight.device, dtype=torch.float32)
 
     def forward(self, input_ids=None, attention_mask=None, position_ids=None,

@@ -47,7 +47,8 @@ def filler_pool(tokenizer, n_tokens: int, count: int, dataset: str, revision: st
 
 
 def _capture(scores, target, valid, eligible, kb) -> float:
-    selected = torch.topk(scores.detach(), kb, dim=-1).indices
+    valid3 = valid[None] if valid.dim() == 2 else valid
+    selected = torch.topk(scores.detach().masked_fill(~valid3, -float("inf")), kb, dim=-1).indices
     mass = (target * valid[None]).gather(-1, selected).sum(-1)
     total = (target * valid[None]).sum(-1).clamp_min(1e-9)
     ratio = (mass / total).reshape(-1)[eligible.reshape(-1)]

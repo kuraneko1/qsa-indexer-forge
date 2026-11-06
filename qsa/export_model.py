@@ -93,6 +93,10 @@ def export_model(base_dir, checkpoint, output_dir, *, qsa=None, provenance=None)
                              for k, v in header.items() if k != "__metadata__")
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staging = output_dir.with_name(output_dir.name + ".building")
+    if staging.exists():
+        raise FileExistsError(
+            f"Staging directory already exists: {staging}. Inspect, rename, or remove it before retrying."
+        )
     staging.mkdir()  # Refuse to reuse an incomplete export silently.
     linked, copied = [], []
     try:
@@ -130,7 +134,7 @@ def export_model(base_dir, checkpoint, output_dir, *, qsa=None, provenance=None)
             shutil.copyfile(Path(__file__).with_name(module), staging / module)
         manifest = {
             "format_version": 1,
-            "base": provenance or {"local_path": str(base_dir.resolve())},
+            "base": provenance or {"note": "No base provenance supplied; local paths are intentionally omitted."},
             "indexer_checkpoint_sha256": _sha256(checkpoint),
             "qsa": options,
             "full_attention_layers": layers,
@@ -171,8 +175,10 @@ def export_model(base_dir, checkpoint, output_dir, *, qsa=None, provenance=None)
             "and validation limits, and `BASE_MODEL_CARD.md` for the original model card.\n"
         )
         (staging / "requirements.txt").write_text(
-            "torch==2.15.0\ntransformers==5.22.1\ntorchvision==0.29.2\n"
-            "accelerate==1.15.0\npillow==13.0.0\nnumpy==2.5.4\nsafetensors\n"
+            "torch==2.14.1\ntorchvision==0.29.1\ntransformers==5.22.1\n"
+            "accelerate==1.15.0\npillow==13.0.0\nnumpy==2.5.4\n"
+            "safetensors==0.8.0\ntokenizers==0.23.3\n"
+            "huggingface-hub==2.4.0\nav==19.0.2\n"
         )
         staging.rename(output_dir)
     except Exception:

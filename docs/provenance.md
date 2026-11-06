@@ -18,7 +18,7 @@ Qwen3.8-27B-QSA（llama.cpp native 実行系）の正本・成果物・学習履
 | エンジン差分 | `patches/*.patch` | base に単独適用。重ね禁止 |
 | GGUF 変換 | `conversion/qwen.py`（engine 内）、`qsa/export_model.py` | モデル側の indexer 統合は前者 |
 | 量子化済みモデル | HF（下表）と SATA `/mnt/data2/qsa27b/gguf/` | バイト列の正本は HF の固定 revision |
-| 学習済み indexer | 公開 BF16 repo の `indexers/qsa_indexers.pt`（§3.1） | 旧 repo は 401。SHA256 で照合する |
+| 学習済み indexer | 公開 BF16 repo の `indexers/mm2_16k/qsa_indexers.pt`（§3.1） | 旧 repo は 401。SHA256 で照合する |
 | 実行ログ・実験原本 | z170 の `/mnt/data2/qsa27b/` | 本機から未確認 |
 
 境界: 外側 repo は「コード・手順・結果の要約」を追跡し、`release/engine-fork`、`release/payload`、
@@ -80,7 +80,7 @@ Qwen3.8-27B-QSA（llama.cpp native 実行系）の正本・成果物・学習履
 | 同上（Unsloth 追加後） | 同上 | `2bc63053a75be708507c0bacdc4088804ea54190` | Q4/Q5/Q6 の 3 files を追加した revision |
 | indexer（step600、履歴） | `huggingface.co/higa2515/qwen38-27b-qsa-indexers` | `2ff995092226ca22b0d6c6ea2afc0bc85c0a5530` | 旧 repo。**現在 401（取得不可）**。revision は履歴識別子 |
 | indexer（MM2 16k、履歴） | 同上 | `b51b8d15e4342f2bc11ad8419abc18e3be6a8c8a` | 同上。`mm2_16k/qsa_indexers.pt` という名前で記録 |
-| **indexer（公開取得先）** | [higa2515/Qwen3.8-27B-QSA-BF16](https://huggingface.co/higa2515/Qwen3.8-27B-QSA-BF16) | `d61281f4626729e4cf138476a704c7fedc08f891` | **`indexers/qsa_indexers.pt`**、SHA256 `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51`（§3.1） |
+| **indexer（公開取得先）** | [higa2515/Qwen3.8-27B-QSA-BF16](https://huggingface.co/higa2515/Qwen3.8-27B-QSA-BF16) | `d61281f4626729e4cf138476a704c7fedc08f891` | **`indexers/mm2_16k/qsa_indexers.pt`**、SHA256 `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51`（§3.1） |
 | 元モデル | [Qwen/Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) | `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0` | backbone / vision / projector / MTP |
 | Unsloth 量子化元 | [unsloth/Qwen3.8-27B-GGUF](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF) | `4ca720788d1e01f1bff70c033e0d0028fd02e502` | UD-Q4_K_M / Q5_K_M / Q6_K |
 | Huihui abliterated 元 | [huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF](https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF) | `1c69098e9c32db6dc06fc48f1d6cc75ad07da89e` | UD-DW-Q4_K_M |
@@ -95,10 +95,10 @@ Qwen3.8-27B-QSA（llama.cpp native 実行系）の正本・成果物・学習履
   **ダウンロード先として案内しない**。
 - 公開されている最終 MM2 の checkpoint は
   `higa2515/Qwen3.8-27B-QSA-BF16 @ d61281f4626729e4cf138476a704c7fedc08f891` の
-  **`indexers/qsa_indexers.pt`**（HF API で確認、SHA256 `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51`）。
+  **`indexers/mm2_16k/qsa_indexers.pt`**（HF API で確認、SHA256 `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51`）。
   README と `docs/training.md` の export 手順もこのパスを使う。
-- 古い記録にある `mm2_16k/qsa_indexers.pt` は**同じ checkpoint の来歴上の名前**。
-  現在の公開パスは `indexers/qsa_indexers.pt`。
+- 旧 indexer repo の `mm2_16k/qsa_indexers.pt` は同じ checkpoint の来歴上の名前。
+  固定 revision `d61281f` では **`indexers/mm2_16k/qsa_indexers.pt`** が正しいパス。現在の main では `indexers/qsa_indexers.pt` へ移動しているが、再現手順では main ではなく固定 revision と、その revision に存在するパスを使う。
 - step600（text-only）の `.pt` は旧 repo にしかなく、HF から再取得できるかは未確認。
   旧 text-only export の `qsa-indexers.safetensors` は研究リポジトリの
   `models/Qwen3.8-27B-QSA/` に残っている。
@@ -151,7 +151,7 @@ Qwen3.8-27B-QSA（llama.cpp native 実行系）の正本・成果物・学習履
 - Q8_0 の **29,256,829,760 bytes** は旧 v5 の `Qwen3.8-27B-QSA-Q8_0.gguf` の値。
   MM2 版（`Qwen3.8-27B-QSA-mm2-Q8_0.gguf`、SHA `97c4ecdd…`）は別ファイルなので、
   このサイズと結び付けない。
-- indexer の公開取得は §3.1 の `indexers/qsa_indexers.pt` を使う。旧 repo は 401。
+- indexer の公開取得は §3.1 の `indexers/mm2_16k/qsa_indexers.pt` を使う。旧 repo は 401。
 
 ---
 
@@ -166,7 +166,7 @@ Qwen3.8-27B-QSA（llama.cpp native 実行系）の正本・成果物・学習履
 | MM2 継続蒸留 run | `9dd0ce84-f7f2-46a6-92bb-33a915fc7ae8` |
 | MM2 学習 commit | `d75da83` |
 | MM2 設定 | 16,384 tokens × 300 steps、lr 3e-4、text/image 0.5、backbone/vision/projector/MTP 凍結 |
-| MM2 checkpoint（公開） | `indexers/qsa_indexers.pt`（BF16 repo `d61281f`） |
+| MM2 checkpoint（公開） | `indexers/mm2_16k/qsa_indexers.pt`（BF16 repo `d61281f`） |
 | MM2 checkpoint（履歴名） | `mm2_16k/qsa_indexers.pt`（同じ checkpoint） |
 | DocVQA probe run | `99942b8e-280f-4905-96aa-f1494530ce45` |
 | answer NLL run | `87d47dd8-0b52-4fbc-84b1-7e15477519b2` |

@@ -37,7 +37,7 @@ cd qsa-indexer-forge
 uv run --locked --extra dev --extra train --extra export python -m pytest -q
 ```
 
-現在の統合版では **30 tests** が CPU で通ることを確認しています。GPU 学習と native CUDA kernel の再ビルドは別工程です。
+現在の統合版では **31 tests** が CPU で通ることを確認しています。GPU 学習と native CUDA kernel の再ビルドは別工程です。
 
 ## Indexer を学習する
 
@@ -71,13 +71,13 @@ uv run --locked --extra train python -m qsa.p0_capture \
 uv run --locked --extra export hf download Qwen/Qwen3.8-27B \
   --revision 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0 \
   --local-dir /path/to/base
-uv run --locked --extra export hf download higa2515/Qwen3.8-27B-QSA-BF16 indexers/qsa_indexers.pt \
+uv run --locked --extra export hf download higa2515/Qwen3.8-27B-QSA-BF16 indexers/mm2_16k/qsa_indexers.pt \
   --revision d61281f4626729e4cf138476a704c7fedc08f891 \
   --local-dir /path/to/qsa-release
 
 uv run --locked --extra export python -m qsa.export_model \
   --base /path/to/base \
-  --indexers /path/to/qsa-release/indexers/qsa_indexers.pt \
+  --indexers /path/to/qsa-release/indexers/mm2_16k/qsa_indexers.pt \
   --output /path/to/Qwen3.8-27B-QSA
 uv run --locked --extra export python -m qsa.validate_export /path/to/Qwen3.8-27B-QSA
 ```
@@ -94,7 +94,7 @@ cd Qwen3.8-27B-QSA-llama.cpp
 git checkout e697cf2c72ecaa165de3714ea6ac3b00649ab274
 ```
 
-変換、CUDA build、server 起動、`LLAMA_QSA_DENSE=1` による dense 対照、base commit へ当てる独立 patch は [llama.cpp 対応ガイド](docs/llama-cpp.md) にまとめています。3 つの patch は歴史であり、**重ねて適用しない**でください。
+変換、CUDA build、server 起動、`LLAMA_QSA_DENSE=1` による dense 対照、base commit へ当てる独立 patch は [llama.cpp 対応ガイド](docs/llama-cpp.md) にまとめています。3 つの patch は独立した版です。通常は `llama-qsa27b-mm2-cache.patch` を選び、**重ねて適用しない**でください。
 
 ## 実測値の入口
 

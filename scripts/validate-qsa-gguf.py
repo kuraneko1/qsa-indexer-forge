@@ -21,7 +21,7 @@ with safe_open(model/'qsa-indexers.safetensors',framework='numpy') as source:
         prefix, suffix = name.split('._qsa_indexer.')
         il = int(prefix.split('.')[3])
         dst = {'q_proj.weight':'q_proj.weight', 'k_proj.weight':'k_proj.weight',
-               'q_norm':'q_norm.weight', 'k_norm':'k_norm.pre_weight',
+               'q_norm':'q_norm', 'k_norm':'k_norm.pre_weight',
                'k_block_norm':'k_norm.weight'}[suffix]
         want = source.get_tensor(name)
         if suffix.endswith('norm'): want = want + np.float32(1)

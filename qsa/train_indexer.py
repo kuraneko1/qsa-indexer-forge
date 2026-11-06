@@ -321,6 +321,9 @@ def run_distillation(cfg: dict) -> None:
         print(f"[p1] retrieval sparse {sparse_ret}", flush=True)
         result["retrieval"] = {"dense": dense_ret, "sparse": sparse_ret}
 
+    with open("p1_results.json", "w") as f:
+        json.dump(result, f, indent=2)
+
     if hub is not None:
         repo, api = hub
         paths = [checkpoint]
@@ -338,5 +341,3 @@ def run_distillation(cfg: dict) -> None:
          "dense_ppl", "sparse_ppl", "ppl_delta_pct", "retrieval")
         if key in result
     }), flush=True)
-    with open("p1_results.json", "w") as f:
-        json.dump(result, f, indent=2)

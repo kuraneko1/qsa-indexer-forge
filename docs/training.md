@@ -23,7 +23,7 @@ Stage 2（選択ブロック内だけで KL を取る 8,000 step / lr 2.5e-5 規
 - ベース: `Qwen/Qwen3.8-27B`, revision `1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0`（`configs/text-local.yaml:4-5`）
 - 64 層のうち full attention は 0 始まりで **3, 7, 11, …, 63** の 16 層（`configs/mm2-integration.json` の `indexer.layers`）。
   残りは GDN（gated delta net）層で、`Qwen3_5Attention` 以外は触らない（`qsa/hf_qsa.py:118-147`）。
-- 画像・動画入力は **dense 経路**（この indexer は text query 用）。MM 学習でも vision/projector は凍結したまま。
+- **HF 参照 export** では画像・動画入力を dense に fallback する。MM 学習では画像埋め込みを含む系列について言語モデルの 16 層を蒸留するが、vision 内部は対象外。native MM2 では画像・動画も QSA 経路を使う。
 
 ## 2. indexer の構造
 
@@ -131,7 +131,7 @@ uv run --locked --extra dev --extra train --extra export python -m pytest -q   #
 |---|---|---|---|---|
 | `configs/text-local.yaml` | `distill` | **ゼロから**（`step_offset: 0`） | `qsa_indexers*.pt` をローカル | 公開再現用のテキスト indexer を自分の環境で作る |
 | `configs/multimodal-local.yaml` | `mm1` | 上の `qsa_indexers.pt`（`indexer_path`） | ローカル | テキスト→マルチモーダルへ継続 |
-| `configs/multimodal-continue-mm2.yaml` | `mm1` | 公開 BF16 repo の `indexers/qsa_indexers.pt` | ローカル | 公開済み MM2 重みから追加学習 |
+| `configs/multimodal-continue-mm2.yaml` | `mm1` | 公開 BF16 repo の `indexers/mm2_16k/qsa_indexers.pt` | ローカル | 公開済み MM2 重みから追加学習 |
 
 3 つとも `push_to_hub: false` なので **HF トークン不要**。保存は常にカレントディレクトリ。
 `save_every` ごとに `qsa_indexers_step{N}.pt`、最後に `qsa_indexers.pt` と `p1_results.json` / `mm1_results.json`。
@@ -164,11 +164,13 @@ python -m qsa.p0_capture --config configs/multimodal-continue-mm2.yaml
 ```yaml
 # 例: configs/p0.yaml（このリポジトリには同梱していない）
 model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
 seq_len: 16384
 n_seqs: 6
 block_size: 4
 budgets: [512, 1024, 2048, 4096]
 dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
 subset: sample-10BT
 skip_docs: 0
 ppl_len: 4096
@@ -184,7 +186,7 @@ ppl_skip_docs: 10000
 
 | 内容 | step × 長 | 学習ループ | wall（起動〜終了） | 1 step |
 |---|---|---|---|---|
-| テキスト P2 / step600 | 600 × 16,384（9.83M tok） | 6,351.6 s | 118 分 | 約 12.7 s |
+| テキスト P2 / step600 | 500 × 16,384（新規 8.19M、累計 9.83M tok） | 6,351.6 s | 118 分 | 約 12.7 s |
 | マルチモーダル MM2 300 step | 300 × 16,384 | 66.1 分 | 68.7 分 | 約 13.2 s |
 | MM1 pilot（4k） | 300 × 4,096 | 720.1 s | 12.3 分 | 約 2.4 s |
 | P0 dense capture | 6 × 16,384 | — | 9.0 分 | capture 62.1 s |
@@ -201,7 +203,7 @@ ppl_skip_docs: 10000
 | テキスト 600 step @16k | 公開 step600 の元 | 0.2619 | 0.9414 | 7.0730 | 7.0718 | -0.017% |
 | MM2 300 step @16k | 公開 mm2_16k の元 | 0.3115 | 0.9353 | 7.0730 | 7.0714 | -0.022% |
 
-数値の出典は `configs/text-step600-results.json` と `configs/mm2-integration.json`。
+数値の出典は `configs/text-step600-results.json`、`configs/mm2-training-results.json`（run `9dd0ce84` の RESULT から転記）と `configs/mm2-integration.json`。
 **これらは 1 seed・小標本の測定であり、品質同等の証明ではない**（評価の限界は `docs/evaluation.md`）。
 
 実験名・ブランチ名は実設定と一致しないことがある。履歴の

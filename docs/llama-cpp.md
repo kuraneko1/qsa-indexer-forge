@@ -56,7 +56,7 @@ llama.cpp の専用 fork で実行するための実装解説と再現手順。
 - テンソル名: `model.language_model.layers.{il}.self_attn._qsa_indexer.{q_proj,k_proj,q_norm,k_norm,k_block_norm}`
 - `config["qsa"] = {budget:2048, block_size:4, indexer_heads:4, indexer_head_dim:128, rope_dim:64, multimodal_policy:"dense", runtime:"reference_sdpa"}`
 - `architectures = ["QSAQwen3_5ForConditionalGeneration"]`、`model_type = "qwen3_5_qsa"`
-- 入力の indexer checkpoint は **`Qwen3.8-27B-QSA-BF16 @ d61281f` の `indexers/qsa_indexers.pt`** を使う。
+- 入力の indexer checkpoint は **`Qwen3.8-27B-QSA-BF16 @ d61281f` の `indexers/mm2_16k/qsa_indexers.pt`** を使う。
   旧 `qwen38-27b-qsa-indexers` は現在 401 で取得できない（[provenance §3.1](provenance.md)）。
 
 参照: `qsa/export_model.py:44-72`（既定値・形状と FP32 の検査・テンソル名）、`:112-130`（shard 追加と config 書き換え）。
