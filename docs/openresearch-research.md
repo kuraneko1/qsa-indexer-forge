@@ -67,6 +67,12 @@ run は experiment の branch と commit を固定して実行され、`runs.com
 
 ## 3. 実験ツリー（15 実験）
 
+[![QSA Indexer 実用化までの実験ツリー](assets/qsa-experiment-tree.png)](assets/qsa-experiment-tree.png)
+
+orx の 15 実験を、前史・テキスト蒸留・マルチモーダル・評価・native 移植・量子化・配備まで
+1 本の系譜として並べた図です（[SVG](assets/qsa-experiment-tree.svg) / [編集用 scene](assets/qsa-experiment-tree.scene.json)）。
+以下の表は orx 側の実験だけを、親子関係と run 数で示します。
+
 `local_experiments` の 15 件です。`runs` は実行回数（失敗・cancel を含む）。
 
 | experiment id | slug | 親 | branch / commit | runs | 位置づけ |

@@ -25,6 +25,7 @@
 | [llama.cpp QSA 実行パイプライン](assets/llama-cpp-pipeline.png) | convert → load → graph → inference、dense / fallback、検証 | [SVG](assets/llama-cpp-pipeline.svg) / [scene](assets/llama-cpp-pipeline.scene.json) |
 | [dense / QSA の統制評価](assets/evaluation-flow.png) | 同一条件での分岐、同じ指標での比較、結果と未測定範囲の保存 | [SVG](assets/evaluation-flow.svg) / [scene](assets/evaluation-flow.scene.json) |
 | [MM 学習の合成画像8例](assets/multimodal-training-samples.png) | OCR・数値表・図形カウントを seed 付きで表示 | [manifest](assets/multimodal-training-samples.json) / [生成 script](assets/build_multimodal_samples.py) |
+| [実用化までの実験ツリー](assets/qsa-experiment-tree.png) | 前史 → P0/P1/P2 → MM0〜MM2 → native → 量子化・配備を 1 本の系譜に | [SVG](assets/qsa-experiment-tree.svg) / [scene](assets/qsa-experiment-tree.scene.json) |
 
 工程図とアーキテクチャ図はベクター描画で、アイコンもベクターです（合成画像の例だけは実画像のコラージュ）。工程図は **mid** 詳細度。実装を説明する図であり、新たな GPU 実測や品質保証の証拠ではありません。
 

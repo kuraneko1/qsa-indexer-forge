@@ -1,0 +1,686 @@
+{
+  "canvas": [
+    1900,
+    2680
+  ],
+  "frames": [
+    {
+      "box": [
+        60,
+        280,
+        840,
+        1510
+      ],
+      "role": "frame",
+      "fill": "base",
+      "radius": 18
+    },
+    {
+      "box": [
+        960,
+        760,
+        840,
+        1690
+      ],
+      "role": "frame",
+      "fill": "base",
+      "radius": 18
+    },
+    {
+      "box": [
+        80,
+        1850,
+        800,
+        430
+      ],
+      "role": "frame",
+      "fill": "base",
+      "radius": 16
+    }
+  ],
+  "nodes": [
+    {
+      "id": "pre",
+      "box": [
+        80,
+        370,
+        800,
+        110
+      ],
+      "icon": "layers",
+      "role": "local",
+      "label": "前史：Flash-Next と QSA kernel（09–10）",
+      "sublabel": "QSA / MTP の理解・paged KV・文脈走査コスト"
+    },
+    {
+      "id": "plan",
+      "box": [
+        80,
+        530,
+        800,
+        110
+      ],
+      "icon": "scale",
+      "role": "local",
+      "label": "計画：27B へ適用（11/03 03:25）",
+      "sublabel": "コスト試算・クロスレビュー・GO 判断"
+    },
+    {
+      "id": "p0",
+      "box": [
+        80,
+        690,
+        800,
+        110
+      ],
+      "icon": "db",
+      "role": "global",
+      "label": "P0 dense 診断（11/03 07:24–09:17）",
+      "sublabel": "参照実装と HF patch・3 実験 / 7 run・oracle 0.886 → 0.985"
+    },
+    {
+      "id": "p1",
+      "box": [
+        80,
+        850,
+        800,
+        110
+      ],
+      "icon": "flow",
+      "role": "global",
+      "label": "P1 テキスト蒸留 8k（11/03 11:41）",
+      "sublabel": "K=1024・600 step・capture 0.9367・PPL -0.039%"
+    },
+    {
+      "id": "p2",
+      "box": [
+        80,
+        1010,
+        800,
+        110
+      ],
+      "icon": "check",
+      "role": "global",
+      "emphasis": true,
+      "label": "P2 16k / K=2048（11/03 13:37–15:28）",
+      "sublabel": "warm 500 step・capture 0.9414・step600 公開"
+    },
+    {
+      "id": "mm0",
+      "box": [
+        80,
+        1170,
+        800,
+        110
+      ],
+      "icon": "image",
+      "role": "local",
+      "label": "MM0 / MM0b 診断（11/04 02:17–02:51）",
+      "sublabel": "parity 0・text→image capture 0.93–0.95"
+    },
+    {
+      "id": "mm1a",
+      "box": [
+        80,
+        1330,
+        380,
+        110
+      ],
+      "icon": "gear",
+      "role": "global",
+      "label": "MM1 lr=1e-4 不採用",
+      "sublabel": "4k・capture 0.9926"
+    },
+    {
+      "id": "mm1b",
+      "box": [
+        500,
+        1330,
+        380,
+        110
+      ],
+      "icon": "gear",
+      "role": "global",
+      "label": "MM1 lr=3e-4 採用",
+      "sublabel": "4k・capture 0.9926"
+    },
+    {
+      "id": "mm2",
+      "box": [
+        500,
+        1490,
+        380,
+        110
+      ],
+      "icon": "check",
+      "role": "global",
+      "emphasis": true,
+      "label": "MM2 16k",
+      "sublabel": "公開・0.9353・PPL -0.022%"
+    },
+    {
+      "id": "qa",
+      "box": [
+        80,
+        1650,
+        380,
+        110
+      ],
+      "icon": "check",
+      "role": "third",
+      "label": "QA v2 → v3 → v4",
+      "sublabel": "v2 不成立・v4 top1 1.0"
+    },
+    {
+      "id": "doc",
+      "box": [
+        500,
+        1650,
+        380,
+        110
+      ],
+      "icon": "warn",
+      "role": "third",
+      "label": "DocVQA",
+      "sublabel": "自由 0.24 → 4 択 1.0"
+    },
+    {
+      "id": "engine",
+      "box": [
+        980,
+        850,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "memory",
+      "label": "engine 土台（V100 fork）",
+      "sublabel": "6209237・Q8_0 経路と indexer 移植の前提"
+    },
+    {
+      "id": "v1",
+      "box": [
+        980,
+        1010,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "memory",
+      "label": "native v1：mask 参照（11/03 16:09）",
+      "sublabel": "262k 起動・passkey 正答・速度は未達"
+    },
+    {
+      "id": "v2",
+      "box": [
+        980,
+        1170,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "memory",
+      "label": "v2：疎 CUDA",
+      "sublabel": "選択ブロックの FP16 KV だけを読む"
+    },
+    {
+      "id": "v3",
+      "box": [
+        980,
+        1330,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "memory",
+      "label": "v3：MTP 有効化",
+      "sublabel": "行選択バグ修正・最大差 3.68 → 0"
+    },
+    {
+      "id": "v45",
+      "box": [
+        980,
+        1490,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "memory",
+      "label": "v4 / v5",
+      "sublabel": "短 prefill は FA・MTP は dense 1 行"
+    },
+    {
+      "id": "cache",
+      "box": [
+        980,
+        1650,
+        800,
+        110
+      ],
+      "icon": "db",
+      "role": "memory",
+      "label": "MM2 cache port（11/04）",
+      "sublabel": "prefix・MTP carry・block table を再利用"
+    },
+    {
+      "id": "q456",
+      "box": [
+        980,
+        1810,
+        800,
+        110
+      ],
+      "icon": "db",
+      "role": "third",
+      "label": "Q4 / Q5 / Q6 へ移植（11/05）",
+      "sublabel": "indexer のみ FP32・866 tensor は byte 一致"
+    },
+    {
+      "id": "k64",
+      "box": [
+        980,
+        1970,
+        800,
+        110
+      ],
+      "icon": "warn",
+      "role": "third",
+      "label": "64k 実文章監査",
+      "sublabel": "PPL +1.8〜2.4%・capture 74%"
+    },
+    {
+      "id": "iq3",
+      "box": [
+        980,
+        2130,
+        800,
+        110
+      ],
+      "icon": "chip",
+      "role": "third",
+      "label": "IQ3_S 配備",
+      "sublabel": "z170 RTX 3090・262k"
+    },
+    {
+      "id": "refusal",
+      "box": [
+        980,
+        2290,
+        800,
+        110
+      ],
+      "icon": "shield",
+      "role": "third",
+      "label": "拒否 3-arm / 実運用（11/06）",
+      "sublabel": "短文 46/46・長文 24/40 で差分"
+    },
+    {
+      "id": "public",
+      "box": [
+        300,
+        2500,
+        1480,
+        100
+      ],
+      "icon": "check",
+      "role": "global",
+      "emphasis": true,
+      "label": "公開・統合（11/06 13:19）— 実用レベルとして再現できる形に",
+      "sublabel": "本リポジトリ・fixed revision・再現チェックリスト・33 tests"
+    }
+  ],
+  "edges": [
+    {
+      "from": "pre",
+      "to": "plan",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "plan",
+      "to": "p0",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "p0",
+      "to": "p1",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "p1",
+      "to": "p2",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "p2",
+      "to": "mm0",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "mm0",
+      "to": "mm1a",
+      "from_side": "bottom",
+      "to_side": "top",
+      "from_fraction": 0.2375,
+      "role": "global"
+    },
+    {
+      "from": "mm0",
+      "to": "mm1b",
+      "from_side": "bottom",
+      "to_side": "top",
+      "from_fraction": 0.7625,
+      "role": "global"
+    },
+    {
+      "from": "mm1b",
+      "to": "mm2",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "mm2",
+      "to": "doc",
+      "from_side": "bottom",
+      "to_side": "top",
+      "from_fraction": 0.72,
+      "to_fraction": 0.72,
+      "role": "global"
+    },
+    {
+      "from": "mm2",
+      "to": "qa",
+      "from_side": "bottom",
+      "to_side": "top",
+      "from_fraction": 0.28,
+      "waypoints": [
+        [
+          606,
+          1620
+        ],
+        [
+          270,
+          1620
+        ]
+      ],
+      "role": "global"
+    },
+    {
+      "from": "p2",
+      "to": "v1",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "muted",
+      "dashed": true
+    },
+    {
+      "from": "engine",
+      "to": "v1",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "v1",
+      "to": "v2",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "v2",
+      "to": "v3",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "v3",
+      "to": "v45",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "v45",
+      "to": "cache",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "mm2",
+      "to": "cache",
+      "from_side": "right",
+      "to_side": "left",
+      "waypoints": [
+        [
+          940,
+          1545
+        ],
+        [
+          940,
+          1705
+        ]
+      ],
+      "role": "muted",
+      "dashed": true
+    },
+    {
+      "from": "cache",
+      "to": "q456",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "third"
+    },
+    {
+      "from": "q456",
+      "to": "k64",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "third"
+    },
+    {
+      "from": "k64",
+      "to": "iq3",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "third"
+    },
+    {
+      "from": "iq3",
+      "to": "refusal",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "third"
+    },
+    {
+      "from": "doc",
+      "to": "public",
+      "from_side": "right",
+      "to_side": "top",
+      "waypoints": [
+        [
+          915,
+          1705
+        ],
+        [
+          915,
+          2500
+        ]
+      ],
+      "to_fraction": 0.4155,
+      "role": "muted",
+      "dashed": true
+    },
+    {
+      "from": "refusal",
+      "to": "public",
+      "from_side": "bottom",
+      "to_side": "top",
+      "to_fraction": 0.7297,
+      "role": "muted",
+      "dashed": true
+    }
+  ],
+  "captions": [
+    {
+      "x": 60,
+      "y": 60,
+      "text": "QSA Indexer 実用化までの実験ツリー",
+      "size": 44,
+      "bold": true,
+      "ha": "left"
+    },
+    {
+      "x": 60,
+      "y": 112,
+      "text": "2026-09-04 → 11-06 ／ orx 15 実験・31 run と native 移植を、判断と結果つきで一本の系譜に",
+      "size": 23,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 60,
+      "y": 152,
+      "text": "出典: qsa-indexer-forge @ 649e478　／　orx DB・run log・Codex / DSH セッション記録から再構成",
+      "size": 17,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 80,
+      "y": 325,
+      "text": "学習・評価（orx）",
+      "size": 19,
+      "color": "global",
+      "bold": true,
+      "ha": "left"
+    },
+    {
+      "x": 980,
+      "y": 805,
+      "text": "native 実装 → 量子化・配備",
+      "size": 19,
+      "color": "memory",
+      "bold": true,
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 1905,
+      "text": "到達点",
+      "size": 22,
+      "color": "text",
+      "bold": true,
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 1955,
+      "text": "16k capture 0.941 ／ PPL -0.017%",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 1995,
+      "text": "MM2 capture 0.935 ／ PPL -0.022%",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 2035,
+      "text": "262k decode 41.07 tok/s（dense 22.91）",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 2105,
+      "text": "残る課題",
+      "size": 22,
+      "color": "text",
+      "bold": true,
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 2155,
+      "text": "64k 実文章で +1.8〜2.4%・oracle gap 9pt",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 2195,
+      "text": "Stage 2 未実施・MTP は dense のまま",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 110,
+      "y": 2235,
+      "text": "bit 一致の再生成は不可（weights-only）",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 80,
+      "y": 2645,
+      "text": "■ 前史・診断",
+      "size": 18,
+      "color": "local",
+      "ha": "left"
+    },
+    {
+      "x": 300,
+      "y": 2645,
+      "text": "■ Indexer 蒸留",
+      "size": 18,
+      "color": "global",
+      "ha": "left"
+    },
+    {
+      "x": 560,
+      "y": 2645,
+      "text": "■ native 実装",
+      "size": 18,
+      "color": "memory",
+      "ha": "left"
+    },
+    {
+      "x": 840,
+      "y": 2645,
+      "text": "■ 評価・配備",
+      "size": 18,
+      "color": "third",
+      "ha": "left"
+    },
+    {
+      "x": 1100,
+      "y": 2645,
+      "text": "破線は系統をまたぐ引き継ぎ、実線は実験の親子関係。",
+      "size": 17,
+      "color": "muted",
+      "ha": "left"
+    }
+  ]
+}

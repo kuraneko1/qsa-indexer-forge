@@ -30,6 +30,8 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 
 工程を詳しく追う図は [学習から実行まで（mid）](docs/assets/qsa-training-flow-mid.png)、[llama.cpp パイプライン](docs/assets/llama-cpp-pipeline.png)、[dense / QSA の統制評価](docs/assets/evaluation-flow.png) を参照してください。
 
+実験がどのように積み上がったか（P0 → P1 → P2 → MM0〜MM2 → native → 量子化・配備）は [実用化までの実験ツリー](docs/assets/qsa-experiment-tree.png) にまとめています。
+
 ## アーキテクチャ（変換前 / 変換後）
 
 [![変換前の Qwen3.8-27B と変換後の Qwen3.8-27B-QSA](docs/assets/architecture/qsa-architecture-ja.png)](docs/assets/architecture/qsa-architecture-ja.png)

@@ -8,6 +8,7 @@
 | Training to llama.cpp | `qsa-training-flow-mid.png` | `qsa-training-flow-mid.svg` | `qsa-training-flow-mid.scene.json` |
 | llama.cpp pipeline | `llama-cpp-pipeline.png` | `llama-cpp-pipeline.svg` | `llama-cpp-pipeline.scene.json` |
 | Dense / QSA evaluation | `evaluation-flow.png` | `evaluation-flow.svg` | `evaluation-flow.scene.json` |
+| 実用化までの実験ツリー | `qsa-experiment-tree.png` | `qsa-experiment-tree.svg` | `qsa-experiment-tree.scene.json` |
 | 変換前 / 変換後のアーキテクチャ | `architecture/qsa-architecture-ja.png` | `architecture/qsa-architecture-ja.svg`（outlined 版・PDF も同梱） | 原研究リポジトリの `build.py` で再生成 |
 
 English 版は `architecture/qsa-architecture-en.png` / `.svg` / `-outlined.svg` / `.pdf` です。
