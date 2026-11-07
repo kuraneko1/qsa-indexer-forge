@@ -1,12 +1,14 @@
 # Figure assets
 
-3 図とも [architecture-explainer](https://github.com/kuraneko1/architecture-explainer) の **mid**、`jade-violet` palette、衝突検査付き renderer で作成しました。
+工程図は `jade-violet` palette のベクター描画で、アイコンも画像ではなく図形として描いています。`scripts/render_flowchart.py` が文字・矢印の衝突を検査し、問題があれば書き出しません。
 
 | Figure | PNG | Editable SVG | Scene JSON |
 |---|---|---|---|
+| 全体像 | `qsa-overview.png` | `qsa-overview.svg` | `qsa-overview.scene.json` |
 | Training to llama.cpp | `qsa-training-flow-mid.png` | `qsa-training-flow-mid.svg` | `qsa-training-flow-mid.scene.json` |
 | llama.cpp pipeline | `llama-cpp-pipeline.png` | `llama-cpp-pipeline.svg` | `llama-cpp-pipeline.scene.json` |
 | Dense / QSA evaluation | `evaluation-flow.png` | `evaluation-flow.svg` | `evaluation-flow.scene.json` |
+| 変換前 / 変換後のアーキテクチャ | `architecture/qsa-architecture-ja.png` | `architecture/qsa-architecture-ja.svg`（outlined 版・PDF も同梱） | 原研究リポジトリの `build.py` で再生成 |
 
 ## Synthetic multimodal samples
 
@@ -18,14 +20,31 @@ uv run --locked --extra train python docs/assets/build_multimodal_samples.py
 
 ## Regenerate
 
-`architecture-explainer` を取得し、Python に Matplotlib・Pillow・Noto Sans CJK JP を用意します。
+Python に Matplotlib と Noto Sans CJK JP を用意します。
 
 ```sh
-python /path/to/architecture-explainer/scripts/diagram.py \
-  docs/assets/llama-cpp-pipeline.scene.json \
-  --out /tmp/llama-cpp-pipeline --palette jade-violet
+uv pip install matplotlib
+python scripts/render_flowchart.py docs/assets/qsa-overview.scene.json \
+  --out /tmp/qsa-overview --palette jade-violet
 ```
 
-renderer は PNG、editable / outlined SVG、preview、geometry、validation JSON を出力します。テキストや矢印の衝突、未解決の配線交差がある場合は出力を拒否します。
+renderer は次を検査し、問題があれば書き出さずに終了します。
 
-図の事実の出典は `qsa-indexer-forge` revision `eb0fd3feee754ff119d7ccc0c613558c60876436`。詳細と評価条件は各図を参照している Markdown 文書に記載しています。
+- 文字同士の重なり、ノードからの文字はみ出し、canvas 外への流出
+- 矢印と他ノード・文字の交差
+
+Scene JSON の主なキー:
+
+| キー | 意味 |
+|---|---|
+| `canvas` | `[幅, 高さ]` |
+| `nodes[].icon` | `lock db gear shield image chip flow check warn scale arrow layers` |
+| `nodes[].role` | `neutral local global memory modulation`（配色を決める） |
+| `nodes[].emphasis` | 濃い塗り + 白文字 |
+| `edges[].from_side` / `to_side` | `top right bottom left`。省略時は位置から決める |
+| `edges[].waypoints` | 折れ点を明示して検証を通す |
+| `frames` / `captions` / `lines` | 背景帯、見出し、注記 |
+
+アーキテクチャ図（`architecture/`）は原研究リポジトリの `docs/figures/qsa-architecture/build.py` で再生成します。PNG は 3600×2820 です。
+
+図の事実の出典は `qsa-indexer-forge` revision `eb0fd3f`（アーキテクチャ図）と各 scene。詳細と評価条件は各図を参照している Markdown 文書に記載しています。

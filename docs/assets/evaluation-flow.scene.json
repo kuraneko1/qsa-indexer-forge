@@ -15,7 +15,8 @@
       "label": "同一 GGUF・固定入力",
       "sublabel": "seed / context / KV / MTP をそろえる",
       "role": "memory",
-      "fontsize": 24
+      "fontsize": 24,
+      "icon": "db"
     },
     {
       "id": "dense",
@@ -28,7 +29,8 @@
       "label": "dense 対照",
       "sublabel": "LLAMA_QSA_DENSE=1",
       "role": "local",
-      "fontsize": 25
+      "fontsize": 25,
+      "icon": "scale"
     },
     {
       "id": "qsa",
@@ -43,7 +45,8 @@
       "role": "global",
       "fontsize": 25,
       "emphasis": true,
-      "bold": true
+      "bold": true,
+      "icon": "gear"
     },
     {
       "id": "compare",
@@ -56,7 +59,8 @@
       "label": "同じ指標で比較",
       "sublabel": "PPL / capture / 実生成 / 速度",
       "role": "modulation",
-      "fontsize": 24
+      "fontsize": 24,
+      "icon": "scale"
     },
     {
       "id": "record",
@@ -69,7 +73,8 @@
       "label": "結果と条件を保存",
       "sublabel": "差なしを「同等」と書かない",
       "role": "modulation",
-      "fontsize": 24
+      "fontsize": 24,
+      "icon": "check"
     },
     {
       "id": "metric-note",
@@ -81,7 +86,8 @@
       ],
       "label": "capture は品質ではない",
       "sublabel": "短文では full 選択になり得る",
-      "role": "modulation"
+      "role": "modulation",
+      "icon": "warn"
     },
     {
       "id": "unknown-note",
@@ -93,7 +99,8 @@
       ],
       "label": "未測定範囲を明記",
       "sublabel": "128k/262k・画像・動画",
-      "role": "modulation"
+      "role": "modulation",
+      "icon": "warn"
     }
   ],
   "edges": [

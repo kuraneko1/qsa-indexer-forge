@@ -15,7 +15,8 @@
       "label": "1. HF → GGUF",
       "sublabel": "Indexer 80 tensors / FP32",
       "role": "memory",
-      "fontsize": 24
+      "fontsize": 24,
+      "icon": "db"
     },
     {
       "id": "load",
@@ -28,7 +29,8 @@
       "label": "2. GGUF を読む",
       "sublabel": "qwen35 + Indexer metadata",
       "role": "memory",
-      "fontsize": 24
+      "fontsize": 24,
+      "icon": "db"
     },
     {
       "id": "graph",
@@ -43,7 +45,8 @@
       "role": "global",
       "fontsize": 24,
       "emphasis": true,
-      "bold": true
+      "bold": true,
+      "icon": "gear"
     },
     {
       "id": "infer",
@@ -58,7 +61,8 @@
       "role": "global",
       "fontsize": 24,
       "emphasis": true,
-      "bold": true
+      "bold": true,
+      "icon": "chip"
     },
     {
       "id": "convert-detail",
@@ -70,7 +74,8 @@
       ],
       "label": "FP32 を保持",
       "sublabel": "norm は 1 + weight に fold",
-      "role": "memory"
+      "role": "memory",
+      "icon": "db"
     },
     {
       "id": "load-detail",
@@ -82,7 +87,8 @@
       ],
       "label": "hybrid Indexer cache",
       "sublabel": "GGUF metadata / tensor mapping",
-      "role": "memory"
+      "role": "memory",
+      "icon": "db"
     },
     {
       "id": "graph-detail",
@@ -94,7 +100,8 @@
       ],
       "label": "top-k 512 blocks",
       "sublabel": "mask / fast block の 2 経路",
-      "role": "global"
+      "role": "global",
+      "icon": "gear"
     },
     {
       "id": "infer-detail",
@@ -106,7 +113,8 @@
       ],
       "label": "qsa-attn.cu / 選択 KV",
       "sublabel": "MTP・prefix cache",
-      "role": "global"
+      "role": "global",
+      "icon": "chip"
     },
     {
       "id": "limits",
@@ -118,7 +126,8 @@
       ],
       "label": "stock llama.cpp は不可",
       "sublabel": "品質・全長は別途評価",
-      "role": "modulation"
+      "role": "modulation",
+      "icon": "warn"
     },
     {
       "id": "fallback",
@@ -130,7 +139,8 @@
       ],
       "label": "短文・未対応形状",
       "sublabel": "mask / reference fallback",
-      "role": "local"
+      "role": "local",
+      "icon": "lock"
     },
     {
       "id": "dense",
@@ -142,7 +152,8 @@
       ],
       "label": "LLAMA_QSA_DENSE=1",
       "sublabel": "16 層を dense に戻す",
-      "role": "local"
+      "role": "local",
+      "icon": "lock"
     },
     {
       "id": "verify",
@@ -154,7 +165,8 @@
       ],
       "label": "検証して記録",
       "sublabel": "tensor / 実生成 / 速度",
-      "role": "modulation"
+      "role": "modulation",
+      "icon": "check"
     }
   ],
   "edges": [
@@ -216,7 +228,17 @@
       "from_side": "left",
       "to_side": "top",
       "role": "local",
-      "dashed": true
+      "dashed": true,
+      "waypoints": [
+        [
+          1050,
+          495
+        ],
+        [
+          635,
+          495
+        ]
+      ]
     },
     {
       "from": "graph-detail",

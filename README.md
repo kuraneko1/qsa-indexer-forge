@@ -10,6 +10,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 ## 目次
 
 - [全体図](#全体図)
+- [アーキテクチャ（変換前 / 変換後）](#アーキテクチャ変換前--変換後)
 - [合成マルチモーダル画像](#合成マルチモーダル画像)
 - [できること](#できること)
 - [ドキュメント](#ドキュメント)
@@ -23,9 +24,23 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 
 ## 全体図
 
-[![QSA Indexer 学習から llama.cpp 実行までの mid フローチャート](docs/assets/qsa-training-flow-mid.png)](docs/assets/qsa-training-flow-mid.png)
+[![QSA Indexer 学習から llama.cpp 実行までの全体フローチャート](docs/assets/qsa-overview.png)](docs/assets/qsa-overview.png)
 
-学習する Indexer、凍結する backbone、形式変換、専用 runtime、評価の関係を示す **mid** 図です。[SVG](docs/assets/qsa-training-flow-mid.svg) / [編集用 scene](docs/assets/qsa-training-flow-mid.scene.json)。
+凍結した 27B → Indexer 蒸留 → 形式変換 → 専用 llama.cpp → 評価の 5 段階を、アイコン付きで示した全体図です。[SVG](docs/assets/qsa-overview.svg) / [編集用 scene](docs/assets/qsa-overview.scene.json)。
+
+工程を詳しく追う図は [学習から実行まで（mid）](docs/assets/qsa-training-flow-mid.png)、[llama.cpp パイプライン](docs/assets/llama-cpp-pipeline.png)、[dense / QSA の統制評価](docs/assets/evaluation-flow.png) を参照してください。
+
+## アーキテクチャ（変換前 / 変換後）
+
+[![変換前の Qwen3.8-27B と変換後の Qwen3.8-27B-QSA](docs/assets/architecture/qsa-architecture-ja.png)](docs/assets/architecture/qsa-architecture-ja.png)
+
+左が元の Qwen3.8-27B、右が QSA 化したモデルです。64 層（GDN 48 + 全注意 16）と MTP 1 層の構成は変えず、**16 の全注意層に Indexer を足しただけ**で、塗りつぶした Indexer だけが追加学習の対象です。KV は全履歴を保持し、紫のブロックは読み出し対象の選択を表します。
+
+- 追加分: 16 層 × 5 テンソル = 80 テンソル、52,434,944 params、FP32
+- 不変: backbone・vision encoder・projector・MTP の重み、層の種類と順序
+- 選択: `K=2048` トークン（`r=4` で 512 ブロック）+ 現在の自ブロック
+
+[解説と図の読み方](docs/architecture.md) / [SVG](docs/assets/architecture/qsa-architecture-ja.svg) / [Outlined SVG](docs/assets/architecture/qsa-architecture-ja-outlined.svg) / [PDF](docs/assets/architecture/qsa-architecture-ja.pdf) / [English](docs/assets/architecture/qsa-architecture-en.png)
 
 ### 合成マルチモーダル画像
 
@@ -50,6 +65,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 
 | 文書 | 内容 |
 |---|---|
+| [アーキテクチャ（変換前 / 変換後）](docs/architecture.md) | 層構成、Indexer の位置、KV と MTP の扱い |
 | [Indexer 学習ガイド](docs/training.md) | 数式、データ、学習ループ、実行コマンド、所要時間 |
 | [llama.cpp 対応ガイド](docs/llama-cpp.md) | GGUF 変換、model graph、CUDA kernel、MTP、cache、patch |
 | [評価と限界](docs/evaluation.md) | PPL、capture、retrieval、DocVQA、速度、未検証事項 |

@@ -15,7 +15,8 @@
       "label": "64 層中 16 層が full attention",
       "sublabel": "残り 48 GDN / MTP は対象外",
       "role": "local",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "layers"
     },
     {
       "id": "inputs",
@@ -28,7 +29,8 @@
       "label": "固定した入力と凍結",
       "sublabel": "Qwen3.8-27B / FineWeb-Edu / 合成画像",
       "role": "memory",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "lock"
     },
     {
       "id": "learned",
@@ -41,7 +43,8 @@
       "label": "学習は Indexer のみ",
       "sublabel": "52,434,944 params / FP32",
       "role": "global",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "scale"
     },
     {
       "id": "p0",
@@ -54,7 +57,8 @@
       "label": "P0: dense 診断",
       "sublabel": "oracle capture・dense PPL（任意の事前検査）",
       "role": "local",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "scale"
     },
     {
       "id": "teacher",
@@ -67,7 +71,8 @@
       "label": "dense teacher",
       "sublabel": "head 和 → 4 token block max → L1 正規化",
       "role": "local",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "db"
     },
     {
       "id": "text",
@@ -82,7 +87,8 @@
       "role": "global",
       "fontsize": 23,
       "emphasis": true,
-      "bold": true
+      "bold": true,
+      "icon": "gear"
     },
     {
       "id": "loss",
@@ -95,7 +101,8 @@
       "label": "Indexer scores → KL → AdamW",
       "sublabel": "凍結 backbone / 層ごとに FP32 逆伝播",
       "role": "global",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "gear"
     },
     {
       "id": "mix",
@@ -108,7 +115,8 @@
       "label": "画像を後半 72% に配置",
       "sublabel": "text:image = 0.5 / 質問領域の重み 4",
       "role": "memory",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "image"
     },
     {
       "id": "mm",
@@ -121,7 +129,8 @@
       "label": "マルチモーダル継続蒸留",
       "sublabel": "text + image / 300 step / lr 3e-4",
       "role": "global",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "gear"
     },
     {
       "id": "mm2",
@@ -134,7 +143,8 @@
       "label": "MM2 checkpoint",
       "sublabel": "qsa_indexers.pt / SHA256 を検証",
       "role": "global",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "db"
     },
     {
       "id": "hf",
@@ -147,7 +157,8 @@
       "label": "Hugging Face export",
       "sublabel": "backbone 不変 + 80 FP32 Indexer tensors",
       "role": "memory",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "db"
     },
     {
       "id": "preserve",
@@ -159,7 +170,8 @@
       ],
       "label": "元の 18 shard・vision・MTP を保持",
       "role": "memory",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "lock"
     },
     {
       "id": "gguf",
@@ -172,7 +184,8 @@
       "label": "GGUF 変換・Indexer 移植",
       "sublabel": "QSA metadata を追加 / 再量子化なし",
       "role": "memory",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "db"
     },
     {
       "id": "fold",
@@ -185,7 +198,8 @@
       "label": "norm は 1 + weight に fold",
       "sublabel": "Indexer は FP32 のまま",
       "role": "memory",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "lock"
     },
     {
       "id": "native",
@@ -198,7 +212,8 @@
       "label": "専用 llama.cpp で実行",
       "sublabel": "疎 CUDA・MTP・prefix cache",
       "role": "modulation",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "chip"
     },
     {
       "id": "fork",
@@ -211,7 +226,8 @@
       "label": "stock llama.cpp は非対応",
       "sublabel": "e697cf2c / base 6209237 + patch",
       "role": "modulation",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "warn"
     },
     {
       "id": "limits",
@@ -224,7 +240,8 @@
       "label": "品質同等は未証明",
       "sublabel": "長文・画像・動画は条件付き評価",
       "role": "modulation",
-      "fontsize": 21
+      "fontsize": 21,
+      "icon": "warn"
     },
     {
       "id": "eval",
@@ -237,7 +254,8 @@
       "label": "評価して保存",
       "sublabel": "dense 対照 / PPL / capture / 実生成",
       "role": "modulation",
-      "fontsize": 23
+      "fontsize": 23,
+      "icon": "check"
     }
   ],
   "edges": [

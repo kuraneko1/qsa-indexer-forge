@@ -1,0 +1,314 @@
+{
+  "canvas": [
+    1550,
+    720
+  ],
+  "nodes": [
+    {
+      "id": "inputs",
+      "box": [
+        35,
+        205,
+        280,
+        132
+      ],
+      "label": "入力と凍結",
+      "sublabel": "Qwen3.8-27B",
+      "role": "local",
+      "icon": "lock",
+      "fontsize": 25,
+      "subsize": 19
+    },
+    {
+      "id": "distill",
+      "box": [
+        335,
+        205,
+        280,
+        132
+      ],
+      "label": "Indexer 蒸留",
+      "sublabel": "text → image",
+      "role": "global",
+      "icon": "gear",
+      "fontsize": 25,
+      "subsize": 19,
+      "emphasis": true,
+      "bold": true
+    },
+    {
+      "id": "convert",
+      "box": [
+        635,
+        205,
+        280,
+        132
+      ],
+      "label": "形式変換",
+      "sublabel": "HF → GGUF",
+      "role": "memory",
+      "icon": "db",
+      "fontsize": 25,
+      "subsize": 19
+    },
+    {
+      "id": "runtime",
+      "box": [
+        935,
+        205,
+        280,
+        132
+      ],
+      "label": "専用 llama.cpp",
+      "sublabel": "疎 CUDA / MTP",
+      "role": "modulation",
+      "icon": "chip",
+      "fontsize": 25,
+      "subsize": 19
+    },
+    {
+      "id": "eval",
+      "box": [
+        1235,
+        205,
+        280,
+        132
+      ],
+      "label": "評価",
+      "sublabel": "dense 対照",
+      "role": "modulation",
+      "icon": "check",
+      "fontsize": 25,
+      "subsize": 19
+    },
+    {
+      "id": "n1",
+      "box": [
+        35,
+        435,
+        280,
+        96
+      ],
+      "label": "GDN 48 + 全注意 16 + MTP 1",
+      "sublabel": "Indexer は 16 層だけ",
+      "role": "local",
+      "icon": "layers",
+      "fontsize": 18,
+      "subsize": 15
+    },
+    {
+      "id": "n2",
+      "box": [
+        335,
+        435,
+        280,
+        96
+      ],
+      "label": "52.4M params・FP32",
+      "sublabel": "block KL / 300 step",
+      "role": "global",
+      "icon": "scale",
+      "fontsize": 18,
+      "subsize": 15
+    },
+    {
+      "id": "n3",
+      "box": [
+        635,
+        435,
+        280,
+        96
+      ],
+      "label": "元の 18 shard は不変",
+      "sublabel": "Indexer を別 shard に追加",
+      "role": "memory",
+      "icon": "db",
+      "fontsize": 18,
+      "subsize": 15
+    },
+    {
+      "id": "n4",
+      "box": [
+        935,
+        435,
+        280,
+        96
+      ],
+      "label": "e697cf2c",
+      "sublabel": "base 6209237 + patch",
+      "role": "modulation",
+      "icon": "warn",
+      "fontsize": 18,
+      "subsize": 15
+    },
+    {
+      "id": "n5",
+      "box": [
+        1235,
+        435,
+        280,
+        96
+      ],
+      "label": "品質同等は未証明",
+      "sublabel": "長文・画像は条件付き",
+      "role": "modulation",
+      "icon": "shield",
+      "fontsize": 18,
+      "subsize": 15
+    }
+  ],
+  "edges": [
+    {
+      "from": "inputs",
+      "to": "distill",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "local",
+      "width": 2.2
+    },
+    {
+      "from": "distill",
+      "to": "convert",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "global",
+      "width": 2.2
+    },
+    {
+      "from": "convert",
+      "to": "runtime",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "memory",
+      "width": 2.2
+    },
+    {
+      "from": "runtime",
+      "to": "eval",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "modulation",
+      "width": 2.2
+    },
+    {
+      "from": "inputs",
+      "to": "n1",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "local",
+      "dashed": true
+    },
+    {
+      "from": "distill",
+      "to": "n2",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global",
+      "dashed": true
+    },
+    {
+      "from": "convert",
+      "to": "n3",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory",
+      "dashed": true
+    },
+    {
+      "from": "runtime",
+      "to": "n4",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "modulation",
+      "dashed": true
+    },
+    {
+      "from": "eval",
+      "to": "n5",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "modulation",
+      "dashed": true
+    }
+  ],
+  "frames": [
+    {
+      "box": [
+        18,
+        185,
+        1514,
+        370
+      ],
+      "role": "frame",
+      "fill": "base",
+      "fill_alpha": 1,
+      "radius": 18
+    }
+  ],
+  "captions": [
+    {
+      "x": 35,
+      "y": 52,
+      "text": "QSA Indexer 学習から llama.cpp 実行まで",
+      "size": 44,
+      "ha": "left",
+      "bold": true
+    },
+    {
+      "x": 35,
+      "y": 104,
+      "text": "凍結した 27B に Indexer を蒸留し、専用 runtime へ接続する流れ",
+      "size": 23,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 35,
+      "y": 140,
+      "text": "出典: qsa-indexer-forge @ 9ed4508　／　論文の Stage 2（backbone sparse adaptation）は未実施",
+      "size": 17,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 35,
+      "y": 612,
+      "text": "■ 既存・凍結",
+      "size": 20,
+      "color": "local",
+      "ha": "left"
+    },
+    {
+      "x": 250,
+      "y": 612,
+      "text": "■ Indexer 学習",
+      "size": 20,
+      "color": "global",
+      "ha": "left"
+    },
+    {
+      "x": 465,
+      "y": 612,
+      "text": "■ データ・重み",
+      "size": 20,
+      "color": "memory",
+      "ha": "left"
+    },
+    {
+      "x": 680,
+      "y": 612,
+      "text": "■ 実行・評価",
+      "size": 20,
+      "color": "modulation",
+      "ha": "left"
+    },
+    {
+      "x": 35,
+      "y": 666,
+      "text": "実線は作業の主線、破線は注記。詳細は docs/README.md の図解一覧を参照。",
+      "size": 18,
+      "color": "muted",
+      "ha": "left"
+    }
+  ]
+}

@@ -1,4 +1,15 @@
-# GGUF utilities
+# Scripts
+
+## Flowchart renderer
+
+`render_flowchart.py` は `docs/assets/*.scene.json` から PNG / SVG を描画します。アイコンはベクターで、文字の重なり・はみ出し・矢印の交差を検査し、問題があれば書き出しません。
+
+```sh
+python scripts/render_flowchart.py docs/assets/qsa-overview.scene.json \
+  --out /tmp/qsa-overview --palette jade-violet
+```
+
+## GGUF utilities
 
 ## 量子化済み GGUF に Indexer だけを移植する
 
