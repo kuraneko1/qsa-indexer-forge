@@ -8,6 +8,14 @@
 | llama.cpp pipeline | `llama-cpp-pipeline.png` | `llama-cpp-pipeline.svg` | `llama-cpp-pipeline.scene.json` |
 | Dense / QSA evaluation | `evaluation-flow.png` | `evaluation-flow.svg` | `evaluation-flow.scene.json` |
 
+## Synthetic multimodal samples
+
+`multimodal-training-samples.png` は `qsa/mm_data.py` が生成する OCR・表・図形カウントの 8 例です。seed・質問・回答・各ソース PNG の SHA256 は `multimodal-training-samples.json` にあります。
+
+```sh
+uv run --locked --extra train python docs/assets/build_multimodal_samples.py
+```
+
 ## Regenerate
 
 `architecture-explainer` を取得し、Python に Matplotlib・Pillow・Noto Sans CJK JP を用意します。

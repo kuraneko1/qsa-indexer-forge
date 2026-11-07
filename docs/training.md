@@ -97,7 +97,7 @@ for each step:
 ## 6. データ
 
 ### テキスト
-- `HuggingFaceFW/fineweb-edu` / `sample-10BT` を **streaming** で読み、文書を EOS で連結して
+- [HuggingFaceFW/fineweb-edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) / `sample-10BT` を **streaming** で読み、文書を EOS で連結して
   `seq_len` ごとに切る（`qsa/data.py:11-46`）。ブロックは文書境界をまたぐ。
 - revision は `87f09149ef4734204d70ed1d046ddc9ca3f2b8f9` に固定（`configs/text-local.yaml:21`、`qsa/data.py:29-30`）。
 - 評価用ブロックは `skip_docs` をずらして取る（学習 0 / 評価 50,000。`configs/text-local.yaml:23-25`）。
@@ -108,6 +108,10 @@ for each step:
   - `table-cell`: 2×2 の数値表
   - `shape-count`: 赤い円の個数
 - seed から決定的に生成し、`GENERATOR_VERSION="mm0-synth-v1"` と各 PNG の SHA256 を記録（`mm_data.py:16,26-29,109-112`）。
+
+[![MM 学習で生成する合成画像8例](assets/multimodal-training-samples.png)](assets/multimodal-training-samples.png)
+
+OCR・表・図形カウントの実例です。[seed・質問・回答・画像ごとの SHA256](assets/multimodal-training-samples.json) を manifest に記録しています。
 - 1 step は「テキスト」か「画像+テキスト」のどちらか（`mm_ratio=0.5` で抽選。`qsa/train_mm.py:136-145`）。
   画像は詰め物テキストの **72% 位置**に置き、画像トークンが K ブロックを超える状況（N>K）を作る（`mm_data.py:147-153`）。
 - 詰め物は fineweb から取り、`filler_pool=4` 本を用意して使い回す（`train_mm.py:33-46,113-117`）。

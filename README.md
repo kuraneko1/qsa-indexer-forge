@@ -10,6 +10,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 ## 目次
 
 - [全体図](#全体図)
+- [合成マルチモーダル画像](#合成マルチモーダル画像)
 - [できること](#できること)
 - [ドキュメント](#ドキュメント)
 - [Quick start: CPU で実装を検証](#quick-start-cpu-で実装を検証)
@@ -25,6 +26,14 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 [![QSA Indexer 学習から llama.cpp 実行までの mid フローチャート](docs/assets/qsa-training-flow-mid.png)](docs/assets/qsa-training-flow-mid.png)
 
 学習する Indexer、凍結する backbone、形式変換、専用 runtime、評価の関係を示す **mid** 図です。[SVG](docs/assets/qsa-training-flow-mid.svg) / [編集用 scene](docs/assets/qsa-training-flow-mid.scene.json)。
+
+### 合成マルチモーダル画像
+
+実際の MM 学習コードが生成する OCR・数値表・図形カウントの 8 例です。画像内の文字や個数を追えるよう、種類と seed を併記しています。
+
+[![マルチモーダル蒸留に使う合成画像8例](docs/assets/multimodal-training-samples.png)](docs/assets/multimodal-training-samples.png)
+
+[各画像の seed・質問・回答・SHA256](docs/assets/multimodal-training-samples.json) / [生成スクリプト](docs/assets/build_multimodal_samples.py)。
 
 ## できること
 

@@ -1,0 +1,157 @@
+{
+  "generator": "mm0-synth-v1",
+  "samples": [
+    {
+      "slot": 1,
+      "id": "code-ocr",
+      "seed": 0,
+      "question": "What is the access code shown in the image?",
+      "answer": 0,
+      "answer_content": {
+        "code": "60494"
+      },
+      "png_sha256": "7ae8b810d1ae12c5d94b297509cc36af118cc68f9d834897c73f6306831667c1",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 2,
+      "id": "code-ocr",
+      "seed": 1,
+      "question": "What is the access code shown in the image?",
+      "answer": 0,
+      "answer_content": {
+        "code": "27611"
+      },
+      "png_sha256": "a0c3ff373edae623c9b920c79f3fd93215cb58d869362ec6020a3c00a5b8bb56",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 3,
+      "id": "code-ocr",
+      "seed": 2,
+      "question": "What is the access code shown in the image?",
+      "answer": 1,
+      "answer_content": {
+        "code": "17412"
+      },
+      "png_sha256": "a3ddef91b8e8d521112128e0b9af8f0cc50f976a1afdc2c3ee3524f78dff5582",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 4,
+      "id": "table-cell",
+      "seed": 0,
+      "question": "What number is in the top-left cell of the table?",
+      "answer": 1,
+      "answer_content": {
+        "rows": [
+          [
+            "55",
+            "84"
+          ],
+          [
+            "37",
+            "74"
+          ]
+        ]
+      },
+      "png_sha256": "66c8c0d71259d9fefed70c53f1f48d923fb6e2e4e8943872f6781a4203ad781a",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 5,
+      "id": "table-cell",
+      "seed": 1,
+      "question": "What number is in the top-left cell of the table?",
+      "answer": 1,
+      "answer_content": {
+        "rows": [
+          [
+            "36",
+            "22"
+          ],
+          [
+            "72",
+            "13"
+          ]
+        ]
+      },
+      "png_sha256": "2042f8c3fcc206e194074be4d525828c1f8aebb51d6392f355156a2ccacc04ea",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 6,
+      "id": "table-cell",
+      "seed": 2,
+      "question": "What number is in the top-left cell of the table?",
+      "answer": 0,
+      "answer_content": {
+        "rows": [
+          [
+            "87",
+            "14"
+          ],
+          [
+            "84",
+            "97"
+          ]
+        ]
+      },
+      "png_sha256": "e7c45154b7f43c835dc47265b0fff8654d5329640af2e13f983b76df6b87758d",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 7,
+      "id": "shape-count",
+      "seed": 0,
+      "question": "How many red circles are shown in the image?",
+      "answer": 1,
+      "answer_content": {
+        "count": 5
+      },
+      "png_sha256": "b42f314dc7bff17ecd5c5372206ac3fcb63c94ec979a01af4c4946fd2bee096a",
+      "image_size": [
+        640,
+        448
+      ]
+    },
+    {
+      "slot": 8,
+      "id": "shape-count",
+      "seed": 5,
+      "question": "How many red circles are shown in the image?",
+      "answer": 2,
+      "answer_content": {
+        "count": 8
+      },
+      "png_sha256": "48cb5f94b38b3247410d1aa856c736c96a30181db89d71c7f1cc2f8b2a3e70f6",
+      "image_size": [
+        640,
+        448
+      ]
+    }
+  ],
+  "canvas": [
+    2668,
+    1212
+  ],
+  "note": "Synthetic deterministic training images; no external image dataset or personal data."
+}

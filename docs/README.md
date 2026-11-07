@@ -13,6 +13,7 @@
 | [学習から llama.cpp 実行まで](assets/qsa-training-flow-mid.png) | 入力・凍結、テキスト蒸留、MM 継続、HF / GGUF、専用 runtime、評価 | [SVG](assets/qsa-training-flow-mid.svg) / [scene](assets/qsa-training-flow-mid.scene.json) |
 | [llama.cpp QSA 実行パイプライン](assets/llama-cpp-pipeline.png) | convert → load → graph → inference、dense / fallback、検証 | [SVG](assets/llama-cpp-pipeline.svg) / [scene](assets/llama-cpp-pipeline.scene.json) |
 | [dense / QSA の統制評価](assets/evaluation-flow.png) | 同一条件での分岐、同じ指標での比較、結果と未測定範囲の保存 | [SVG](assets/evaluation-flow.svg) / [scene](assets/evaluation-flow.scene.json) |
+| [MM 学習の合成画像8例](assets/multimodal-training-samples.png) | OCR・数値表・図形カウントを seed 付きで表示 | [manifest](assets/multimodal-training-samples.json) / [生成 script](assets/build_multimodal_samples.py) |
 
 すべて **mid** 詳細度です。実装を説明する図であり、新たな GPU 実測や品質保証の証拠ではありません。
 
