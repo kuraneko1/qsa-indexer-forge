@@ -25,3 +25,22 @@ def test_public_mm2_checkpoint_is_immutable():
     assert cfg["indexer_file"] == "indexers/mm2_16k/qsa_indexers.pt"
     assert len(cfg["indexer_revision"]) == 40
     assert len(cfg["indexer_sha256"]) == 64
+
+
+def test_p0_config_is_dense_only_and_pinned():
+    cfg = yaml.safe_load((ROOT / "configs/p0.yaml").read_text())
+    assert "stage" not in cfg or cfg["stage"] == "capture"
+    assert "indexer_repo" not in cfg and "push_to_hub" not in cfg
+    assert cfg["budgets"] == [512, 1024, 2048, 4096]
+    assert cfg["block_size"] == 4
+    assert len(cfg["model_revision"]) == 40
+    assert len(cfg["dataset_revision"]) == 40
+
+
+def test_mm0_config_pins_the_published_indexers():
+    cfg = yaml.safe_load((ROOT / "configs/mm0.yaml").read_text())
+    assert cfg["stage"] == "mm0"
+    assert cfg["indexer_file"] == "indexers/mm2_16k/qsa_indexers.pt"
+    assert len(cfg["indexer_revision"]) == 40
+    assert len(cfg["indexer_sha256"]) == 64
+    assert cfg["block_size"] == 4 and cfg["budget"] == 2048

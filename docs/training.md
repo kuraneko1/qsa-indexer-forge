@@ -168,27 +168,15 @@ python -m qsa.p0_capture --config configs/multimodal-continue-mm2.yaml
 
 ### 7.4 事前診断（任意・推奨）
 
-学習前に dense のブロック捕捉率の上限を見たい場合は P0 を使う。P0 用のキー
-（`budgets`, `n_seqs`, `ppl_len`, `ppl_seqs`）を持つ config を自前で用意する:
+学習前に dense のブロック捕捉率の上限を見たい場合は P0 を使う。同梱の
+[`configs/p0.yaml`](../configs/p0.yaml) が `budgets` / `n_seqs` / `ppl_len` / `ppl_seqs` を持ち、
+dense だけで 16k × 6 系列を回して `p0_results.json` を書く（アップロードしない）。
 
-```yaml
-# 例: configs/p0.yaml（このリポジトリには同梱していない）
-model: Qwen/Qwen3.8-27B
-model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
-seq_len: 16384
-n_seqs: 6
-block_size: 4
-budgets: [512, 1024, 2048, 4096]
-dataset: HuggingFaceFW/fineweb-edu
-dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
-subset: sample-10BT
-skip_docs: 0
-ppl_len: 4096
-ppl_seqs: 4
-ppl_skip_docs: 10000
+```sh
+python -m qsa.p0_capture --config configs/p0.yaml
 ```
 
-`python -m qsa.p0_capture --config configs/p0.yaml` で `p0_results.json` が出る。
+マルチモーダルの事前診断は [`configs/mm0.yaml`](../configs/mm0.yaml) を使う（[評価と限界](evaluation.md#7-mm0学習前の診断)）。
 
 ## 8. 実測リソース（履歴）
 

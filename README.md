@@ -69,6 +69,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 | [Indexer 学習ガイド](docs/training.md) | 数式、データ、学習ループ、実行コマンド、所要時間 |
 | [llama.cpp 対応ガイド](docs/llama-cpp.md) | GGUF 変換、model graph、CUDA kernel、MTP、cache、patch |
 | [評価と限界](docs/evaluation.md) | PPL、capture、retrieval、DocVQA、速度、未検証事項 |
+| [再現チェックリスト](docs/reproduction.md) | 段階ごとの手順、合格条件、つまずきやすい点、再現できない範囲 |
 | [来歴と固定 revision](docs/provenance.md) | 元コード、公開重み、run ID、commit、SHA256 |
 | [元ディレクトリの構造](docs/source-inventory.md) | 正本、関連作業場、OpenResearch の保存物、branch の対応 |
 | [関連セッションの調査](docs/session-research.md) | Codex / OpenResearch / DeepSeek Harness の記録と時系列 |
@@ -83,7 +84,7 @@ cd qsa-indexer-forge
 uv run --locked --extra dev --extra train --extra export python -m pytest -q
 ```
 
-現在の統合版では **31 tests** が CPU で通ることを確認しています。GPU 学習と native CUDA kernel の再ビルドは別工程です。
+現在の統合版では **33 tests** が CPU で通ることを確認しています。GPU 学習と native CUDA kernel の再ビルドは別工程です。
 
 ## Indexer を学習する
 

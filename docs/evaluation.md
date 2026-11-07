@@ -89,31 +89,14 @@ capture = Σ_{query} Σ_{b ∈ 学習器が選んだ top-kb} teacher_b
 - **indexer は HF からしか読まない**（`mm0.py:89-90`）。ローカルの `.pt` を使いたい場合は
   `indexer_repo`/`indexer_file`/`indexer_revision` を指すか、当該箇所を `indexer_path` 対応に変える。
 
-実行例（P0 と同じく `stage: mm0` の config を用意する）:
+同梱の [`configs/mm0.yaml`](../configs/mm0.yaml) が `stage: mm0` と公開 MM2 indexer の
+revision / SHA256 を固定している。
 
-```yaml
-stage: mm0
-model: Qwen/Qwen3.8-27B
-model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
-image_token_id: 248056
-indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
-indexer_revision: d61281f4626729e4cf138476a704c7fedc08f891
-indexer_file: indexers/mm2_16k/qsa_indexers.pt
-indexer_sha256: e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51
-block_size: 4
-budget: 2048
-dataset: HuggingFaceFW/fineweb-edu
-dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
-subset: sample-10BT
-skip_docs: 0
-long_tokens: 6400
-n_short: 2
-n_long: 6
-question_span: 96
-seed: 0
+```sh
+python -m qsa.p0_capture --config configs/mm0.yaml
 ```
 
-`python -m qsa.p0_capture --config <この config>` で `mm0_results.json` と `RESULT` 行が出る。
+`mm0_results.json` と `RESULT` 行が出る。`indexer_sha256` が一致しない場合は実行前に停止する。
 
 ## 8. 実行コマンド（学習と同時に走る）
 

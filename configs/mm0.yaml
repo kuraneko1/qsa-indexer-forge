@@ -1,0 +1,21 @@
+# Optional pre-training diagnostic (MM0): frozen indexer parity and 4-cell capture.
+# Requires a CUDA GPU and reads the published MM2 indexers from the BF16 repo.
+stage: mm0
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+image_token_id: 248056
+indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
+indexer_revision: d61281f4626729e4cf138476a704c7fedc08f891
+indexer_file: indexers/mm2_16k/qsa_indexers.pt
+indexer_sha256: e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51
+block_size: 4
+budget: 2048
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_docs: 0
+long_tokens: 6400
+n_short: 2
+n_long: 6
+question_span: 96
+seed: 0

@@ -5,6 +5,7 @@
 1. [Indexer 学習ガイド](training.md) — 対象層、教師分布、KL、学習設定、実行コマンド、所要時間。
 2. [llama.cpp 対応ガイド](llama-cpp.md) — HF / GGUF 変換、model load、QSA graph、疎 CUDA、MTP、cache。
 3. [評価と限界](evaluation.md) — dense 対照、capture、PPL、retrieval、実生成、未検証範囲。
+4. [再現チェックリスト](reproduction.md) — 段階ごとの手順、合格条件、つまずきやすい点、再現できない範囲。
 
 ## アーキテクチャ
 

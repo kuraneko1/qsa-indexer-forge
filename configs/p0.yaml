@@ -1,0 +1,15 @@
+# Optional pre-training diagnostic (P0): dense oracle block capture and dense PPL.
+# Runs the dense model only; no training, no upload. Writes p0_results.json.
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 16384
+n_seqs: 6
+block_size: 4
+budgets: [512, 1024, 2048, 4096]
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_docs: 0
+ppl_len: 4096
+ppl_seqs: 4
+ppl_skip_docs: 10000
