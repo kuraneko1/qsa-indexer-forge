@@ -44,5 +44,5 @@ PNG は 3600×2820。拡大・印刷には outlined SVG か PDF を使ってく�
 ## 来歴
 
 - 作図: Matplotlib によるベクター描画。`docs/figures/qsa-architecture/build.py`（原研究リポジトリ）で再生成できます。
-- 配布元: `qsa-architecture-ja-en.zip`（原研究リポジトリ）。
+- 配布元: `qsa-architecture-ja-en.zip` と `build.py` は原研究リポジトリ側にあり、このリポジトリには含めていません。
 - 2026-11-05 のレビューで、最終 Norm と出力ヘッドの分離、画像特徴の統合経路、MTP 候補の戻り経路を修正済みです。

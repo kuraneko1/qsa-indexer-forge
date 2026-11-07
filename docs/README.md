@@ -25,7 +25,7 @@
 | [dense / QSA の統制評価](assets/evaluation-flow.png) | 同一条件での分岐、同じ指標での比較、結果と未測定範囲の保存 | [SVG](assets/evaluation-flow.svg) / [scene](assets/evaluation-flow.scene.json) |
 | [MM 学習の合成画像8例](assets/multimodal-training-samples.png) | OCR・数値表・図形カウントを seed 付きで表示 | [manifest](assets/multimodal-training-samples.json) / [生成 script](assets/build_multimodal_samples.py) |
 
-図はすべてベクター描画で、アイコンもベクターです。工程図は **mid** 詳細度。実装を説明する図であり、新たな GPU 実測や品質保証の証拠ではありません。
+工程図とアーキテクチャ図はベクター描画で、アイコンもベクターです（合成画像の例だけは実画像のコラージュ）。工程図は **mid** 詳細度。実装を説明する図であり、新たな GPU 実測や品質保証の証拠ではありません。
 
 ## 再現性・来歴
 

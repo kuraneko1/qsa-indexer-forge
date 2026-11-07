@@ -4,9 +4,11 @@
 
 `render_flowchart.py` は `docs/assets/*.scene.json` から PNG / SVG を描画します。アイコンはベクターで、文字の重なり・はみ出し・矢印の交差を検査し、問題があれば書き出しません。
 
+Matplotlib と Noto Sans CJK JP が必要です。
+
 ```sh
-python scripts/render_flowchart.py docs/assets/qsa-overview.scene.json \
-  --out /tmp/qsa-overview --palette jade-violet
+uv run --no-project --with matplotlib python scripts/render_flowchart.py \
+  docs/assets/qsa-overview.scene.json --out /tmp/qsa-overview --palette jade-violet
 ```
 
 ## GGUF utilities

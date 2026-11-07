@@ -10,6 +10,8 @@
 | Dense / QSA evaluation | `evaluation-flow.png` | `evaluation-flow.svg` | `evaluation-flow.scene.json` |
 | 変換前 / 変換後のアーキテクチャ | `architecture/qsa-architecture-ja.png` | `architecture/qsa-architecture-ja.svg`（outlined 版・PDF も同梱） | 原研究リポジトリの `build.py` で再生成 |
 
+English 版は `architecture/qsa-architecture-en.png` / `.svg` / `-outlined.svg` / `.pdf` です。
+
 ## Synthetic multimodal samples
 
 `multimodal-training-samples.png` は `qsa/mm_data.py` が生成する OCR・表・図形カウントの 8 例です。seed・質問・回答・各ソース PNG の SHA256 は `multimodal-training-samples.json` にあります。
@@ -20,13 +22,14 @@ uv run --locked --extra train python docs/assets/build_multimodal_samples.py
 
 ## Regenerate
 
-Python に Matplotlib と Noto Sans CJK JP を用意します。
+Python 3.11+ に Matplotlib と Noto Sans CJK JP が必要です。プロジェクトの仮想環境を作らずに済むよう、`uv run --no-project --with matplotlib` で実行します。
 
 ```sh
-uv pip install matplotlib
-python scripts/render_flowchart.py docs/assets/qsa-overview.scene.json \
-  --out /tmp/qsa-overview --palette jade-violet
+uv run --no-project --with matplotlib python scripts/render_flowchart.py \
+  docs/assets/qsa-overview.scene.json --out /tmp/qsa-overview --palette jade-violet
 ```
+
+`--out` の場所に PNG / SVG と `.validation.json` が出ます。図を差し替えるときは PNG / SVG だけを `docs/assets/` へコピーしてください。
 
 renderer は次を検査し、問題があれば書き出さずに終了します。
 

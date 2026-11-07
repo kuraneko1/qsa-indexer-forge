@@ -42,7 +42,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 
 [解説と図の読み方](docs/architecture.md) / [SVG](docs/assets/architecture/qsa-architecture-ja.svg) / [Outlined SVG](docs/assets/architecture/qsa-architecture-ja-outlined.svg) / [PDF](docs/assets/architecture/qsa-architecture-ja.pdf) / [English](docs/assets/architecture/qsa-architecture-en.png)
 
-### 合成マルチモーダル画像
+## 合成マルチモーダル画像
 
 実際の MM 学習コードが生成する OCR・数値表・図形カウントの 8 例です。画像内の文字や個数を追えるよう、種類と seed を併記しています。
 
@@ -158,7 +158,7 @@ git checkout e697cf2c72ecaa165de3714ea6ac3b00649ab274
 qsa/                  Indexer、教師分布、KL、学習、HF export/runtime
 configs/              安全な local 学習設定と評価の記録
 configs/historical/   実際に使われた設定の保存版（そのまま実行しない）
-scripts/              GGUF への Indexer 移植と検証
+scripts/              GGUF への Indexer 移植・検証と図の描画
 patches/              llama.cpp の3段階の独立差分と MIT license
 tests/                CPU unit / conversion / cache tests
 docs/                 学習・native 実装・評価・来歴・調査記録
