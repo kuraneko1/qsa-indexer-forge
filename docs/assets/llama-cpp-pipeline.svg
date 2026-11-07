@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1224pt" height="648pt" viewBox="0 0 1224 648" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 648 
+L 1224 648 
+L 1224 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 280.8 162 
+L 334.8 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 579.6 162 
+L 633.6 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 878.4 162 
+L 932.4 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 158.4 194.4 
+L 158.4 252 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 457.2 194.4 
+L 457.2 252 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 756 194.4 
+L 756 252 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 1060.2 194.4 
+L 1060.2 252 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 633.6 286.2 
+L 623.52 286.2 
+L 623.52 382.32 
+L 457.2 382.32 
+L 457.2 392.4 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke-dasharray: 4.8,4.8; stroke-dashoffset: 0; stroke: #218c85; stroke-width: 1.2"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 756 320.4 
+L 756 392.4 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke-dasharray: 4.8,4.8; stroke-dashoffset: 0; stroke: #218c85; stroke-width: 1.2"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 1060.2 320.4 
+L 1060.2 392.4 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 41.04 129.6 
+L 275.76 129.6 
+Q 280.8 129.6 280.8 134.64 
+L 280.8 189.36 
+Q 280.8 194.4 275.76 194.4 
+L 41.04 194.4 
+Q 36 194.4 36 189.36 
+L 36 134.64 
+Q 36 129.6 41.04 129.6 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 339.84 129.6 
+L 574.56 129.6 
+Q 579.6 129.6 579.6 134.64 
+L 579.6 189.36 
+Q 579.6 194.4 574.56 194.4 
+L 339.84 194.4 
+Q 334.8 194.4 334.8 189.36 
+L 334.8 134.64 
+Q 334.8 129.6 339.84 129.6 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 638.64 129.6 
+L 873.36 129.6 
+Q 878.4 129.6 878.4 134.64 
+L 878.4 189.36 
+Q 878.4 194.4 873.36 194.4 
+L 638.64 194.4 
+Q 633.6 194.4 633.6 189.36 
+L 633.6 134.64 
+Q 633.6 129.6 638.64 129.6 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 937.44 129.6 
+L 1182.96 129.6 
+Q 1188 129.6 1188 134.64 
+L 1188 189.36 
+Q 1188 194.4 1182.96 194.4 
+L 937.44 194.4 
+Q 932.4 194.4 932.4 189.36 
+L 932.4 134.64 
+Q 932.4 129.6 937.44 129.6 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 41.04 252 
+L 275.76 252 
+Q 280.8 252 280.8 257.04 
+L 280.8 315.36 
+Q 280.8 320.4 275.76 320.4 
+L 41.04 320.4 
+Q 36 320.4 36 315.36 
+L 36 257.04 
+Q 36 252 41.04 252 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 339.84 252 
+L 574.56 252 
+Q 579.6 252 579.6 257.04 
+L 579.6 315.36 
+Q 579.6 320.4 574.56 320.4 
+L 339.84 320.4 
+Q 334.8 320.4 334.8 315.36 
+L 334.8 257.04 
+Q 334.8 252 339.84 252 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 638.64 252 
+L 873.36 252 
+Q 878.4 252 878.4 257.04 
+L 878.4 315.36 
+Q 878.4 320.4 873.36 320.4 
+L 638.64 320.4 
+Q 633.6 320.4 633.6 315.36 
+L 633.6 257.04 
+Q 633.6 252 638.64 252 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 937.44 252 
+L 1182.96 252 
+Q 1188 252 1188 257.04 
+L 1188 315.36 
+Q 1188 320.4 1182.96 320.4 
+L 937.44 320.4 
+Q 932.4 320.4 932.4 315.36 
+L 932.4 257.04 
+Q 932.4 252 937.44 252 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 41.04 392.4 
+L 275.76 392.4 
+Q 280.8 392.4 280.8 397.44 
+L 280.8 455.76 
+Q 280.8 460.8 275.76 460.8 
+L 41.04 460.8 
+Q 36 460.8 36 455.76 
+L 36 397.44 
+Q 36 392.4 41.04 392.4 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 339.84 392.4 
+L 574.56 392.4 
+Q 579.6 392.4 579.6 397.44 
+L 579.6 455.76 
+Q 579.6 460.8 574.56 460.8 
+L 339.84 460.8 
+Q 334.8 460.8 334.8 455.76 
+L 334.8 397.44 
+Q 334.8 392.4 339.84 392.4 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 638.64 392.4 
+L 873.36 392.4 
+Q 878.4 392.4 878.4 397.44 
+L 878.4 455.76 
+Q 878.4 460.8 873.36 460.8 
+L 638.64 460.8 
+Q 633.6 460.8 633.6 455.76 
+L 633.6 397.44 
+Q 633.6 392.4 638.64 392.4 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 937.44 392.4 
+L 1182.96 392.4 
+Q 1188 392.4 1188 397.44 
+L 1188 455.76 
+Q 1188 460.8 1182.96 460.8 
+L 937.44 460.8 
+Q 932.4 460.8 932.4 455.76 
+L 932.4 397.44 
+Q 932.4 392.4 937.44 392.4 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 280.8 162 
+Q 307.8 162 332.899342 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 328.499342 159.8 
+L 332.899342 162 
+L 328.499342 164.2 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 579.6 162 
+Q 606.6 162 631.699342 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 627.299342 159.8 
+L 631.699342 162 
+L 627.299342 164.2 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 878.4 162 
+Q 905.4 162 930.499342 162 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 926.099342 159.8 
+L 930.499342 162 
+L 926.099342 164.2 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 158.4 194.4 
+Q 158.4 223.2 158.4 250.658359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 160.6 246.258359 
+L 158.4 250.658359 
+L 156.2 246.258359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 457.2 194.4 
+Q 457.2 223.2 457.2 250.658359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 459.4 246.258359 
+L 457.2 250.658359 
+L 455 246.258359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 756 194.4 
+Q 756 223.2 756 250.658359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 758.2 246.258359 
+L 756 250.658359 
+L 753.8 246.258359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 1060.2 194.4 
+Q 1060.2 223.2 1060.2 250.658359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 1062.4 246.258359 
+L 1060.2 250.658359 
+L 1058 246.258359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 457.2 382.32 
+Q 457.2 387.36 457.2 391.058359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 459.4 386.658359 
+L 457.2 391.058359 
+L 455 386.658359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 756 320.4 
+Q 756 356.4 756 391.058359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 758.2 386.658359 
+L 756 391.058359 
+L 753.8 386.658359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 1060.2 320.4 
+Q 1060.2 356.4 1060.2 391.058359 
+" clip-path="url(#pd23876b2bd)" style="fill: none; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 1062.4 386.658359 
+L 1060.2 391.058359 
+L 1058 386.658359 
+z
+" clip-path="url(#pd23876b2bd)" style="fill: #b9781f; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="158.4" y="157.5378" transform="rotate(-0 158.4 157.5378)">1. HF → GGUF</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="158.4" y="178.429275" transform="rotate(-0 158.4 178.429275)">Indexer 80 tensors / FP32</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="457.2" y="157.5378" transform="rotate(-0 457.2 157.5378)">2. GGUF を読む</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="457.2" y="178.429275" transform="rotate(-0 457.2 178.429275)">qwen35 + Indexer metadata</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="756" y="157.4352" transform="rotate(-0 756 157.4352)">3. QSA graph</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="756" y="178.429275" transform="rotate(-0 756 178.429275)">Indexer score → top-k</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="1060.2" y="157.67685" transform="rotate(-0 1060.2 157.67685)">4. 推論</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="1060.2" y="178.429275" transform="rotate(-0 1060.2 178.429275)">疎 CUDA / MTP / cache</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="158.4" y="281.32965" transform="rotate(-0 158.4 281.32965)">FP32 を保持</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="158.4" y="302.581462" transform="rotate(-0 158.4 302.581462)">norm は 1 + weight に fold</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="457.2" y="281.29005" transform="rotate(-0 457.2 281.29005)">hybrid Indexer cache</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="457.2" y="302.501137" transform="rotate(-0 457.2 302.501137)">GGUF metadata / tensor mapping</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="756" y="281.32965" transform="rotate(-0 756 281.32965)">top-k 512 blocks</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="756" y="302.629275" transform="rotate(-0 756 302.629275)">mask / fast block の 2 経路</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="1060.2" y="281.678625" transform="rotate(-0 1060.2 281.678625)">qsa-attn.cu / 選択 KV</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="1060.2" y="302.7096" transform="rotate(-0 1060.2 302.7096)">MTP・prefix cache</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="158.4" y="421.72965" transform="rotate(-0 158.4 421.72965)">stock llama.cpp は不可</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="158.4" y="443.029275" transform="rotate(-0 158.4 443.029275)">品質・全長は別途評価</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="457.2" y="421.72965" transform="rotate(-0 457.2 421.72965)">短文・未対応形状</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="457.2" y="443.029275" transform="rotate(-0 457.2 443.029275)">mask / reference fallback</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="756" y="421.72965" transform="rotate(-0 756 421.72965)">LLAMA_QSA_DENSE=1</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="756" y="443.029275" transform="rotate(-0 756 443.029275)">16 層を dense に戻す</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="1060.2" y="421.72965" transform="rotate(-0 1060.2 421.72965)">検証して記録</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="1060.2" y="443.029275" transform="rotate(-0 1060.2 443.029275)">tensor / 実生成 / 速度</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 24.48px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #213047" x="39.6" y="47.408738" transform="rotate(-0 39.6 47.408738)">llama.cpp の QSA 実行パイプライン</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 13.68px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="39.6" y="72.7092" transform="rotate(-0 39.6 72.7092)">mid｜HF export 済みモデルを、専用 fork の convert → load → graph → inference へ接続する</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 11.52px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="39.6" y="93.4902" transform="rotate(-0 39.6 93.4902)">出典: qsa-indexer-forge @ eb0fd3f　／　engine: e697cf2c（または base 6209237 + MM2 patch）</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="612" y="514.912838" transform="rotate(-0 612 514.912838)">太い主線はデータと実行の流れ。緑の破線は dense / fallback の対照経路。</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="136.8" y="586.87335" transform="rotate(-0 136.8 586.87335)">■ dense・fallback</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="432" y="586.87335" transform="rotate(-0 432 586.87335)">■ QSA 経路</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="712.8" y="586.87335" transform="rotate(-0 712.8 586.87335)">■ 重み・cache</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="986.4" y="586.87335" transform="rotate(-0 986.4 586.87335)">■ 検証・注意</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd23876b2bd">
+   <rect x="0" y="0" width="1224" height="648"/>
+  </clipPath>
+ </defs>
+</svg>

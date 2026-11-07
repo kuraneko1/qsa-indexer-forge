@@ -7,6 +7,12 @@
 - capture（捕捉率）は**教師分布に対する指標**であり、下流タスクの品質ではない。
 - PPL・capture から応答挙動（拒否・冗長化など）を推測しない。挙動は挙動として別に測る。
 
+## 図解
+
+[![dense / QSA の統制評価](assets/evaluation-flow.png)](assets/evaluation-flow.png)
+
+同一の GGUF・入力・実行条件を使い、経路だけを切り替えて比較します。測定条件と未検証範囲も結果と一緒に保存します。[SVG](assets/evaluation-flow.svg) / [編集用 scene](assets/evaluation-flow.scene.json)。
+
 ## 1. 3 層の評価
 
 | 層 | いつ | 中身 | 実装 |

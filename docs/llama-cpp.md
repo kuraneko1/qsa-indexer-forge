@@ -20,6 +20,12 @@ llama.cpp の専用 fork で実行するための実装解説と再現手順。
 `qsa27b/...` は**エンジン repo 内のパス**、`qsa/...`、`scripts/...`、`docs/...` は**このリポジトリ内**。
 実装の経緯と数値検証の詳細は [native runtime の記録](native-runtime-history.md) を参照。
 
+## 図解
+
+[![llama.cpp の QSA 実行パイプライン](assets/llama-cpp-pipeline.png)](assets/llama-cpp-pipeline.png)
+
+HF / GGUF の変換から、model load、QSA graph、疎 CUDA 推論までを示す **mid** 図です。dense / fallback 経路と検証も含みます。[SVG](assets/llama-cpp-pipeline.svg) / [編集用 scene](assets/llama-cpp-pipeline.scene.json)。
+
 ---
 
 ## 0. 用語と構成

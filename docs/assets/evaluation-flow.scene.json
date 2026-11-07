@@ -1,0 +1,174 @@
+{
+  "canvas": [
+    1500,
+    950
+  ],
+  "nodes": [
+    {
+      "id": "input",
+      "box": [
+        550,
+        160,
+        400,
+        85
+      ],
+      "label": "同一 GGUF・固定入力",
+      "sublabel": "seed / context / KV / MTP をそろえる",
+      "role": "memory",
+      "fontsize": 24
+    },
+    {
+      "id": "dense",
+      "box": [
+        170,
+        340,
+        450,
+        90
+      ],
+      "label": "dense 対照",
+      "sublabel": "LLAMA_QSA_DENSE=1",
+      "role": "local",
+      "fontsize": 25
+    },
+    {
+      "id": "qsa",
+      "box": [
+        880,
+        340,
+        450,
+        90
+      ],
+      "label": "QSA 経路",
+      "sublabel": "同じ重み / 学習済み Indexer",
+      "role": "global",
+      "fontsize": 25,
+      "emphasis": true,
+      "bold": true
+    },
+    {
+      "id": "compare",
+      "box": [
+        550,
+        530,
+        400,
+        95
+      ],
+      "label": "同じ指標で比較",
+      "sublabel": "PPL / capture / 実生成 / 速度",
+      "role": "modulation",
+      "fontsize": 24
+    },
+    {
+      "id": "record",
+      "box": [
+        550,
+        710,
+        400,
+        85
+      ],
+      "label": "結果と条件を保存",
+      "sublabel": "差なしを「同等」と書かない",
+      "role": "modulation",
+      "fontsize": 24
+    },
+    {
+      "id": "metric-note",
+      "box": [
+        60,
+        710,
+        360,
+        85
+      ],
+      "label": "capture は品質ではない",
+      "sublabel": "短文では full 選択になり得る",
+      "role": "modulation"
+    },
+    {
+      "id": "unknown-note",
+      "box": [
+        1080,
+        710,
+        360,
+        85
+      ],
+      "label": "未測定範囲を明記",
+      "sublabel": "128k/262k・画像・動画",
+      "role": "modulation"
+    }
+  ],
+  "edges": [
+    {
+      "from": "input",
+      "to": "dense",
+      "from_side": "left",
+      "to_side": "top",
+      "role": "local",
+      "width": 1.7
+    },
+    {
+      "from": "input",
+      "to": "qsa",
+      "from_side": "right",
+      "to_side": "top",
+      "role": "global",
+      "width": 1.7
+    },
+    {
+      "from": "dense",
+      "to": "compare",
+      "from_side": "bottom",
+      "to_side": "left",
+      "role": "local",
+      "width": 1.7
+    },
+    {
+      "from": "qsa",
+      "to": "compare",
+      "from_side": "bottom",
+      "to_side": "right",
+      "role": "global",
+      "width": 1.7
+    },
+    {
+      "from": "compare",
+      "to": "record",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "modulation",
+      "width": 1.7
+    }
+  ],
+  "captions": [
+    {
+      "x": 55,
+      "y": 55,
+      "text": "dense / QSA の統制評価",
+      "size": 34,
+      "ha": "left",
+      "bold": true
+    },
+    {
+      "x": 55,
+      "y": 95,
+      "text": "mid｜モデル・入力・実行条件を固定し、経路だけを切り替えて比較する",
+      "size": 19,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 55,
+      "y": 125,
+      "text": "出典: qsa-indexer-forge @ eb0fd3f　／　capture・PPL と下流の品質を混同しない",
+      "size": 16,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 750,
+      "y": 875,
+      "text": "比較不能な条件の数値を一つの表に混ぜず、検証範囲と未解決事項も保存する。",
+      "size": 18,
+      "color": "muted"
+    }
+  ]
+}

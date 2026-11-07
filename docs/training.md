@@ -7,6 +7,12 @@ Qwen3.8-27B の full-attention 16 層に QSA（Qwen Sparse Attention）用の in
 - 論文: [On the Design of Qwen3.8-Next Architecture](https://arxiv.org/abs/2608.30320), §2.1.2（Stage 1 / Eq. 17-20）
 - 実行基盤の履歴: 27B を 1 枚に載せた A100 80GB。本リポジトリのコードは単一 GPU 前提（`device_map="cuda"`）。
 
+## 図解
+
+[![Indexer 学習から llama.cpp 実行まで](assets/qsa-training-flow-mid.png)](assets/qsa-training-flow-mid.png)
+
+入力・凍結、テキスト蒸留、MM 継続、export、専用 runtime、評価の全体像です。[SVG](assets/qsa-training-flow-mid.svg) / [編集用 scene](assets/qsa-training-flow-mid.scene.json)。
+
 ## 0. 学習するもの / しないもの
 
 | 区分 | 対象 |

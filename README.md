@@ -7,6 +7,25 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 > [!IMPORTANT]
 > これはコミュニティによる 27B への適応です。Qwen 公式 27B には最初から QSA は搭載されていません。backbone / vision / projector / MTP は凍結し、Indexer だけを学習します。論文の backbone を含む Stage 2 は未実施です。標準の llama.cpp ではこの 27B QSA GGUF を実行できません。
 
+## 目次
+
+- [全体図](#全体図)
+- [できること](#できること)
+- [ドキュメント](#ドキュメント)
+- [Quick start: CPU で実装を検証](#quick-start-cpu-で実装を検証)
+- [Indexer を学習する](#indexer-を学習する)
+- [Hugging Face 形式へ export する](#hugging-face-形式へ-export-する)
+- [GGUF / llama.cpp で実行する](#gguf--llamacpp-で実行する)
+- [実測値の入口](#実測値の入口)
+- [リポジトリ構成](#リポジトリ構成)
+- [License](#license)
+
+## 全体図
+
+[![QSA Indexer 学習から llama.cpp 実行までの mid フローチャート](docs/assets/qsa-training-flow-mid.png)](docs/assets/qsa-training-flow-mid.png)
+
+学習する Indexer、凍結する backbone、形式変換、専用 runtime、評価の関係を示す **mid** 図です。[SVG](docs/assets/qsa-training-flow-mid.svg) / [編集用 scene](docs/assets/qsa-training-flow-mid.scene.json)。
+
 ## できること
 
 - 教師モデルの dense attention から、4 トークン単位の block 教師分布を作る
@@ -16,7 +35,9 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 - 量子化済み GGUF の backbone を再量子化せず、FP32 Indexer だけを移植する
 - 検証済みの専用 llama.cpp fork、または固定 base commit への patch で実行する
 
-## まず読む
+## ドキュメント
+
+詳細な読み順と全資料は **[ドキュメント目次](docs/README.md)** を参照してください。
 
 | 文書 | 内容 |
 |---|---|

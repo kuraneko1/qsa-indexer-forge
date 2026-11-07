@@ -1,0 +1,433 @@
+{
+  "canvas": [
+    1600,
+    1350
+  ],
+  "nodes": [
+    {
+      "id": "base",
+      "box": [
+        60,
+        170,
+        480,
+        82
+      ],
+      "label": "64 層中 16 層が full attention",
+      "sublabel": "残り 48 GDN / MTP は対象外",
+      "role": "local",
+      "fontsize": 21
+    },
+    {
+      "id": "inputs",
+      "box": [
+        590,
+        170,
+        420,
+        82
+      ],
+      "label": "固定した入力と凍結",
+      "sublabel": "Qwen3.8-27B / FineWeb-Edu / 合成画像",
+      "role": "memory",
+      "fontsize": 23
+    },
+    {
+      "id": "learned",
+      "box": [
+        1080,
+        170,
+        450,
+        82
+      ],
+      "label": "学習は Indexer のみ",
+      "sublabel": "52,434,944 params / FP32",
+      "role": "global",
+      "fontsize": 21
+    },
+    {
+      "id": "p0",
+      "box": [
+        590,
+        300,
+        420,
+        82
+      ],
+      "label": "P0: dense 診断",
+      "sublabel": "oracle capture・dense PPL（任意の事前検査）",
+      "role": "local",
+      "fontsize": 23
+    },
+    {
+      "id": "teacher",
+      "box": [
+        60,
+        405,
+        480,
+        82
+      ],
+      "label": "dense teacher",
+      "sublabel": "head 和 → 4 token block max → L1 正規化",
+      "role": "local",
+      "fontsize": 21
+    },
+    {
+      "id": "text",
+      "box": [
+        590,
+        430,
+        420,
+        82
+      ],
+      "label": "テキスト Indexer 蒸留",
+      "sublabel": "16 層 / 16,384 tokens / K=2048, r=4",
+      "role": "global",
+      "fontsize": 23,
+      "emphasis": true,
+      "bold": true
+    },
+    {
+      "id": "loss",
+      "box": [
+        1060,
+        405,
+        480,
+        82
+      ],
+      "label": "Indexer scores → KL → AdamW",
+      "sublabel": "凍結 backbone / 層ごとに FP32 逆伝播",
+      "role": "global",
+      "fontsize": 21
+    },
+    {
+      "id": "mix",
+      "box": [
+        60,
+        550,
+        480,
+        82
+      ],
+      "label": "画像を後半 72% に配置",
+      "sublabel": "text:image = 0.5 / 質問領域の重み 4",
+      "role": "memory",
+      "fontsize": 21
+    },
+    {
+      "id": "mm",
+      "box": [
+        590,
+        560,
+        420,
+        82
+      ],
+      "label": "マルチモーダル継続蒸留",
+      "sublabel": "text + image / 300 step / lr 3e-4",
+      "role": "global",
+      "fontsize": 23
+    },
+    {
+      "id": "mm2",
+      "box": [
+        1060,
+        550,
+        480,
+        82
+      ],
+      "label": "MM2 checkpoint",
+      "sublabel": "qsa_indexers.pt / SHA256 を検証",
+      "role": "global",
+      "fontsize": 21
+    },
+    {
+      "id": "hf",
+      "box": [
+        590,
+        690,
+        420,
+        82
+      ],
+      "label": "Hugging Face export",
+      "sublabel": "backbone 不変 + 80 FP32 Indexer tensors",
+      "role": "memory",
+      "fontsize": 23
+    },
+    {
+      "id": "preserve",
+      "box": [
+        1060,
+        690,
+        480,
+        70
+      ],
+      "label": "元の 18 shard・vision・MTP を保持",
+      "role": "memory",
+      "fontsize": 21
+    },
+    {
+      "id": "gguf",
+      "box": [
+        590,
+        820,
+        420,
+        82
+      ],
+      "label": "GGUF 変換・Indexer 移植",
+      "sublabel": "QSA metadata を追加 / 再量子化なし",
+      "role": "memory",
+      "fontsize": 23
+    },
+    {
+      "id": "fold",
+      "box": [
+        60,
+        820,
+        480,
+        82
+      ],
+      "label": "norm は 1 + weight に fold",
+      "sublabel": "Indexer は FP32 のまま",
+      "role": "memory",
+      "fontsize": 21
+    },
+    {
+      "id": "native",
+      "box": [
+        590,
+        950,
+        420,
+        82
+      ],
+      "label": "専用 llama.cpp で実行",
+      "sublabel": "疎 CUDA・MTP・prefix cache",
+      "role": "modulation",
+      "fontsize": 23
+    },
+    {
+      "id": "fork",
+      "box": [
+        1060,
+        950,
+        480,
+        82
+      ],
+      "label": "stock llama.cpp は非対応",
+      "sublabel": "e697cf2c / base 6209237 + patch",
+      "role": "modulation",
+      "fontsize": 21
+    },
+    {
+      "id": "limits",
+      "box": [
+        60,
+        1080,
+        480,
+        82
+      ],
+      "label": "品質同等は未証明",
+      "sublabel": "長文・画像・動画は条件付き評価",
+      "role": "modulation",
+      "fontsize": 21
+    },
+    {
+      "id": "eval",
+      "box": [
+        590,
+        1080,
+        420,
+        82
+      ],
+      "label": "評価して保存",
+      "sublabel": "dense 対照 / PPL / capture / 実生成",
+      "role": "modulation",
+      "fontsize": 23
+    }
+  ],
+  "edges": [
+    {
+      "from": "inputs",
+      "to": "p0",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory",
+      "width": 1.7
+    },
+    {
+      "from": "p0",
+      "to": "text",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "local",
+      "width": 1.7
+    },
+    {
+      "from": "text",
+      "to": "mm",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global",
+      "width": 1.7
+    },
+    {
+      "from": "mm",
+      "to": "hf",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global",
+      "width": 1.7
+    },
+    {
+      "from": "hf",
+      "to": "gguf",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory",
+      "width": 1.7
+    },
+    {
+      "from": "gguf",
+      "to": "native",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory",
+      "width": 1.7
+    },
+    {
+      "from": "native",
+      "to": "eval",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "modulation",
+      "width": 1.7
+    },
+    {
+      "from": "base",
+      "to": "inputs",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "local"
+    },
+    {
+      "from": "learned",
+      "to": "inputs",
+      "from_side": "left",
+      "to_side": "right",
+      "role": "global"
+    },
+    {
+      "from": "text",
+      "to": "teacher",
+      "from_side": "left",
+      "to_side": "right",
+      "role": "local"
+    },
+    {
+      "from": "text",
+      "to": "loss",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "global"
+    },
+    {
+      "from": "mm",
+      "to": "mix",
+      "from_side": "left",
+      "to_side": "right",
+      "role": "memory"
+    },
+    {
+      "from": "mm",
+      "to": "mm2",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "global"
+    },
+    {
+      "from": "hf",
+      "to": "preserve",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "memory"
+    },
+    {
+      "from": "gguf",
+      "to": "fold",
+      "from_side": "left",
+      "to_side": "right",
+      "role": "memory"
+    },
+    {
+      "from": "native",
+      "to": "fork",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "modulation"
+    },
+    {
+      "from": "eval",
+      "to": "limits",
+      "from_side": "left",
+      "to_side": "right",
+      "role": "modulation",
+      "dashed": true
+    }
+  ],
+  "captions": [
+    {
+      "x": 60,
+      "y": 58,
+      "text": "QSA Indexer 学習から llama.cpp 実行まで",
+      "size": 34,
+      "ha": "left",
+      "bold": true
+    },
+    {
+      "x": 60,
+      "y": 98,
+      "text": "mid｜固定した 27B backbone に、16 層の FP32 Indexer だけを蒸留する",
+      "size": 19,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 60,
+      "y": 128,
+      "text": "出典: qsa-indexer-forge @ eb0fd3f　／　Stage 2（backbone sparse adaptation）は未実施",
+      "size": 16,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 170,
+      "y": 1240,
+      "text": "■ 既存・凍結",
+      "size": 18,
+      "color": "local"
+    },
+    {
+      "x": 520,
+      "y": 1240,
+      "text": "■ Indexer 学習",
+      "size": 18,
+      "color": "global"
+    },
+    {
+      "x": 875,
+      "y": 1240,
+      "text": "■ データ・重み",
+      "size": 18,
+      "color": "memory"
+    },
+    {
+      "x": 1220,
+      "y": 1240,
+      "text": "■ 評価・注意",
+      "size": 18,
+      "color": "modulation"
+    },
+    {
+      "x": 800,
+      "y": 1300,
+      "text": "主線は学習・変換・実行の流れ。CUDA kernel 内部と個別評価の詳細は省略。",
+      "size": 17,
+      "color": "muted"
+    }
+  ]
+}

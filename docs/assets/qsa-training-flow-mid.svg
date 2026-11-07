@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1152pt" height="972pt" viewBox="0 0 1152 972" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 972 
+L 1152 972 
+L 1152 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 576 181.44 
+L 576 216 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 576 275.04 
+L 576 309.6 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 576 368.64 
+L 576 403.2 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 576 462.24 
+L 576 496.8 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 576 555.84 
+L 576 590.4 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 576 649.44 
+L 576 684 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 576 743.04 
+L 576 777.6 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 388.8 151.92 
+L 424.8 151.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 777.6 151.92 
+L 727.2 151.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 424.8 339.12 
+L 398.88 339.12 
+L 398.88 321.12 
+L 388.8 321.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_11">
+    <path d="M 727.2 339.12 
+L 753.12 339.12 
+L 753.12 321.12 
+L 763.2 321.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_12">
+    <path d="M 424.8 432.72 
+L 398.88 432.72 
+L 398.88 425.52 
+L 388.8 425.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_13">
+    <path d="M 727.2 432.72 
+L 753.12 432.72 
+L 753.12 425.52 
+L 763.2 425.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_14">
+    <path d="M 727.2 526.32 
+L 753.12 526.32 
+L 753.12 522 
+L 763.2 522 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_15">
+    <path d="M 424.8 619.92 
+L 388.8 619.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 727.2 713.52 
+L 763.2 713.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 424.8 807.12 
+L 388.8 807.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke-dasharray: 4.8,4.8; stroke-dashoffset: 0; stroke: #b9781f; stroke-width: 1.2"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 48.24 122.4 
+L 383.76 122.4 
+Q 388.8 122.4 388.8 127.44 
+L 388.8 176.4 
+Q 388.8 181.44 383.76 181.44 
+L 48.24 181.44 
+Q 43.2 181.44 43.2 176.4 
+L 43.2 127.44 
+Q 43.2 122.4 48.24 122.4 
+z
+" clip-path="url(#p9482af2300)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 429.84 122.4 
+L 722.16 122.4 
+Q 727.2 122.4 727.2 127.44 
+L 727.2 176.4 
+Q 727.2 181.44 722.16 181.44 
+L 429.84 181.44 
+Q 424.8 181.44 424.8 176.4 
+L 424.8 127.44 
+Q 424.8 122.4 429.84 122.4 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 782.64 122.4 
+L 1096.56 122.4 
+Q 1101.6 122.4 1101.6 127.44 
+L 1101.6 176.4 
+Q 1101.6 181.44 1096.56 181.44 
+L 782.64 181.44 
+Q 777.6 181.44 777.6 176.4 
+L 777.6 127.44 
+Q 777.6 122.4 782.64 122.4 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 429.84 216 
+L 722.16 216 
+Q 727.2 216 727.2 221.04 
+L 727.2 270 
+Q 727.2 275.04 722.16 275.04 
+L 429.84 275.04 
+Q 424.8 275.04 424.8 270 
+L 424.8 221.04 
+Q 424.8 216 429.84 216 
+z
+" clip-path="url(#p9482af2300)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 48.24 291.6 
+L 383.76 291.6 
+Q 388.8 291.6 388.8 296.64 
+L 388.8 345.6 
+Q 388.8 350.64 383.76 350.64 
+L 48.24 350.64 
+Q 43.2 350.64 43.2 345.6 
+L 43.2 296.64 
+Q 43.2 291.6 48.24 291.6 
+z
+" clip-path="url(#p9482af2300)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 429.84 309.6 
+L 722.16 309.6 
+Q 727.2 309.6 727.2 314.64 
+L 727.2 363.6 
+Q 727.2 368.64 722.16 368.64 
+L 429.84 368.64 
+Q 424.8 368.64 424.8 363.6 
+L 424.8 314.64 
+Q 424.8 309.6 429.84 309.6 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 768.24 291.6 
+L 1103.76 291.6 
+Q 1108.8 291.6 1108.8 296.64 
+L 1108.8 345.6 
+Q 1108.8 350.64 1103.76 350.64 
+L 768.24 350.64 
+Q 763.2 350.64 763.2 345.6 
+L 763.2 296.64 
+Q 763.2 291.6 768.24 291.6 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 48.24 396 
+L 383.76 396 
+Q 388.8 396 388.8 401.04 
+L 388.8 450 
+Q 388.8 455.04 383.76 455.04 
+L 48.24 455.04 
+Q 43.2 455.04 43.2 450 
+L 43.2 401.04 
+Q 43.2 396 48.24 396 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 429.84 403.2 
+L 722.16 403.2 
+Q 727.2 403.2 727.2 408.24 
+L 727.2 457.2 
+Q 727.2 462.24 722.16 462.24 
+L 429.84 462.24 
+Q 424.8 462.24 424.8 457.2 
+L 424.8 408.24 
+Q 424.8 403.2 429.84 403.2 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 768.24 396 
+L 1103.76 396 
+Q 1108.8 396 1108.8 401.04 
+L 1108.8 450 
+Q 1108.8 455.04 1103.76 455.04 
+L 768.24 455.04 
+Q 763.2 455.04 763.2 450 
+L 763.2 401.04 
+Q 763.2 396 768.24 396 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f2f2fe; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 429.84 496.8 
+L 722.16 496.8 
+Q 727.2 496.8 727.2 501.84 
+L 727.2 550.8 
+Q 727.2 555.84 722.16 555.84 
+L 429.84 555.84 
+Q 424.8 555.84 424.8 550.8 
+L 424.8 501.84 
+Q 424.8 496.8 429.84 496.8 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 768.24 496.8 
+L 1103.76 496.8 
+Q 1108.8 496.8 1108.8 501.84 
+L 1108.8 542.16 
+Q 1108.8 547.2 1103.76 547.2 
+L 768.24 547.2 
+Q 763.2 547.2 763.2 542.16 
+L 763.2 501.84 
+Q 763.2 496.8 768.24 496.8 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 429.84 590.4 
+L 722.16 590.4 
+Q 727.2 590.4 727.2 595.44 
+L 727.2 644.4 
+Q 727.2 649.44 722.16 649.44 
+L 429.84 649.44 
+Q 424.8 649.44 424.8 644.4 
+L 424.8 595.44 
+Q 424.8 590.4 429.84 590.4 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 48.24 590.4 
+L 383.76 590.4 
+Q 388.8 590.4 388.8 595.44 
+L 388.8 644.4 
+Q 388.8 649.44 383.76 649.44 
+L 48.24 649.44 
+Q 43.2 649.44 43.2 644.4 
+L 43.2 595.44 
+Q 43.2 590.4 48.24 590.4 
+z
+" clip-path="url(#p9482af2300)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 429.84 684 
+L 722.16 684 
+Q 727.2 684 727.2 689.04 
+L 727.2 738 
+Q 727.2 743.04 722.16 743.04 
+L 429.84 743.04 
+Q 424.8 743.04 424.8 738 
+L 424.8 689.04 
+Q 424.8 684 429.84 684 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 768.24 684 
+L 1103.76 684 
+Q 1108.8 684 1108.8 689.04 
+L 1108.8 738 
+Q 1108.8 743.04 1103.76 743.04 
+L 768.24 743.04 
+Q 763.2 743.04 763.2 738 
+L 763.2 689.04 
+Q 763.2 684 768.24 684 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 48.24 777.6 
+L 383.76 777.6 
+Q 388.8 777.6 388.8 782.64 
+L 388.8 831.6 
+Q 388.8 836.64 383.76 836.64 
+L 48.24 836.64 
+Q 43.2 836.64 43.2 831.6 
+L 43.2 782.64 
+Q 43.2 777.6 48.24 777.6 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 429.84 777.6 
+L 722.16 777.6 
+Q 727.2 777.6 727.2 782.64 
+L 727.2 831.6 
+Q 727.2 836.64 722.16 836.64 
+L 429.84 836.64 
+Q 424.8 836.64 424.8 831.6 
+L 424.8 782.64 
+Q 424.8 777.6 429.84 777.6 
+z
+" clip-path="url(#p9482af2300)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 576 181.44 
+Q 576 198.72 576 214.099342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 209.699342 
+L 576 214.099342 
+L 573.8 209.699342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 576 275.04 
+Q 576 292.32 576 307.699342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 303.299342 
+L 576 307.699342 
+L 573.8 303.299342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 576 368.64 
+Q 576 385.92 576 401.299342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 396.899342 
+L 576 401.299342 
+L 573.8 396.899342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 576 462.24 
+Q 576 479.52 576 494.899342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 490.499342 
+L 576 494.899342 
+L 573.8 490.499342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 576 555.84 
+Q 576 573.12 576 588.499342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 584.099342 
+L 576 588.499342 
+L 573.8 584.099342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 576 649.44 
+Q 576 666.72 576 682.099342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 677.699342 
+L 576 682.099342 
+L 573.8 677.699342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 576 743.04 
+Q 576 760.32 576 775.699342 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 578.2 771.299342 
+L 576 775.699342 
+L 573.8 771.299342 
+z
+" clip-path="url(#p9482af2300)" style="fill: #b9781f; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 388.8 151.92 
+Q 406.8 151.92 423.458359 151.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 419.058359 149.72 
+L 423.458359 151.92 
+L 419.058359 154.12 
+z
+" clip-path="url(#p9482af2300)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_28">
+    <path d="M 777.6 151.92 
+Q 752.4 151.92 728.541641 151.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 732.941641 154.12 
+L 728.541641 151.92 
+L 732.941641 149.72 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 398.88 321.12 
+Q 393.84 321.12 390.141641 321.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 394.541641 323.32 
+L 390.141641 321.12 
+L 394.541641 318.92 
+z
+" clip-path="url(#p9482af2300)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 753.12 321.12 
+Q 758.16 321.12 761.858359 321.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 757.458359 318.92 
+L 761.858359 321.12 
+L 757.458359 323.32 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 398.88 425.52 
+Q 393.84 425.52 390.141641 425.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 394.541641 427.72 
+L 390.141641 425.52 
+L 394.541641 423.32 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_32">
+    <path d="M 753.12 425.52 
+Q 758.16 425.52 761.858359 425.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 757.458359 423.32 
+L 761.858359 425.52 
+L 757.458359 427.72 
+z
+" clip-path="url(#p9482af2300)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 753.12 522 
+Q 758.16 522 761.858359 522 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 757.458359 519.8 
+L 761.858359 522 
+L 757.458359 524.2 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_34">
+    <path d="M 424.8 619.92 
+Q 406.8 619.92 390.141641 619.92 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 394.541641 622.12 
+L 390.141641 619.92 
+L 394.541641 617.72 
+z
+" clip-path="url(#p9482af2300)" style="fill: #367fc1; stroke: #367fc1; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 727.2 713.52 
+Q 745.2 713.52 761.858359 713.52 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 757.458359 711.32 
+L 761.858359 713.52 
+L 757.458359 715.72 
+z
+" clip-path="url(#p9482af2300)" style="fill: #b9781f; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 424.8 807.12 
+Q 406.8 807.12 390.141641 807.12 
+" clip-path="url(#p9482af2300)" style="fill: none; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 394.541641 809.32 
+L 390.141641 807.12 
+L 394.541641 804.92 
+z
+" clip-path="url(#p9482af2300)" style="fill: #b9781f; stroke: #b9781f; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="216" y="146.845575" transform="rotate(-0 216 146.845575)">64 層中 16 層が full attention</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="216" y="168.379875" transform="rotate(-0 216 168.379875)">残り 48 GDN / MTP は対象外</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="576" y="147.253725" transform="rotate(-0 576 147.253725)">固定した入力と凍結</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="168.349275" transform="rotate(-0 576 168.349275)">Qwen3.8-27B / FineWeb-Edu / 合成画像</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="939.6" y="146.845575" transform="rotate(-0 939.6 146.845575)">学習は Indexer のみ</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="939.6" y="168.349275" transform="rotate(-0 939.6 168.349275)">52,434,944 params / FP32</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="576" y="240.853725" transform="rotate(-0 576 240.853725)">P0: dense 診断</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="262.316475" transform="rotate(-0 576 262.316475)">oracle capture・dense PPL（任意の事前検査）</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="216" y="316.045575" transform="rotate(-0 216 316.045575)">dense teacher</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="216" y="337.549275" transform="rotate(-0 216 337.549275)">head 和 → 4 token block max → L1 正規化</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="576" y="334.586981" transform="rotate(-0 576 334.586981)">テキスト Indexer 蒸留</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="576" y="355.549275" transform="rotate(-0 576 355.549275)">16 層 / 16,384 tokens / K=2048, r=4</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="936" y="316.045575" transform="rotate(-0 936 316.045575)">Indexer scores → KL → AdamW</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="936" y="337.549275" transform="rotate(-0 936 337.549275)">凍結 backbone / 層ごとに FP32 逆伝播</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="216" y="420.445575" transform="rotate(-0 216 420.445575)">画像を後半 72% に配置</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="216" y="442.0908" transform="rotate(-0 216 442.0908)">text:image = 0.5 / 質問領域の重み 4</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="576" y="428.053725" transform="rotate(-0 576 428.053725)">マルチモーダル継続蒸留</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="449.021138" transform="rotate(-0 576 449.021138)">text + image / 300 step / lr 3e-4</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="936" y="420.445575" transform="rotate(-0 936 420.445575)">MM2 checkpoint</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="936" y="442.218938" transform="rotate(-0 936 442.218938)">qsa_indexers.pt / SHA256 を検証</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="576" y="521.307" transform="rotate(-0 576 521.307)">Hugging Face export</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="542.749275" transform="rotate(-0 576 542.749275)">backbone 不変 + 80 FP32 Indexer tensors</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="936" y="526.285575" transform="rotate(-0 936 526.285575)">元の 18 shard・vision・MTP を保持</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="576" y="615.253725" transform="rotate(-0 576 615.253725)">GGUF 変換・Indexer 移植</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="636.361706" transform="rotate(-0 576 636.361706)">QSA metadata を追加 / 再量子化なし</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="216" y="614.786512" transform="rotate(-0 216 614.786512)">norm は 1 + weight に fold</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="216" y="636.349275" transform="rotate(-0 216 636.349275)">Indexer は FP32 のまま</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="576" y="709.226325" transform="rotate(-0 576 709.226325)">専用 llama.cpp で実行</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="730.2132" transform="rotate(-0 576 730.2132)">疎 CUDA・MTP・prefix cache</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="936" y="708.778687" transform="rotate(-0 936 708.778687)">stock llama.cpp は非対応</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="936" y="730.0296" transform="rotate(-0 936 730.0296)">e697cf2c / base 6209237 + patch</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 15.12px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="216" y="802.045575" transform="rotate(-0 216 802.045575)">品質同等は未証明</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="216" y="823.549275" transform="rotate(-0 216 823.549275)">長文・画像・動画は条件付き評価</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 16.56px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="576" y="802.453725" transform="rotate(-0 576 802.453725)">評価して保存</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="823.818937" transform="rotate(-0 576 823.818937)">dense 対照 / PPL / capture / 実生成</text>
+   </g>
+   <g id="text_36">
+    <text style="font-weight: 700; font-size: 24.48px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #213047" x="43.2" y="49.5936" transform="rotate(-0 43.2 49.5936)">QSA Indexer 学習から llama.cpp 実行まで</text>
+   </g>
+   <g id="text_37">
+    <text style="font-size: 13.68px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="43.2" y="74.437425" transform="rotate(-0 43.2 74.437425)">mid｜固定した 27B backbone に、16 層の FP32 Indexer だけを蒸留する</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 11.52px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="43.2" y="95.6502" transform="rotate(-0 43.2 95.6502)">出典: qsa-indexer-forge @ eb0fd3f　／　Stage 2（backbone sparse adaptation）は未実施</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="122.4" y="896.47335" transform="rotate(-0 122.4 896.47335)">■ 既存・凍結</text>
+   </g>
+   <g id="text_40">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #615ced" x="374.4" y="896.47335" transform="rotate(-0 374.4 896.47335)">■ Indexer 学習</text>
+   </g>
+   <g id="text_41">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="630" y="896.47335" transform="rotate(-0 630 896.47335)">■ データ・重み</text>
+   </g>
+   <g id="text_42">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="878.4" y="896.47335" transform="rotate(-0 878.4 896.47335)">■ 評価・注意</text>
+   </g>
+   <g id="text_43">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="576" y="939.469275" transform="rotate(-0 576 939.469275)">主線は学習・変換・実行の流れ。CUDA kernel 内部と個別評価の詳細は省略。</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9482af2300">
+   <rect x="0" y="0" width="1152" height="972"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,298 @@
+{
+  "canvas": [
+    1700,
+    900
+  ],
+  "nodes": [
+    {
+      "id": "convert",
+      "box": [
+        50,
+        180,
+        340,
+        90
+      ],
+      "label": "1. HF → GGUF",
+      "sublabel": "Indexer 80 tensors / FP32",
+      "role": "memory",
+      "fontsize": 24
+    },
+    {
+      "id": "load",
+      "box": [
+        465,
+        180,
+        340,
+        90
+      ],
+      "label": "2. GGUF を読む",
+      "sublabel": "qwen35 + Indexer metadata",
+      "role": "memory",
+      "fontsize": 24
+    },
+    {
+      "id": "graph",
+      "box": [
+        880,
+        180,
+        340,
+        90
+      ],
+      "label": "3. QSA graph",
+      "sublabel": "Indexer score → top-k",
+      "role": "global",
+      "fontsize": 24,
+      "emphasis": true,
+      "bold": true
+    },
+    {
+      "id": "infer",
+      "box": [
+        1295,
+        180,
+        355,
+        90
+      ],
+      "label": "4. 推論",
+      "sublabel": "疎 CUDA / MTP / cache",
+      "role": "global",
+      "fontsize": 24,
+      "emphasis": true,
+      "bold": true
+    },
+    {
+      "id": "convert-detail",
+      "box": [
+        50,
+        350,
+        340,
+        95
+      ],
+      "label": "FP32 を保持",
+      "sublabel": "norm は 1 + weight に fold",
+      "role": "memory"
+    },
+    {
+      "id": "load-detail",
+      "box": [
+        465,
+        350,
+        340,
+        95
+      ],
+      "label": "hybrid Indexer cache",
+      "sublabel": "GGUF metadata / tensor mapping",
+      "role": "memory"
+    },
+    {
+      "id": "graph-detail",
+      "box": [
+        880,
+        350,
+        340,
+        95
+      ],
+      "label": "top-k 512 blocks",
+      "sublabel": "mask / fast block の 2 経路",
+      "role": "global"
+    },
+    {
+      "id": "infer-detail",
+      "box": [
+        1295,
+        350,
+        355,
+        95
+      ],
+      "label": "qsa-attn.cu / 選択 KV",
+      "sublabel": "MTP・prefix cache",
+      "role": "global"
+    },
+    {
+      "id": "limits",
+      "box": [
+        50,
+        545,
+        340,
+        95
+      ],
+      "label": "stock llama.cpp は不可",
+      "sublabel": "品質・全長は別途評価",
+      "role": "modulation"
+    },
+    {
+      "id": "fallback",
+      "box": [
+        465,
+        545,
+        340,
+        95
+      ],
+      "label": "短文・未対応形状",
+      "sublabel": "mask / reference fallback",
+      "role": "local"
+    },
+    {
+      "id": "dense",
+      "box": [
+        880,
+        545,
+        340,
+        95
+      ],
+      "label": "LLAMA_QSA_DENSE=1",
+      "sublabel": "16 層を dense に戻す",
+      "role": "local"
+    },
+    {
+      "id": "verify",
+      "box": [
+        1295,
+        545,
+        355,
+        95
+      ],
+      "label": "検証して記録",
+      "sublabel": "tensor / 実生成 / 速度",
+      "role": "modulation"
+    }
+  ],
+  "edges": [
+    {
+      "from": "convert",
+      "to": "load",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "memory",
+      "width": 1.7
+    },
+    {
+      "from": "load",
+      "to": "graph",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "memory",
+      "width": 1.7
+    },
+    {
+      "from": "graph",
+      "to": "infer",
+      "from_side": "right",
+      "to_side": "left",
+      "role": "global",
+      "width": 1.7
+    },
+    {
+      "from": "convert",
+      "to": "convert-detail",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "load",
+      "to": "load-detail",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "memory"
+    },
+    {
+      "from": "graph",
+      "to": "graph-detail",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "infer",
+      "to": "infer-detail",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "global"
+    },
+    {
+      "from": "graph-detail",
+      "to": "fallback",
+      "from_side": "left",
+      "to_side": "top",
+      "role": "local",
+      "dashed": true
+    },
+    {
+      "from": "graph-detail",
+      "to": "dense",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "local",
+      "dashed": true
+    },
+    {
+      "from": "infer-detail",
+      "to": "verify",
+      "from_side": "bottom",
+      "to_side": "top",
+      "role": "modulation"
+    }
+  ],
+  "captions": [
+    {
+      "x": 55,
+      "y": 55,
+      "text": "llama.cpp の QSA 実行パイプライン",
+      "size": 34,
+      "ha": "left",
+      "bold": true
+    },
+    {
+      "x": 55,
+      "y": 95,
+      "text": "mid｜HF export 済みモデルを、専用 fork の convert → load → graph → inference へ接続する",
+      "size": 19,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 55,
+      "y": 125,
+      "text": "出典: qsa-indexer-forge @ eb0fd3f　／　engine: e697cf2c（または base 6209237 + MM2 patch）",
+      "size": 16,
+      "color": "muted",
+      "ha": "left"
+    },
+    {
+      "x": 850,
+      "y": 710,
+      "text": "太い主線はデータと実行の流れ。緑の破線は dense / fallback の対照経路。",
+      "size": 18,
+      "color": "muted"
+    },
+    {
+      "x": 190,
+      "y": 810,
+      "text": "■ dense・fallback",
+      "size": 18,
+      "color": "local"
+    },
+    {
+      "x": 600,
+      "y": 810,
+      "text": "■ QSA 経路",
+      "size": 18,
+      "color": "global"
+    },
+    {
+      "x": 990,
+      "y": 810,
+      "text": "■ 重み・cache",
+      "size": 18,
+      "color": "memory"
+    },
+    {
+      "x": 1370,
+      "y": 810,
+      "text": "■ 検証・注意",
+      "size": 18,
+      "color": "modulation"
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1080pt" height="684pt" viewBox="0 0 1080 684" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 684 
+L 1080 684 
+L 1080 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="line2d_1">
+    <path d="M 396 145.8 
+L 284.4 145.8 
+L 284.4 244.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 684 145.8 
+L 795.6 145.8 
+L 795.6 244.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 284.4 309.6 
+L 284.4 319.68 
+L 385.92 319.68 
+L 385.92 415.8 
+L 396 415.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 795.6 309.6 
+L 795.6 319.68 
+L 694.08 319.68 
+L 694.08 415.8 
+L 684 415.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 540 450 
+L 540 511.2 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: square"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 401.04 115.2 
+L 678.96 115.2 
+Q 684 115.2 684 120.24 
+L 684 171.36 
+Q 684 176.4 678.96 176.4 
+L 401.04 176.4 
+Q 396 176.4 396 171.36 
+L 396 120.24 
+Q 396 115.2 401.04 115.2 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #eff5fa; stroke: #367fc1; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 127.44 244.8 
+L 441.36 244.8 
+Q 446.4 244.8 446.4 249.84 
+L 446.4 304.56 
+Q 446.4 309.6 441.36 309.6 
+L 127.44 309.6 
+Q 122.4 309.6 122.4 304.56 
+L 122.4 249.84 
+Q 122.4 244.8 127.44 244.8 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #edf6f5; stroke: #218c85; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 638.64 244.8 
+L 952.56 244.8 
+Q 957.6 244.8 957.6 249.84 
+L 957.6 304.56 
+Q 957.6 309.6 952.56 309.6 
+L 638.64 309.6 
+Q 633.6 309.6 633.6 304.56 
+L 633.6 249.84 
+Q 633.6 244.8 638.64 244.8 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 401.04 381.6 
+L 678.96 381.6 
+Q 684 381.6 684 386.64 
+L 684 444.96 
+Q 684 450 678.96 450 
+L 401.04 450 
+Q 396 450 396 444.96 
+L 396 386.64 
+Q 396 381.6 401.04 381.6 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 401.04 511.2 
+L 678.96 511.2 
+Q 684 511.2 684 516.24 
+L 684 567.36 
+Q 684 572.4 678.96 572.4 
+L 401.04 572.4 
+Q 396 572.4 396 567.36 
+L 396 516.24 
+Q 396 511.2 401.04 511.2 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 48.24 511.2 
+L 297.36 511.2 
+Q 302.4 511.2 302.4 516.24 
+L 302.4 567.36 
+Q 302.4 572.4 297.36 572.4 
+L 48.24 572.4 
+Q 43.2 572.4 43.2 567.36 
+L 43.2 516.24 
+Q 43.2 511.2 48.24 511.2 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 782.64 511.2 
+L 1031.76 511.2 
+Q 1036.8 511.2 1036.8 516.24 
+L 1036.8 567.36 
+Q 1036.8 572.4 1031.76 572.4 
+L 782.64 572.4 
+Q 777.6 572.4 777.6 567.36 
+L 777.6 516.24 
+Q 777.6 511.2 782.64 511.2 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #f9f4ed; stroke: #b9781f; stroke-width: 1.1; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 284.4 145.8 
+Q 284.4 195.3 284.4 242.899342 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 286.6 238.499342 
+L 284.4 242.899342 
+L 282.2 238.499342 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 795.6 145.8 
+Q 795.6 195.3 795.6 242.899342 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 797.8 238.499342 
+L 795.6 242.899342 
+L 793.4 238.499342 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 385.92 415.8 
+Q 390.96 415.8 394.099342 415.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 389.699342 413.6 
+L 394.099342 415.8 
+L 389.699342 418 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #218c85; stroke: #218c85; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 694.08 415.8 
+Q 689.04 415.8 685.900658 415.8 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 690.300658 418 
+L 685.900658 415.8 
+L 690.300658 413.6 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #615ced; stroke: #615ced; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 540 450 
+Q 540 480.6 540 509.299342 
+" clip-path="url(#p9b735885d9)" style="fill: none; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 542.2 504.899342 
+L 540 509.299342 
+L 537.8 504.899342 
+z
+" clip-path="url(#p9b735885d9)" style="fill: #b9781f; stroke: #b9781f; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #367fc1" x="540" y="141.3378" transform="rotate(-0 540 141.3378)">同一 GGUF・固定入力</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="540" y="162.229275" transform="rotate(-0 540 162.229275)">seed / context / KV / MTP をそろえる</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 18px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #218c85" x="284.4" y="272.941875" transform="rotate(-0 284.4 272.941875)">dense 対照</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="284.4" y="293.629275" transform="rotate(-0 284.4 293.629275)">LLAMA_QSA_DENSE=1</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 18px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="795.6" y="273.428437" transform="rotate(-0 795.6 273.428437)">QSA 経路</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="795.6" y="293.629275" transform="rotate(-0 795.6 293.629275)">同じ重み / 学習済み Indexer</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="540" y="411.3378" transform="rotate(-0 540 411.3378)">同じ指標で比較</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="540" y="432.498938" transform="rotate(-0 540 432.498938)">PPL / capture / 実生成 / 速度</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 17.28px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="540" y="537.3378" transform="rotate(-0 540 537.3378)">結果と条件を保存</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="540" y="558.229275" transform="rotate(-0 540 558.229275)">差なしを「同等」と書かない</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="172.8" y="537.262538" transform="rotate(-0 172.8 537.262538)">capture は品質ではない</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="172.8" y="558.229275" transform="rotate(-0 172.8 558.229275)">短文では full 選択になり得る</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 15.84px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #b9781f" x="907.2" y="536.92965" transform="rotate(-0 907.2 536.92965)">未測定範囲を明記</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 12.24px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="907.2" y="558.229275" transform="rotate(-0 907.2 558.229275)">128k/262k・画像・動画</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 24.48px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #213047" x="39.6" y="47.200275" transform="rotate(-0 39.6 47.200275)">dense / QSA の統制評価</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 13.68px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="39.6" y="72.277425" transform="rotate(-0 39.6 72.277425)">mid｜モデル・入力・実行条件を固定し、経路だけを切り替えて比較する</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 11.52px; font-family: 'Noto Sans CJK JP'; text-anchor: start; fill: #69788c" x="39.6" y="93.4326" transform="rotate(-0 39.6 93.4326)">出典: qsa-indexer-forge @ eb0fd3f　／　capture・PPL と下流の品質を混同しない</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 12.96px; font-family: 'Noto Sans CJK JP'; text-anchor: middle; fill: #69788c" x="540" y="633.67335" transform="rotate(-0 540 633.67335)">比較不能な条件の数値を一つの表に混ぜず、検証範囲と未解決事項も保存する。</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9b735885d9">
+   <rect x="0" y="0" width="1080" height="684"/>
+  </clipPath>
+ </defs>
+</svg>
