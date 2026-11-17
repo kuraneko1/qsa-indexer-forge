@@ -69,6 +69,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 |---|---|
 | [アーキテクチャ（変換前 / 変換後）](docs/architecture.md) | 層構成、Indexer の位置、KV と MTP の扱い |
 | [Indexer 学習ガイド](docs/training.md) | 数式、データ、学習ループ、実行コマンド、所要時間 |
+| [取り違え重点の 64k 追加学習](docs/training-64k-mixup.md) | 300b から 64k で 300 step、データと損失の変更、64k の区切り計算、recall-grid 128k の評価 |
 | [llama.cpp 対応ガイド](docs/llama-cpp.md) | GGUF 変換、model graph、CUDA kernel、MTP、cache、patch |
 | [評価と限界](docs/evaluation.md) | PPL、capture、retrieval、DocVQA、速度、未検証事項 |
 | [再現チェックリスト](docs/reproduction.md) | 段階ごとの手順、合格条件、つまずきやすい点、再現できない範囲 |

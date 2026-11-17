@@ -7,6 +7,10 @@
 3. [評価と限界](evaluation.md) — dense 対照、capture、PPL、retrieval、実生成、未検証範囲。
 4. [再現チェックリスト](reproduction.md) — 段階ごとの手順、合格条件、つまずきやすい点、再現できない範囲。
 
+## 追加学習の記録
+
+- [取り違え重点の 64k 追加学習（2026-11-17）](training-64k-mixup.md) — 300b から 64k で 300 step。記録全体へのラベル、偽物との差の重み、KL の抜き取り、64k を通すための区切り計算。recall-grid 128k の 240 問で 212（300b 205、dense 223）。
+
 ## アーキテクチャ
 
 [変換前 / 変換後の対比](architecture.md) — 64 層（GDN 48 + 全注意 16）+ MTP の構成を保ったまま、16 層に Indexer を追加した位置関係、KV と MTP の扱い。
