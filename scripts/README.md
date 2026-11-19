@@ -11,6 +11,10 @@ uv run --no-project --with matplotlib python scripts/render_flowchart.py \
   docs/assets/qsa-overview.scene.json --out /tmp/qsa-overview --palette jade-violet
 ```
 
+## recall-grid と v2 の学習データ
+
+[`recall_grid/`](recall_grid/README.md) に、記録探しの課題の生成器・採点器と、indexer v2 の 2 段の学習データを作る生成器がある。手順は [indexer v2 の学習を再現する](../docs/training-v2.md)。
+
 ## GGUF utilities
 
 ## 量子化済み GGUF に Indexer だけを移植する

@@ -54,6 +54,44 @@ def block_teacher_from_qk(
     return target, valid
 
 
+@torch.no_grad()
+def block_teacher_rows(
+    query: torch.Tensor,
+    key: torch.Tensor,
+    block_size: int,
+    rows: torch.Tensor,
+    scale: float | None = None,
+    query_chunk: int = 512,
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Rows ``rows`` (sorted absolute query positions) of :func:`block_teacher_from_qk`.
+
+    Returns ``(target [B, R, nb], valid [R, nb])``; identical to ``block_teacher_from_qk(...)[0][:, rows]`` but only
+    the selected queries are computed, so the cost scales with ``R`` instead of ``T``.
+    """
+    b, h, t, d = query.shape
+    r = block_size
+    nb = t // r
+    scale = scale if scale is not None else 1.0 / math.sqrt(d)
+    rows = rows.to(query.device)
+    pos = torch.arange(t, device=query.device)
+    starts = torch.arange(nb, device=query.device) * r
+    valid = (starts[None, :] + r - 1) <= rows[:, None]  # [R, nb]
+    target = query.new_zeros(b, rows.numel(), nb, dtype=torch.float32)
+    if nb == 0:
+        return target, valid
+    for i0 in range(0, rows.numel(), query_chunk):
+        rr = rows[i0:i0 + query_chunk]
+        logits = torch.matmul(query[:, :, rr], key.transpose(-1, -2)) * scale
+        causal = pos[None, :] <= rr[:, None]
+        logits = logits.masked_fill(~causal, float("-inf"))
+        probs = torch.softmax(logits.float(), dim=-1).sum(1)
+        target[:, i0:i0 + rr.numel()] = probs[:, :, : nb * r].reshape(b, rr.numel(), nb, r).amax(-1)
+    target = target.masked_fill(~valid[None], 0.0)
+    denom = target.sum(-1, keepdim=True)
+    target = torch.where(denom > 0, target / denom.clamp_min(1e-12), target)
+    return target, valid
+
+
 def block_valid(seq_len: int, block_size: int, device=None) -> torch.Tensor:
     """``[T, nb]`` mask of blocks that are fully observed at each query."""
     nb = seq_len // block_size

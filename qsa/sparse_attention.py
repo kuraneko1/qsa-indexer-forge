@@ -68,6 +68,37 @@ def build_sparse_mask(
     return (block_sel | tail) & causal
 
 
+def span_sparse_mask(
+    block_ids: torch.Tensor,
+    valid: torch.Tensor,
+    q_start: int,
+    q_end: int,
+    block_size: int,
+) -> torch.Tensor:
+    """Rows ``q_start:q_end`` and columns ``0:q_end`` of :func:`build_sparse_mask`.
+
+    ``block_ids``/``valid`` are for those query rows only (``[B, C, kb]`` / ``[B, C, nb]``, ``nb`` = blocks of the
+    whole sequence). Columns at or after ``q_end`` are never visible to these rows (causal), so they are omitted.
+    """
+    b, c, _ = block_ids.shape
+    device = block_ids.device
+    r = block_size
+    nb = valid.shape[-1]
+    onehot = torch.zeros(b, c, nb, dtype=torch.bool, device=device)
+    onehot.scatter_(-1, block_ids, True)
+    onehot = onehot & valid
+    kpos = torch.arange(q_end, device=device)
+    tok_block = kpos // r
+    in_complete = tok_block < nb
+    safe_block = tok_block.clamp(max=max(nb - 1, 0))
+    block_sel = onehot[:, :, safe_block] if nb > 0 else torch.zeros(b, c, q_end, dtype=torch.bool, device=device)
+    block_sel = block_sel & in_complete[None, None, :]
+    qpos = torch.arange(q_start, q_end, device=device)
+    causal = kpos[None, :] <= qpos[:, None]
+    tail = (tok_block[None, :] == (qpos // r)[:, None]) & causal
+    return (block_sel | tail) & causal
+
+
 def qsa_attention(
     query: torch.Tensor,
     key: torch.Tensor,

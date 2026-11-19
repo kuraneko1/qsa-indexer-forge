@@ -142,3 +142,43 @@ class QSAIndexer(nn.Module):
         valid = valid.unsqueeze(0).expand(b, -1, -1)
         scores = scores.masked_fill(~valid, float("-inf"))
         return scores, valid
+
+    # --- query-chunked scoring (used for 64k training) ---------------------------------------------
+    # forward() materializes [b, H, t, n_blocks] float32 logits: 15.6 GiB at 64k. These two methods give the
+    # same scores one span of queries at a time: key_blocks() once from the whole sequence, score_span() for
+    # queries [q_offset, q_offset + c). Concatenating the spans reproduces forward() exactly.
+    def key_blocks(self, hidden_states: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+        b, t, _ = hidden_states.shape
+        r = self.block_size
+        n_blocks = t // r
+        k = self.k_proj(hidden_states).view(b, t, 1, self.head_dim)
+        k = self._norm(k, self.k_norm)
+        cos = cos.to(k.dtype)
+        sin = sin.to(k.dtype)
+        k_blocks = k[:, : n_blocks * r, 0].reshape(b, n_blocks, r, self.head_dim).mean(2)
+        k_blocks = self._norm(k_blocks, self.k_block_norm)
+        block_pos = torch.arange(n_blocks, device=hidden_states.device) * r
+        return apply_partial_rope(k_blocks, cos[block_pos][None, :, :], sin[block_pos][None, :, :], self.rope_dim)
+
+    def score_span(self, hidden_span: torch.Tensor, cos_span: torch.Tensor, sin_span: torch.Tensor,
+                   k_blocks: torch.Tensor, q_offset: int) -> tuple[torch.Tensor, torch.Tensor]:
+        pos = torch.arange(q_offset, q_offset + hidden_span.shape[1], device=hidden_span.device)
+        return self.score_rows(hidden_span, cos_span, sin_span, k_blocks, pos)
+
+    def score_rows(self, hidden_rows: torch.Tensor, cos_rows: torch.Tensor, sin_rows: torch.Tensor,
+                   k_blocks: torch.Tensor, positions: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        """Scores for queries at arbitrary absolute ``positions`` (hidden/cos/sin already gathered at them)."""
+        b, c, _ = hidden_rows.shape
+        r = self.block_size
+        n_blocks = k_blocks.shape[1]
+        q = self.q_proj(hidden_rows).view(b, c, self.num_heads, self.head_dim)
+        q = self._norm(q, self.q_norm)
+        cos_rows = cos_rows.to(q.dtype)
+        sin_rows = sin_rows.to(q.dtype)
+        q = apply_partial_rope(q, cos_rows[None, :, None, :], sin_rows[None, :, None, :], self.rope_dim)
+        logits = torch.einsum("bthd,bnd->bhtn", q, k_blocks)
+        scores = torch.relu(logits).sum(1) * self.logit_scale
+        pos = positions.to(hidden_rows.device)
+        block_starts = torch.arange(n_blocks, device=hidden_rows.device) * r
+        valid = ((block_starts[None, :] + r - 1) <= pos[:, None]).unsqueeze(0).expand(b, -1, -1)
+        return scores.masked_fill(~valid, float("-inf")), valid

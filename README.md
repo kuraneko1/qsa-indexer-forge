@@ -69,6 +69,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 |---|---|
 | [アーキテクチャ（変換前 / 変換後）](docs/architecture.md) | 層構成、Indexer の位置、KV と MTP の扱い |
 | [Indexer 学習ガイド](docs/training.md) | 数式、データ、学習ループ、実行コマンド、所要時間 |
+| [indexer v2 の学習を再現する](docs/training-v2.md) | 1 段目（16k、300b）と 2 段目（64k、mix64k）の設定、学習データの作り方と sha256、増えた設定の項目 |
 | [公開版 indexer から v2 まで](docs/research-v2.md) | 128k の取り違えを 2 段階の追加学習で直し、v2 として公開するまで。rg-V 128k で v1 169 → v2 215（dense 227）、重み編集の試み、費用、失敗 |
 | [取り違え重点の 64k 追加学習](docs/training-64k-mixup.md) | 300b から 64k で 300 step、データと損失の変更、64k の区切り計算、recall-grid 128k の評価 |
 | [llama.cpp 対応ガイド](docs/llama-cpp.md) | GGUF 変換、model graph、CUDA kernel、MTP、cache、patch |
@@ -114,6 +115,10 @@ uv run --locked --extra train python -m qsa.p0_capture \
 
 公開済みの最終 MM2 からさらに学習する場合は `configs/multimodal-continue-mm2.yaml` を使います。詳細と歴史的設定との違いは [学習ガイド](docs/training.md) を参照してください。
 
+### 3. v2 の 2 段の追加学習（長い文脈の取り違えを直す）
+
+公開版の v2 は、v1 から 16k の 300 step（`configs/recall-16k-300b.yaml`）と、64k の 300 step（`configs/mixup-64k.yaml`）で作りました。学習データは `scripts/recall_grid/` の生成器で作ります。2 段目は 80GB の GPU が 1 枚要ります。手順は [indexer v2 の学習を再現する](docs/training-v2.md) を参照してください。
+
 ## Hugging Face 形式へ export する
 
 元モデルと公開 Indexer を固定 revision で取得します。
@@ -133,9 +138,9 @@ uv run --locked --extra export python -m qsa.export_model \
 uv run --locked --extra export python -m qsa.validate_export /path/to/Qwen3.8-27B-QSA
 ```
 
-元の 18 個の BF16 shard、tokenizer、processor、vision、MTP を保持し、Indexer を別 shard に追加します。
+元の 18 個の BF16 shard、tokenizer、processor、vision、MTP を保持し、Indexer を別 shard に追加します。export 先が既に存在する場合は上書きせず失敗します。
 
-上の手順は v1（MM2 16k）の固定 revision です。2026-11-20 から、BF16 repo の main の `indexers/qsa_indexers.pt` は v2（SHA256 `6a6bb0de…`、revision `a3df8f4dae7b5e889eb2f34d52929204c255a079`）です。v1 は HF のタグ `v1` にも残っています。v2 の学習コードはまだこの repo に入っていません（[v2 の記録](docs/research-v2.md#8-この-repo-にまだ入っていないもの)）。export 先が既に存在する場合は上書きせず失敗します。
+上の手順は v1（MM2 16k）の固定 revision です。2026-11-20 から、BF16 repo の main の `indexers/qsa_indexers.pt` は v2（SHA256 `6a6bb0de…`、revision `a3df8f4dae7b5e889eb2f34d52929204c255a079`）です。v1 は HF のタグ `v1` にも残っています。v2 を自分で学習する手順は [indexer v2 の学習を再現する](docs/training-v2.md) にあります。
 
 ## GGUF / llama.cpp で実行する
 
@@ -167,6 +172,7 @@ qsa/                  Indexer、教師分布、KL、学習、HF export/runtime
 configs/              安全な local 学習設定と評価の記録
 configs/historical/   実際に使われた設定の保存版（そのまま実行しない）
 scripts/              GGUF への Indexer 移植・検証と図の描画
+scripts/recall_grid/  記録探しの課題の生成器・採点器と、v2 の学習データの生成器
 patches/              llama.cpp の3段階の独立差分と MIT license
 tests/                CPU unit / conversion / cache tests
 docs/                 学習・native 実装・評価・来歴・調査記録
