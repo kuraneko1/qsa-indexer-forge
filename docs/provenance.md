@@ -203,7 +203,7 @@ IQ3_S の 24GB 向けチューニング（層分割なし、VRAM 余裕 1GiB 弱
 ## 8. 未確認事項（明示）
 
 1. `/mnt/data2/qsa27b/` 配下の実ファイル・SHA256・サービス状態（本機に mount が無い）。
-2. `pentaCoxian/Qwen-QSA-llama.cpp @70b4e14` の実体（`git cat-file` 不可、fetch 失敗）。
+2. `pentaCoxian/Qwen-QSA-llama.cpp @70b4e14` の実体（`git cat-file` 不可、fetch 失敗）。→ 2026-11-20 に確認済み（§10）。
 3. IQ3_S 3 ファイルの SHA256（ローカル記録に値が無い）。
 4. 3 patch は clean `6209237` archive への `git apply --check` 済み。実適用後の CUDA ビルド・推論は未実行。
 5. 公開 archive の再ビルドが同一バイナリになること（記録でも保証していない）。
@@ -220,3 +220,30 @@ IQ3_S の 24GB 向けチューニング（層分割なし、VRAM 余裕 1GiB 弱
 - 「実行した」と「記録にある」を分ける。実行していないコマンドを実行済みと書かない。
 - 数値には条件（context、KV 型、量子化、MTP、GPU）を付ける。条件の違う表を混ぜない。
 - 本流と IQ3_S 派生を同じ表・同じ結論にまとめない。
+
+---
+
+## 10. indexer v2（2026-11-20 追記）
+
+経緯と評価は [公開版 indexer から v2 まで](research-v2.md) にある。ここには revision と SHA256 だけを置く。
+
+| 種別 | リポジトリ | 固定 revision | 備考 |
+|---|---|---|---|
+| BF16 + indexer v2 | [higa2515/Qwen3.8-27B-QSA-BF16](https://huggingface.co/higa2515/Qwen3.8-27B-QSA-BF16) | `a3df8f4dae7b5e889eb2f34d52929204c255a079` | `indexers/qsa_indexers.pt` と `qsa-indexers.safetensors` が v2。親 `cf68114a27146533c90224ccda4bd2bd014a5795` が差し替えの commit、`a3df8f4` は SHA256SUMS の `.gitattributes` の行の修正 |
+| BF16 v1（タグ） | 同上 | タグ `v1` = `aedae2c5304698f58d30c5ec709ebf5b37339b1d` | 注釈付きタグ。`list_repo_refs` はタグ自体の id を返すので、`revision="v1"` で解決して確かめる |
+| GGUF v2 | [higa2515/Qwen3.8-27B-QSA-GGUF](https://huggingface.co/higa2515/Qwen3.8-27B-QSA-GGUF) | `c189dc0e2215d71afce0ddf06905507bfddf9e61` | GGUF 4 つの indexer の 80 テンソルだけを v2 に。ほかのテンソルとメタデータはバイト単位で同じ |
+| GGUF v1（タグ） | 同上 | タグ `v1` = `e4c378e709c29a72997f56b5f97f9cd282fede83` | 同上 |
+| 評価に使ったエンジン | [pentaCoxian/Qwen-QSA-llama.cpp](https://github.com/pentaCoxian/Qwen-QSA-llama.cpp) | `70b4e14a830a4ec78d1ac97087cd9fac02429d37` | tree `efdc7d27102168fe7f4f603bcd28cddae37d7914`、base `6209237`。本流 `864934c78136ad75274f202b8eb1e7c751d81fb1` とはコード 15 ファイルが違う。sm_80 でビルドして A100 で使った |
+
+| ファイル | v1 SHA256 | v2 SHA256 |
+|---|---|---|
+| `indexers/qsa_indexers.pt` | `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51` | `6a6bb0decc88f3a8d411e423069f6634f2a5a69d832853ddf9b6504535d136bc` |
+| `qsa-indexers.safetensors` | `241f04cd8db6f2820fb50ff4d8f4cfbd1a1be1fe2993dcdb9caccf17a3e83d9a` | `985345467f60a2c0ae6cf9d8c875ce36d6a6da4aef4aa7428e04e457e4aad6d4` |
+| `Qwen3.8-27B-QSA-Q8_0.gguf` | `97c4ecdd175664b056df1822a4e2a93e504a5a7fc8789a3a5cd51517f73c711f` | `15585d5698e5254f575800407c08e5dccfb76d6a8e0998f31dcc4635ed0e599b` |
+| `Qwen3.8-27B-QSA-Unsloth-UD-Q4_K_M.gguf` | `30f12055d5f3272381a2e6ee8ad2281cafa907373f3b34a80036cc2a992d4707` | `7f2b57d244fe53ee2d5d80a82615cef962c357bd76bf02b68417a6292d30dce5` |
+| `Qwen3.8-27B-QSA-Unsloth-UD-Q5_K_M.gguf` | `63727171d5c5d2ec5cae28f9573a512bbc707ada1aaad6ac8e275123c2fefebf` | `bcd6e030ba5ad8075162b8586e5cd0e4a89ae08d2d0af2476b0a934b9902e964` |
+| `Qwen3.8-27B-QSA-Unsloth-UD-Q6_K.gguf` | `8e47564fe7d8eb9e6e145324f19752314720425ea5770304a7234bd7f7afbd51` | `363907bacefc535c137ddfc42d6f0281d429f311de2b7cb4269ccfd92e272d10` |
+
+- GGUF のサイズは v1 と同じ（Q8_0 29,256,829,760、Q4 16,674,185,792、Q5 19,981,255,232、Q6 22,193,422,912 bytes）。
+- 学習の段階の SHA256：1 段目 300b の `.pt` は `5b760e46e0d9994edf4250896cf984bf1507ff5d863815a2995a3aa9c2c87227`、2 段目 mix64k の `.pt`（step600）は `794cbfed447603e8354d1268a19dd51f8bda941d6cb37c5ae3b92c2e9bde8a8c`、GGUF への書き込みに使った npz は `2c1885c532a79fd17ecf1a1ddc5f396414e07a18b95635323d9c12aa9a9e7cb2`。
+- 公開の `qsa_indexers.pt`（`6a6bb0de…`）と step600 の `.pt`（`794cbfed…`）は、ファイルの SHA256 が違う（保存の仕方の違い）。中身の 80 テンソルは、どちらも上の npz とビット単位で一致する。

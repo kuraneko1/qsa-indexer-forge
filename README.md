@@ -69,6 +69,7 @@ Qwen3.8-27B の 16 個の full-attention 層に、Qwen Sparse Attention (QSA) �
 |---|---|
 | [アーキテクチャ（変換前 / 変換後）](docs/architecture.md) | 層構成、Indexer の位置、KV と MTP の扱い |
 | [Indexer 学習ガイド](docs/training.md) | 数式、データ、学習ループ、実行コマンド、所要時間 |
+| [公開版 indexer から v2 まで](docs/research-v2.md) | 128k の取り違えを 2 段階の追加学習で直し、v2 として公開するまで。rg-V 128k で v1 169 → v2 215（dense 227）、重み編集の試み、費用、失敗 |
 | [取り違え重点の 64k 追加学習](docs/training-64k-mixup.md) | 300b から 64k で 300 step、データと損失の変更、64k の区切り計算、recall-grid 128k の評価 |
 | [llama.cpp 対応ガイド](docs/llama-cpp.md) | GGUF 変換、model graph、CUDA kernel、MTP、cache、patch |
 | [評価と限界](docs/evaluation.md) | PPL、capture、retrieval、DocVQA、速度、未検証事項 |
@@ -132,7 +133,9 @@ uv run --locked --extra export python -m qsa.export_model \
 uv run --locked --extra export python -m qsa.validate_export /path/to/Qwen3.8-27B-QSA
 ```
 
-元の 18 個の BF16 shard、tokenizer、processor、vision、MTP を保持し、Indexer を別 shard に追加します。export 先が既に存在する場合は上書きせず失敗します。
+元の 18 個の BF16 shard、tokenizer、processor、vision、MTP を保持し、Indexer を別 shard に追加します。
+
+上の手順は v1（MM2 16k）の固定 revision です。2026-11-20 から、BF16 repo の main の `indexers/qsa_indexers.pt` は v2（SHA256 `6a6bb0de…`、revision `a3df8f4dae7b5e889eb2f34d52929204c255a079`）です。v1 は HF のタグ `v1` にも残っています。v2 の学習コードはまだこの repo に入っていません（[v2 の記録](docs/research-v2.md#8-この-repo-にまだ入っていないもの)）。export 先が既に存在する場合は上書きせず失敗します。
 
 ## GGUF / llama.cpp で実行する
 
@@ -153,6 +156,7 @@ git checkout e697cf2c72ecaa165de3714ea6ac3b00649ab274
 | Text step600 | capture 0.9414、PPL 7.072960 → 7.071757 | 16k、小規模評価 |
 | 最終 MM2 | capture 0.9353、PPL 7.072960 → 7.071384 | 16k・300 step、backbone 凍結 |
 | Native 261,120 入力 | decode QSA 41.07 / dense 22.91 token/s | Q8_0、V100 系 2 枚、特定条件 |
+| v2（2026-11-20 公開） | rg-V 128k 240 問、thinking off：v1 169 → v2 215（dense 227） | Q8_0、A100、K=2048、pentaCoxian/Qwen-QSA-llama.cpp `70b4e14`。[詳細](docs/research-v2.md) |
 
 これらは一般的な品質同等性や全環境での速度を証明しません。QSA は全 KV を保持する方式で、KV 保存容量の圧縮ではありません。`K=2048` は固定なので、選択率が常に 12.5% という意味でもありません。
 
