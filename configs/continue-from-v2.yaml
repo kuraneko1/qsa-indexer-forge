@@ -1,0 +1,40 @@
+# Continue training from the published indexer v2 (template). See docs/training-v2.md section 7.
+# The warm start is pinned: the BF16 repository commit that put v2 in (cf68114) and the file's sha256. Later commits of
+# that repository change only the README and metadata; the file is the same (sha256 6a6bb0de...).
+# Replace local_data with your own question-conditioned data (one record per line: doc, question, fmt, answer_pos
+# [, decoy_pos], positions in tokens of doc), or remove local_data to distil on FineWeb-Edu only.
+# Run from the repository root: uv run --locked --extra train python -m qsa.p0_capture --config configs/continue-from-v2.yaml
+stage: distill
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 16384
+steps: 300
+step_offset: 600          # v2 = 300 (stage 1) + 300 (stage 2) steps; checkpoints are named from step 650
+seed: 0
+lr: 0.00005
+# block_size, budget and the indexer shape must stay as published, or the result no longer fits the GGUF and the engine
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 50
+push_to_hub: false
+upload_prefix: local-continue-v2
+indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
+indexer_revision: cf68114a27146533c90224ccda4bd2bd014a5795   # v2 (tag v1 = aedae2c is v1)
+indexer_file: indexers/qsa_indexers.pt
+indexer_sha256: 6a6bb0decc88f3a8d411e423069f6634f2a5a69d832853ddf9b6504535d136bc
+local_data: data/my-train-16k.jsonl.gz
+local_instruction: "If it helps, work it out in a few short lines first. Then end with one line of the form: ANSWER: <{}>"
+lambda_answer: 0.3        # stage 1 values; used only for records with answer_pos / decoy_pos
+mu_margin: 0.1
+margin: 2.0
+mix_fineweb: 0.2          # 20% FineWeb-Edu (steps n % 10 in {8, 9}), as in stage 1
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_eval: true
+eval_seqs: 1
+eval_skip_docs: 50000

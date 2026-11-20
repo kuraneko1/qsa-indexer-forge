@@ -119,6 +119,8 @@ uv run --locked --extra train python -m qsa.p0_capture \
 
 公開版の v2 は、v1 から 16k の 300 step（`configs/recall-16k-300b.yaml`）と、64k の 300 step（`configs/mixup-64k.yaml`）で作りました。学習データは `scripts/recall_grid/` の生成器で作ります。2 段目は 80GB の GPU が 1 枚要ります。手順は [indexer v2 の学習を再現する](docs/training-v2.md) を参照してください。
 
+公開版の v2 を初期値にして、自分のデータで追加学習するときは、ひな形 `configs/continue-from-v2.yaml` と、[7 章：公開版の indexer から追加学習を始める](docs/training-v2.md#7-公開版の-indexer-から追加学習を始める) を使います。初期値は commit と sha256 で固定して取ります。
+
 ## Hugging Face 形式へ export する
 
 元モデルと公開 Indexer を固定 revision で取得します。
