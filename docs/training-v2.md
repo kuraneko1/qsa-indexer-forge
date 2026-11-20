@@ -121,3 +121,55 @@ QSA_QCHUNK=1024 QSA_TEACHER_QCHUNK=256 PYTORCH_CUDA_ALLOC_CONF=expandable_segmen
 - **同じ GPU・同じ環境：** 2 段目は、同じ Colab の A100 で 2 回回し、最初の 3 step の loss がビット単位で一致した。step325 のチェックポイントの sha256 も一致した。
 - **違う GPU・違うライブラリ：** ビット単位の一致は保証しない。公開版は torch 2.15.0+cu132、transformers 5.22.1 で回した。
 - **1 段目の評価：** 公開版の 1 段目は、学習の後に別のデータ（seed 2002 の 60 問のうち先頭 20 問）で正解ブロックの順位を測っていた（`local_eval_data`）。この測定は重みに影響しないので、公開の設定からは外した。
+
+## 7. 公開版の indexer から追加学習を始める
+
+公開版の v2（または v1）を初期値にして、自分のデータで追加学習する手順。ひな形は [`configs/continue-from-v2.yaml`](../configs/continue-from-v2.yaml) で、1 段目の設定と違うのは、初期値・データのファイル名・`step_offset`・保存名だけである。
+
+### 7.1 初期値
+
+| 版 | 取る場所 | sha256 |
+|---|---|---|
+| v2 | BF16 repo の commit `cf68114a27146533c90224ccda4bd2bd014a5795`（v2 を入れた commit。それ以降の main でも同じファイル） | `6a6bb0decc88f3a8d411e423069f6634f2a5a69d832853ddf9b6504535d136bc` |
+| v1 | BF16 repo のタグ `v1`（commit `aedae2c5304698f58d30c5ec709ebf5b37339b1d`） | `e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51` |
+
+- **Hub から取る（ひな形の形）：** `indexer_repo`・`indexer_revision`・`indexer_file`・`indexer_sha256` を書く。学習コードがファイルを取り、sha256 を確かめてから、本体の 16 の全注意層に読み込む。
+  - revision に `main` と書くと、将来ファイルが変わったときに初期値も変わる。commit で固定する。
+- **手元のファイルから：** 先に取っておき、`init_local` と `init_sha256` を書く（`indexer_` で始まる 4 行は消す）。
+
+```sh
+hf download higa2515/Qwen3.8-27B-QSA-BF16 indexers/qsa_indexers.pt \
+  --revision cf68114a27146533c90224ccda4bd2bd014a5795 --local-dir init
+sha256sum init/indexers/qsa_indexers.pt   # 6a6bb0decc88f3a8d411e423069f6634f2a5a69d832853ddf9b6504535d136bc
+```
+
+- **読めることの確認：** 2026-11-20 に、公開版 v2 のファイルを、この repo の `QSAIndexer`（`indexer_heads: 4`、`indexer_head_dim: 128`、`rope_dim: 64`）に、16 層とも strict で読み込めることを確かめた。52,434,944 パラメータ、F32 で、モデルカードと同じ。
+
+### 7.2 変えてはいけない値
+
+- **`block_size: 4`、`budget: 2048`、`indexer_heads: 4`、`indexer_head_dim: 128`、`rope_dim: 64`：** indexer の形とブロックの単位。変えると、GGUF とエンジンに入らない。
+- **`model_revision`：** 本体の重み。indexer は、この本体の注意を教師にして学ぶ。
+
+### 7.3 データ
+
+- **自分の課題で学ぶ：** `local_data` に jsonl（gzip でもよい）を置く。1 行が「文書＋質問」の 1 系列で、項目は次のとおり。
+  - `doc`：文書。`question`：質問。`fmt`：答えの形式（`local_instruction` の `{}` に入る）。
+  - `answer_pos`：答えに要る記録の、`doc` の中での token の位置（tokenizer は本体と同じ）。正解ブロックの質量の項（λ）に使う。
+  - `decoy_pos`（任意）：偽物の記録の token の位置。偽物との差の項（μ）に使う。
+  - 文書が `seq_len` に収まらないときは、先頭を削る。答えの位置が削られた行は使わない。
+  - 作り方の例は [`scripts/recall_grid/`](../scripts/recall_grid/README.md)。1 段目は記録の先頭の token だけ、2 段目は記録の全 token をラベルにした。
+- **混ぜる：** `mix_fineweb: 0.2` で、10 step のうち 2 step を FineWeb-Edu にする（1 段目と同じ）。0 にすると、自分のデータだけで学ぶ。
+- **ラベルなしで蒸留だけ：** `local_data` の行を消すと、FineWeb-Edu だけで教師との KL を学ぶ（λ・μ は使われない）。v1 と同じ学び方である。
+
+### 7.4 長さと GPU
+
+- **16k：** ひな形のまま。A100 80GB で 1 step 約 15 秒（1 段目は 300 step で約 75 分）。
+- **64k：** [`configs/mixup-64k.yaml`](../configs/mixup-64k.yaml) の `restrict_kl`・`kl_rows`・`loss_chunk`・`spill_capture`・`offload_embed` と、環境変数（`QSA_QCHUNK=1024` など、3 章）を写す。80GB の GPU が要る（2 段目のメモリの山は 78.7 GB）。
+- **step の名前：** `step_offset: 600` なので、チェックポイントは step650 から始まる（v2 は 600 step 目）。
+
+### 7.5 良くなったかの確かめ方
+
+- **別の問題で比べる：** 学習にも設定の決定にも使っていない問題で、v2 と同じ問題を解かせ、問題ごとに比べる（[研究の記録](research-v2.md) 2 章の rg-V と同じやり方。生成器なら seed を変えて作る）。
+- **学習に使ったデータで判断しない：** 学習に使ったデータや、そこから選んだ指標だけで、良くなったと判断しない（研究の記録 12 章）。
+- **手早く見るだけなら：** 学習の後に、別のデータで正解ブロックの順位を見る `local_eval_data`・`local_eval_n` が使える（4 章）。
+- **結果を使う：** 5 章のとおり、HF 形式に export し、GGUF にする。

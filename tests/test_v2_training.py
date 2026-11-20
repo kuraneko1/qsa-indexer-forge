@@ -211,3 +211,17 @@ def test_v2_configs_are_local_and_pinned() -> None:
     assert (s1["lambda_answer"], s1["mu_margin"], s1["seq_len"]) == (0.3, 0.1, 16384)
     assert (s2["lambda_answer"], s2["mu_margin"], s2["seq_len"]) == (0.3, 0.3, 65536)
     assert s2["restrict_kl"] is True and s2["kl_rows"] == 4096 and s2["step_offset"] == 300
+
+
+def test_continue_from_v2_template_is_pinned() -> None:
+    s1 = yaml.safe_load((ROOT / "configs/recall-16k-300b.yaml").read_text())
+    c = yaml.safe_load((ROOT / "configs/continue-from-v2.yaml").read_text())
+    assert c["indexer_repo"] == "higa2515/Qwen3.8-27B-QSA-BF16" and c["indexer_file"] == "indexers/qsa_indexers.pt"
+    assert c["indexer_revision"] == "cf68114a27146533c90224ccda4bd2bd014a5795"   # the commit that put v2 in
+    assert c["indexer_sha256"] == "6a6bb0decc88f3a8d411e423069f6634f2a5a69d832853ddf9b6504535d136bc"
+    assert c["push_to_hub"] is False and c["step_offset"] == 600
+    # the indexer shape and block unit must match the published GGUF; everything else follows stage 1
+    for k in ("block_size", "budget", "indexer_heads", "indexer_head_dim", "rope_dim", "model_revision", "seq_len",
+              "lambda_answer", "mu_margin", "margin", "mix_fineweb", "dataset_revision"):
+        assert c[k] == s1[k], k
+    assert set(c) == set(s1)
