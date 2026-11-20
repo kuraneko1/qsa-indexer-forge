@@ -411,7 +411,7 @@ thinking low：
   - エンジンは本流の sm70 の収録済み runtime（GGUF repo の `qsa27b-linux-x86_64-sm70.tar.gz`、commit `3469212b` のビルド）。
   - エンジンの README の手順どおり `launch.sh` で起動した（手元の評価機の V100 32GB 2 枚、context 262,144、FP16 KV、MTP draft 2）。
   - 採点器と設定は 2 章と同じ（`recall_grid_think.py --kill-loops`、出力の上限 65,536）。
-- **chat template：** Q4 の GGUF に入っている template は、Q8_0 のもの（Unsloth の版）と違う。ただ、この試験の形（system 1 つ＋user 1 つ）では、thinking off・low とも同じ文字列になることを確かめた。
+- **chat template：** Q4 の GGUF に入っている template（Unsloth の版）は、Q8_0 のものと違う。ただ、この試験の形（system 1 つ＋user 1 つ）では、thinking off・low とも同じ文字列になることを確かめた。
 
 | | thinking off | thinking low |
 |---|---:|---:|
