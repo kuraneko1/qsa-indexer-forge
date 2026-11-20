@@ -1,0 +1,38 @@
+# AS RUN (2026-11-17 to 18, Colab A100-SXM4-80GB high-mem): stage 2 of indexer v2, "mix64k" (published as v2).
+# Kept for the record; do not run as is. /content/base was Qwen/Qwen3.8-27B @ 1d4bf0f2 downloaded to the VM;
+# /content/qt/qsa_indexers_300b.pt was the stage 1 result (sha256 5b760e46...). Environment of the run:
+#   QSA_QCHUNK=1024 QSA_TEACHER_QCHUNK=256 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+# The runnable profile is configs/mixup-64k.yaml.
+# 64k "mix-up" (取り違え) run: 300 steps from 300b on Colab A100 80GB (2026-11-17).
+# Same recipe as 300b (configs/recall-16k-300.yaml: KL to the dense teacher + answer-block mass + decoy margin), changed:
+#   seq_len 16k -> 64k; mu_margin 0.1 -> 0.3; restrict_kl on; data = gen_mixup.py (rg generator, new seeds, PG-19 TRAIN
+#   books, every token of the needed / decoy records labelled, questions weighted toward revision/pointer/code/guid);
+#   kl_rows 4096 (teacher/KL sampled, about 2.3x faster); save_every 25.
+stage: distill
+model: /content/base
+seq_len: 65536
+steps: 300
+step_offset: 300
+seed: 0
+lr: 0.00005
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 25
+push_to_hub: false
+init_local: /content/qt/qsa_indexers_300b.pt
+local_data: /content/qt/mixup-64k.jsonl.gz
+local_instruction: "If it helps, work it out in a few short lines first. Then end with one line of the form: ANSWER: <{}>"
+mix_fineweb: 0.0
+lambda_answer: 0.3
+mu_margin: 0.3
+margin: 2.0
+restrict_kl: true
+kl_rows: 4096        # teacher + KL at all question tokens and 4096 random document positions per step
+loss_chunk: 2048
+spill_capture: true
+offload_embed: true
+skip_eval: true

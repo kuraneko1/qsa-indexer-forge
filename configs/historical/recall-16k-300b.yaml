@@ -1,0 +1,39 @@
+# AS RUN (2026-11-09, Modal A100 80GB): stage 1 of indexer v2, "300b". Kept for the record; do not run as is.
+# - init_from_hub had no revision: it loaded indexers/qsa_indexers.pt from the BF16 repo main of that day (v1,
+#   commit aedae2c, sha256 e44193e5...). That path holds v2 since 2026-11-20.
+# - mix_fineweb 0.3 ran as 0.2 with the combine_iterators of that day (fixed since). The runnable profile is
+#   configs/recall-16k-300b.yaml.
+# - /data/... were files on the Modal volume, made with scripts/recall_grid/gen_train_16k.py.
+# 300 step 本測定（warm start, KL + λ + μ, 70/30 mix）
+stage: distill
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 16384
+steps: 300
+step_offset: 0
+seed: 0
+lr: 0.00005
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 50
+push_to_hub: false
+local_data: /data/recall-16k.jsonl.gz
+local_eval_data: /data/recall-eval-16k.jsonl.gz
+local_eval_n: 20
+local_instruction: "If it helps, work it out in a few short lines first. Then end with one line of the form: ANSWER: <{}>"
+lambda_answer: 0.3
+mu_margin: 0.1
+margin: 2.0
+mix_fineweb: 0.3
+init_from_hub: indexers/qsa_indexers.pt
+hf_repo: higa2515/Qwen3.8-27B-QSA-BF16
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_eval: true
+eval_seqs: 1
+eval_skip_docs: 50000

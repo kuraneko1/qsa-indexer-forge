@@ -1,0 +1,38 @@
+# Stage 2 of indexer v2 ("mix64k", published as v2): 300 steps at 64k from the stage 1 result.
+# Changes from stage 1: seq_len 64k, mu_margin 0.3, restrict_kl, every token of the needed and decoy records labelled,
+# questions weighted toward look-alike cases, teacher/KL at all question tokens plus 4,096 random document positions.
+# Make the data first (PG-19 train books, one .txt per book; docs/training-v2.md):
+#   python scripts/recall_grid/gen_mixup_64k.py --out data/mixup-64k.jsonl.gz --runs 25 --q-per-doc 3 --length 64000 \
+#     --tokenizer tokenizer.json --filler-dir BOOKS_DIR --seed 2026111700
+# Needs one 80 GB GPU (peak 78.7 GB on an A100 80GB) and these environment variables:
+#   QSA_QCHUNK=1024 QSA_TEACHER_QCHUNK=256 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+stage: distill
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 65536
+steps: 300
+step_offset: 300
+seed: 0
+lr: 0.00005
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 25
+push_to_hub: false
+upload_prefix: local-mixup-64k
+init_local: qsa_indexers_300b.pt   # the stage 1 result; the published run started from sha256 5b760e46...
+local_data: data/mixup-64k.jsonl.gz
+local_instruction: "If it helps, work it out in a few short lines first. Then end with one line of the form: ANSWER: <{}>"
+mix_fineweb: 0.0
+lambda_answer: 0.3
+mu_margin: 0.3
+margin: 2.0
+restrict_kl: true
+kl_rows: 4096
+loss_chunk: 2048
+spill_capture: true
+offload_embed: true
+skip_eval: true

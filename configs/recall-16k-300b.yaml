@@ -1,0 +1,39 @@
+# Stage 1 of indexer v2 ("300b"): 300 steps at 16k from the v1 indexer, with the answer-mass and decoy-margin terms.
+# Same recipe as configs/historical/recall-16k-300b.yaml, with the warm start pinned to v1 and the mix written as it
+# actually ran (80% recall data / 20% FineWeb-Edu). Make the data first (docs/training-v2.md):
+#   python scripts/recall_grid/gen_train_16k.py --out data/recall-train-16k.jsonl.gz --docs 200 --doc-tokens 16384 \
+#     --density 0.6 --tokenizer tokenizer.json --seed 1001
+# Run from the repository root: uv run --locked --extra train python -m qsa.p0_capture --config configs/recall-16k-300b.yaml
+stage: distill
+model: Qwen/Qwen3.8-27B
+model_revision: 1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0
+seq_len: 16384
+steps: 300
+step_offset: 0
+seed: 0
+lr: 0.00005
+block_size: 4
+budget: 2048
+indexer_heads: 4
+indexer_head_dim: 128
+rope_dim: 64
+log_every: 1
+save_every: 50
+push_to_hub: false
+upload_prefix: local-recall-300b
+indexer_repo: higa2515/Qwen3.8-27B-QSA-BF16
+indexer_revision: aedae2c5304698f58d30c5ec709ebf5b37339b1d   # tag v1
+indexer_file: indexers/qsa_indexers.pt
+indexer_sha256: e44193e5ef832b6220c8355fff92ac8f07d8c13538f584d2b6231b5dd2f4bc51
+local_data: data/recall-train-16k.jsonl.gz
+local_instruction: "If it helps, work it out in a few short lines first. Then end with one line of the form: ANSWER: <{}>"
+lambda_answer: 0.3
+mu_margin: 0.1
+margin: 2.0
+mix_fineweb: 0.2          # web at steps n % 10 in {8, 9}: the order the 300b run had
+dataset: HuggingFaceFW/fineweb-edu
+dataset_revision: 87f09149ef4734204d70ed1d046ddc9ca3f2b8f9
+subset: sample-10BT
+skip_eval: true
+eval_seqs: 1
+eval_skip_docs: 50000
